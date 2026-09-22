@@ -18,7 +18,7 @@ const DIETARY = [
  * The full dish editor.
  *
  * Choices and paid add-ons are plain text, one per line, because that is how the
- * information exists in someone's head — "Mole, Mango Habanero, Buffalo, BBQ" —
+ * information exists in someone's head — "Marinara, Spicy Vodka, Pesto, Parmesan Cream" —
  * and because a repeater with four controls per row is unusable on the phone this
  * is edited on. The parser is forgiving about `+` and `$`.
  */
@@ -160,7 +160,7 @@ export function ItemEditor({
                 name="choices"
                 rows={3}
                 defaultValue={choices.map((m) => m.label).join('\n')}
-                placeholder={'Mole\nMango Habanero\nBuffalo\nBBQ'}
+                placeholder={'Marinara\nSpicy Vodka\nPesto\nParmesan Cream'}
               />
             </div>
             <div>
@@ -269,6 +269,7 @@ export function ItemEditor({
                     {new Date(version.at).toLocaleString('en-US', {
                       dateStyle: 'medium',
                       timeStyle: 'short',
+                      timeZone: 'America/Chicago',
                     })}
                   </p>
                   <p className="text-[0.8125rem] text-brown-soft">

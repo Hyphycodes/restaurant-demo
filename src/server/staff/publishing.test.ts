@@ -131,7 +131,7 @@ describe('a week is private until it is published', () => {
   });
 
   it('publishing one location does not publish another', async () => {
-    const other = await db.insert<Row>('locations', { slug: 'joliet', name: 'Cosa Nostra Joliet', short_name: 'Joliet', timezone: TZ, active: true, sort: 1 });
+    const other = await db.insert<Row>('locations', { slug: 'riverNorth', name: 'Cosa Nostra River North', short_name: 'River North', timezone: TZ, active: true, sort: 1 });
     await draftWeek();
     await createShift(db, { locationId: String(other.id), employeeId: DEMO_EMPLOYEES.jose, positionId: 'door', date: '2026-10-23', startMinutes: 20 * 60, endMinutes: 2 * 60, eventId: null, note: null, status: 'draft' }, TZ, manager);
     await publishPeriod(db, L, WEEK, TZ, manager, async (from, to) => (await publishWeek(db, L, from, to, manager)).length);

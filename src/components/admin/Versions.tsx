@@ -36,6 +36,7 @@ export function Versions({
               {new Date(version.at).toLocaleString('en-US', {
                 dateStyle: 'medium',
                 timeStyle: 'short',
+                      timeZone: 'America/Chicago',
               })}
             </span>
             <span className="text-[0.8125rem] text-brown-soft">

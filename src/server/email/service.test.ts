@@ -219,7 +219,7 @@ describe('refunds and event updates', () => {
     const { service, sent } = harness({}, { orders: [{ ...order, status: 'refunded', refundedCents: 9000, tickets: order.tickets.map((ticket) => ({ ...ticket, status: 'refunded' as const })) }] });
     const result = await service.sendRefundConfirmation('order-1', { refundCents: 9000, status: 'processing' });
     expect(result.status).toBe('sent');
-    expect(sent[0]!.subject).toBe('Refund of $90 — Vinyl & Vermouth, Fri Oct 16');
+    expect(sent[0]!.subject).toBe('Refund of $90 — Vinyl & Vermouth, Thu Oct 15');
     expect(sent[0]!.html).toContain('Every ticket on this order is now cancelled');
     expect(sent[0]!.attachments ?? []).toHaveLength(0);
   });

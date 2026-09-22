@@ -4,7 +4,7 @@ const browser=await chromium.launch();
 const a=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
 const b=await browser.newContext({reducedMotion:'reduce'});
 const page=await a.newPage();const other=await b.newPage();
-const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const errors=[];page.on('pageerror',e=>errors.push({route:page.url(),message:e.message}));
 try {
  await page.goto(origin+'/reservations',{waitUntil:'networkidle'});
  const tomorrow=new Date(Date.now()+86400000).toISOString().slice(0,10);

@@ -281,7 +281,7 @@ export function AnnouncementEditor({
           defaultValue={announcement?.message ?? ''}
           required
           maxLength={240}
-          placeholder="Taco Tuesday — $1 antipasti from 5pm"
+          placeholder="Aperitivo Hour — $9 spritzes from 5pm"
         />
       </div>
 

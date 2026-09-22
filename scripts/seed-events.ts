@@ -61,7 +61,7 @@ export const SAMPLE_EVENTS = [
     archived_at: null,
     draft: null,
     age_min: 21,
-    music_formats: ['Latin', 'Top 100'],
+    music_formats: ['Soul', 'Disco'],
     venue_name: 'Cosa Nostra',
     price_cents: 0,
     ticket_url: null,

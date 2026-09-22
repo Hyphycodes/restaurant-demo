@@ -17,7 +17,7 @@ export default async function LocationsPage({ searchParams }: { searchParams: Pr
   const editing = edit ? locations.find((location) => location.id === edit) ?? null : null;
   return (
     <StaffShell context={context} unread={unread}>
-      <Screen title="Locations" lead="Chicago today. Joliet is a row here, not a rebuild: employees, shifts, events, tasks and announcements can all belong to it.">
+      <Screen title="Locations" lead="Chicago today. River North is a row here, not a rebuild: employees, shifts, events, tasks and announcements can all belong to it.">
         <Section title="Operating" count={locations.length}>
           <div className="staff-panel px-4">
             {locations.map((location) => (

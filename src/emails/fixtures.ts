@@ -40,15 +40,15 @@ export const vinylSession: EmailEvent = {
   id: 'evt_vinyl',
   title: 'Vinyl & Vermouth',
   summary: 'Records spinning. Martinis cold. Dinner optional.',
-  startsAt: '2026-10-17T00:00:00.000Z', // Fri Oct 16, 7pm Chicago
-  endsAt: '2026-10-17T03:00:00.000Z',
-  doorsAt: '2026-10-16T23:30:00.000Z',
+  startsAt: '2026-10-16T01:00:00.000Z', // Thu Oct 15, 8pm Chicago
+  endsAt: '2026-10-16T04:00:00.000Z',
+  doorsAt: '2026-10-16T00:30:00.000Z',
   venue,
   artworkUrl: `${PREVIEW_ORIGIN}/events/vinyl-vermouth-tall.webp`,
-  artworkWidth: 1080,
-  artworkHeight: 1072,
+  artworkWidth: 900,
+  artworkHeight: 1125,
   accentColor: '#b3241a',
-  arrivalNote: 'Doors at 6:30. Your aperitivo is included — just bring yourself. Seats are first come, first served.',
+  arrivalNote: 'Doors at 7:30. Your aperitivo is included — just bring yourself. Seats are first come, first served.',
   agePolicy: '21+',
   refundPolicy: 'Tickets are non-refundable within 48 hours of the event. Before that, email us and we will make it right.',
   eventUrl: `${PREVIEW_ORIGIN}/events/vinyl-vermouth`,
@@ -59,13 +59,13 @@ export const sundayClubSession: EmailEvent = {
   ...vinylSession,
   id: 'evt_sunday-club',
   title: 'Sunday Supper',
-  summary: 'A cosy fall night of listening, with aperitivo cocktails.',
-  startsAt: '2026-11-08T01:00:00.000Z', // Sat Nov 7, 7pm
-  endsAt: '2026-11-08T04:00:00.000Z',
+  summary: 'Four family-style courses. One long, lovely evening.',
+  startsAt: '2026-11-08T23:00:00.000Z', // Sun Nov 8, 5pm Chicago
+  endsAt: '2026-11-09T03:00:00.000Z',
   doorsAt: null,
   artworkUrl: `${PREVIEW_ORIGIN}/events/sunday-supper-tall.webp`,
-  artworkWidth: 1080,
-  artworkHeight: 1074,
+  artworkWidth: 900,
+  artworkHeight: 1125,
   accentColor: '#c8862b',
   arrivalNote: null,
   agePolicy: 'all_ages',
@@ -77,8 +77,8 @@ export const longTitleEvent: EmailEvent = {
   id: 'evt_long',
   title: 'The Long Italian Weekend: Aperitivo, Live Soul Records & a Midnight Supper with the House Selectors',
   artworkUrl: `${PREVIEW_ORIGIN}/events/sunday-supper-tall.webp`,
-  artworkWidth: 1080,
-  artworkHeight: 1083,
+  artworkWidth: 900,
+  artworkHeight: 1125,
   venue: { ...venue, name: 'Cosa Nostra — The Private Dining Room' },
   agePolicy: '18+',
 };
@@ -93,7 +93,7 @@ export const noArtworkEvent: EmailEvent = {
   artworkHeight: null,
   accentColor: null,
   arrivalNote: null,
-  eventUrl: `${PREVIEW_ORIGIN}/events/salsa-night`,
+  eventUrl: `${PREVIEW_ORIGIN}/events/vinyl-vermouth`,
 };
 
 export const cancelledEvent: EmailEvent = { ...vinylSession, status: 'cancelled' };
@@ -134,10 +134,10 @@ function order(orderNumber: string, items: EmailOrder['items'], totalCents: numb
 }
 
 export const singleTicketOrder = order('CNS-7KX49', [{ tierName: 'Supper Club Admission', quantity: 1, unitPriceCents: 4500, subtotalCents: 4500 }], 4500);
-export const singleTicket: EmailTicket[] = [ticket(0, 'Painter')];
+export const singleTicket: EmailTicket[] = [ticket(0, 'Supper Club Admission')];
 
 export const threeTicketOrder = order('CNS-B2NRT', [{ tierName: 'Supper Club Admission', quantity: 3, unitPriceCents: 4500, subtotalCents: 13500 }], 13500);
-export const threeTickets: EmailTicket[] = [ticket(0, 'Painter'), ticket(1, 'Supper Club Admission'), ticket(2, 'Supper Club Admission')];
+export const threeTickets: EmailTicket[] = [ticket(0, 'Supper Club Admission'), ticket(1, 'Supper Club Admission'), ticket(2, 'Supper Club Admission')];
 
 export const multiTierOrder = order(
   'CNS-M4JC5',
@@ -150,7 +150,7 @@ export const multiTierOrder = order(
   { discountCents: 2000, subtotalCents: 30000, serviceFeeCents: 0, taxCents: 0, paymentMethod: 'Apple Pay · Visa ending 0091' },
 );
 export const multiTierTickets: EmailTicket[] = [
-  ticket(0, 'Painter'),
+  ticket(0, 'Supper Club Admission'),
   ticket(1, 'Supper Club Admission'),
   ticket(2, 'Table of 4 (VIP)', 4),
   ticket(3, 'Just Watching'),
@@ -209,12 +209,12 @@ export const cancellation: EventUpdateProps = {
 export const timeChange: EventUpdateProps = {
   brand,
   customer,
-  event: { ...vinylSession, startsAt: '2026-10-17T01:00:00.000Z', endsAt: '2026-10-17T04:00:00.000Z', doorsAt: '2026-10-17T00:30:00.000Z' },
+  event: { ...vinylSession, startsAt: '2026-10-16T02:00:00.000Z', endsAt: '2026-10-16T05:00:00.000Z', doorsAt: '2026-10-16T01:30:00.000Z' },
   order: threeTicketOrder,
   tickets: threeTickets,
   kind: 'time_change',
   previous: { startsAt: vinylSession.startsAt, endsAt: vinylSession.endsAt, doorsAt: vinylSession.doorsAt },
-  message: 'The kitchen is fully booked for a private party until 7:30, so we are starting an hour later. Your tickets are unchanged.',
+  message: 'The kitchen is fully booked for a private party until 8:30, so we are starting an hour later. Your tickets are unchanged.',
   refundCents: null,
 };
 

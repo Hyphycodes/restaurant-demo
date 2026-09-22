@@ -119,7 +119,7 @@ const itemSchema = z.object({
  * The full item editor.
  *
  * Choice groups and paid add-ons are typed as plain lines rather than a nested
- * form, because "Mole, Mango Habanero, Buffalo, BBQ" is how a person holds that
+ * form, because "Marinara, Spicy Vodka, Pesto, Parmesan Cream" is how a person holds that
  * information — and because a repeater with six controls per row is unusable on
  * the phone this actually gets edited on.
  */

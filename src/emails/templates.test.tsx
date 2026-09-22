@@ -27,9 +27,9 @@ async function rendered<K extends Parameters<typeof renderEmail>[0]>(id: K, prop
 describe('ticket confirmation', () => {
   it.each(['pass', 'editorial', 'poster'] as const)('direction %s carries the event, every code and the tickets link', async (direction) => {
     const { subject, html, text } = await rendered('ticket_confirmation', { ...f.ticketConfirmation, direction });
-    expect(subject).toBe("You're in — Vinyl & Vermouth, Fri Oct 16 (3 tickets)");
+    expect(subject).toBe("You're in — Vinyl & Vermouth, Thu Oct 15 (3 tickets)");
     expect(html).toContain('Vinyl & Vermouth');
-    expect(html).toContain('Friday, October 16, 2026');
+    expect(html).toContain('Thursday, October 15, 2026');
     for (const ticket of f.threeTickets) {
       expect(html).toContain(ticket.code);
       expect(html).toContain(ticket.ticketUrl);
@@ -111,7 +111,7 @@ describe('the other templates', () => {
 
   it('refund states the amount, the destination and which tickets stop working', async () => {
     const full = await rendered('refund_confirmation', f.refund);
-    expect(full.subject).toBe('Refund of $135 — Vinyl & Vermouth, Fri Oct 16');
+    expect(full.subject).toBe('Refund of $135 — Vinyl & Vermouth, Thu Oct 15');
     expect(full.html).toContain('Visa ending 4242');
     expect(full.html).toContain('Every ticket on this order is now cancelled');
     expect(full.html).not.toContain('QR code for ticket');
@@ -124,17 +124,17 @@ describe('the other templates', () => {
 
   it('event update puts the change first: old struck through, new large', async () => {
     const time = await rendered('event_update', f.timeChange);
-    expect(time.subject).toBe('Time change: Vinyl & Vermouth, Fri Oct 16');
+    expect(time.subject).toBe('Time change: Vinyl & Vermouth, Thu Oct 15');
     expect(time.html).toContain('line-through');
-    expect(time.html).toContain('8–11pm');
-    expect(time.text).toContain('Was: Friday, October 16, 2026 · 7–10pm');
-    expect(time.text).toContain('Now: Friday, October 16, 2026 · 8–11pm');
+    expect(time.html).toContain('9pm–12am');
+    expect(time.text).toContain('Was: Thursday, October 15, 2026 · 8–11pm');
+    expect(time.text).toContain('Now: Thursday, October 15, 2026 · 9pm–12am');
     expect(time.html).toContain('7KX4-9QZM');
   });
 
   it('cancellation names the refund, voids the tickets and shows no QR', async () => {
     const { subject, html, text } = await rendered('event_update', f.cancellation);
-    expect(subject).toBe('Cancelled: Vinyl & Vermouth, Fri Oct 16');
+    expect(subject).toBe('Cancelled: Vinyl & Vermouth, Thu Oct 15');
     expect(html).toContain('will not go ahead');
     expect(html).toContain('$135');
     expect(html).not.toContain('QR code for ticket');

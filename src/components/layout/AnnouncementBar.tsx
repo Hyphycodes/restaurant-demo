@@ -5,7 +5,7 @@ import type { Announcement } from '@/content/types';
  * Announcement bar.
  *
  * Content is structured and scheduled, and lives in the CMS — never hard-coded
- * inside the header. Ships disabled: the restaurant references a "$1 Taco Deal"
+ * inside the header. Ships disabled: the restaurant references a seasonal aperitivo offers
  * and a lunch deal but publishes terms for neither, so the bar renders nothing
  * rather than an invented offer. See docs/CONTENT-QUESTIONS.md §12.
  */

@@ -108,12 +108,12 @@ describe('scheduling', () => {
   });
 
   it('filters shifts by location', async () => {
-    const other = await db.insert<Row>('locations', { slug: 'joliet', name: 'Cosa Nostra Joliet', short_name: 'Joliet', timezone: TZ, active: true, sort: 1 });
+    const other = await db.insert<Row>('locations', { slug: 'riverNorth', name: 'Cosa Nostra River North', short_name: 'River North', timezone: TZ, active: true, sort: 1 });
     await createShift(db, { locationId: String(other.id), employeeId: DEMO_EMPLOYEES.jose, positionId: 'door', date: '2026-10-24', startMinutes: 20 * 60, endMinutes: 2 * 60, eventId: null, note: null, status: 'published' }, TZ, manager);
-    const joliet = await listShiftViews(db, { from: '2026-10-24T00:00:00Z', to: '2026-10-26T00:00:00Z', locationId: String(other.id) });
+    const riverNorth = await listShiftViews(db, { from: '2026-10-24T00:00:00Z', to: '2026-10-26T00:00:00Z', locationId: String(other.id) });
     const chicago = await listShiftViews(db, { from: '2026-10-24T00:00:00Z', to: '2026-10-26T00:00:00Z', locationId: 'c05a0000-0000-4000-8000-000000000001' });
-    expect(joliet).toHaveLength(1);
-    expect(joliet[0]?.locationName).toBe('Joliet');
+    expect(riverNorth).toHaveLength(1);
+    expect(riverNorth[0]?.locationName).toBe('River North');
     expect(chicago.every((shift) => shift.locationId !== String(other.id))).toBe(true);
   });
 });

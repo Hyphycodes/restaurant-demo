@@ -102,7 +102,7 @@ create table if not exists public.locations (
 );
 
 comment on table public.locations is
-  'Every place Cosa Nostra operates. Chicago is the first row; Joliet is a second row, not a fork of the code.';
+  'Every place Cosa Nostra operates. Chicago is the first row; River North is a second row, not a fork of the code.';
 
 insert into public.locations (id, slug, name, short_name, street, locality, region, postal_code, timezone, phone, sort)
 values ('c05a0000-0000-4000-8000-000000000001', 'chicago', 'Cosa Nostra Chicago', 'Chicago',
