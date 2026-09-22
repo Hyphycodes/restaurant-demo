@@ -10,7 +10,10 @@ page.on('console',m=>{if(m.type()==='error')errors.push({route:page.url(),messag
 const routes=['/','/menu','/events','/events/vinyl-vermouth','/events/sunday-supper','/events/after-hours-friday','/events/vinyl-vermouth-session','/private-events','/catering','/careers','/contact','/talent','/reservations','/order','/demo/admin','/admin/menu','/admin/events','/admin/media','/admin/inquiries','/admin/hiring','/admin/emails','/admin/events/demo-vinyl-opening/sales','/demo/staff','/staff/schedule','/staff/training','/staff/availability','/demo/manager','/admin/look','/admin/theme','/admin/website','/admin/settings','/admin/team','/admin/talent','/admin/link-hubs','/admin/door','/admin/scan','/admin/emails/sending','/staff/team','/staff/operations','/staff/announcements','/staff/profile'];
 for(const width of [1440,390]){await page.setViewportSize({width,height:900});for(const route of routes){
  try{
- const response=await page.goto(origin+route,{waitUntil:'networkidle',timeout:60000});
+ const response=await page.goto(origin+route,{waitUntil:'domcontentloaded',timeout:60000});
+ // Live sales pages intentionally poll; network-idle is not a readiness requirement.
+ await page.locator('main').first().waitFor({state:'visible',timeout:15000});
+ await page.waitForLoadState('networkidle',{timeout:3000}).catch(()=>{});
  await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=800){scrollTo(0,y);await new Promise(r=>setTimeout(r,40))}scrollTo(0,0)});
  await page.waitForTimeout(200);
  const info=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,broken:[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.currentSrc),h1:[...document.querySelectorAll('h1')].map(e=>e.textContent)}));

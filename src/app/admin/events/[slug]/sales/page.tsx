@@ -1,3 +1,4 @@
+import { DEMO_MODE } from '@/lib/demo';
 import { notFound, redirect } from 'next/navigation';
 import { AdminShell, NoAccess } from '@/components/admin/AdminShell';
 import { Card, EmptyState, HelpNote, LinkButton } from '@/components/admin/ui';
@@ -72,7 +73,7 @@ export default async function SalesPage({
       }
     >
       {!isTicketingConfigured() ? (
-        <HelpNote>Ticket sales are not connected on this copy of the site, so there are no figures to show.</HelpNote>
+        <HelpNote>{DEMO_MODE ? 'Fictional sales and guests. Payments, refunds and ticket email delivery are disabled in this demo.' : 'Ticket sales are not connected on this copy of the site.'}</HelpNote>
       ) : null}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

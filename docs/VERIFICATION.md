@@ -11,3 +11,13 @@ Local verification on September 22, 2026:
 The repeatable local and production checks are `scripts/qa-demo.mjs` and `scripts/qa-interactions.mjs`; set `QA_URL` to the deployment origin. Screenshots and raw QA output stay outside the repository.
 
 Serverless storage regressions are covered by tests for cross-instance persistence, independent browser state, concurrent mutations, inserts/removals, invalid cookies and bounded state size. Fonts are bundled locally to eliminate build-time font API dependencies.
+
+## Production browser verification
+
+Production: `https://restaurant-demo-two-zeta.vercel.app` on the independent `restaurant-demo` Vercel project.
+
+- All 41 routes were inspected at 1440px and 390px: 82 desktop/mobile checks. Public pages, event detail pages, admin, media, emails, sales, staff and manager screens returned HTTP 200, with no broken images or horizontal overflow.
+- The sales page required a readiness check based on visible content rather than network idleness; both viewport rechecks passed with six fictional orders, correct sample totals and no browser errors. The QA script now supports pages with ongoing network activity.
+- Production interaction checks passed: reservation and order previews; menu publishing persisted across routes; an independent browser retained the original menu; staff availability saved; manager access; simulated door admission and duplicate handling; external service endpoints blocked.
+- A production timestamp hydration mismatch was corrected with an explicit venue time zone. The complete interaction script subsequently passed without runtime errors. The same scenario also passed against a local production server running in UTC.
+- Original source systems were not linked or accessed by the deployed demo. The new Vercel project has no configured environment variables or external database connections.

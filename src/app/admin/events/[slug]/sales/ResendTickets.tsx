@@ -1,4 +1,5 @@
 'use client';
+import { DEMO_MODE } from '@/lib/demo';
 
 import { useState } from 'react';
 
@@ -20,7 +21,7 @@ export function ResendTickets({ orderNumber, email }: { orderNumber: string; ema
     return <span className={`text-[0.8125rem] ${state.kind === 'done' ? 'text-success' : 'text-danger'}`}>{state.message}</span>;
   }
   return (
-    <button type="button" onClick={send} disabled={state.kind === 'busy'} className="inline-flex min-h-10 items-center text-[0.875rem] text-brown-soft underline underline-offset-4 hover:text-brown disabled:opacity-60">
+    <button type="button" onClick={send} disabled={DEMO_MODE || state.kind === 'busy'} title={DEMO_MODE ? 'Email delivery is disabled in this demo' : undefined} className="inline-flex min-h-10 items-center text-[0.875rem] text-brown-soft underline underline-offset-4 hover:text-brown disabled:opacity-60">
       {state.kind === 'busy' ? 'Sending…' : 'Resend tickets'}
     </button>
   );
