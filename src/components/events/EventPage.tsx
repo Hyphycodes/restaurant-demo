@@ -166,11 +166,11 @@ export async function EventPage({
                   <span className="block text-night-soft">{address}</span>
                 </p>
                 <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1">
-                  <ExternalTextLink href={settings.directionsUrl} destination="Google Maps" className="text-amber">
+                  <ExternalTextLink href={settings.directionsUrl} destination="the fictional location page" className="text-[#ddc79f]">
                     Directions
                   </ExternalTextLink>
                   {!off ? (
-                    <ExternalTextLink href={addToCalendarUrl(event, address)} destination="Google Calendar" className="text-amber">
+                    <ExternalTextLink href={addToCalendarUrl(event, address)} destination="Google Calendar" className="text-[#ddc79f]">
                       Add to calendar
                     </ExternalTextLink>
                   ) : null}
