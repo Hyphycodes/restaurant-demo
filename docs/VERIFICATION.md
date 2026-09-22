@@ -8,4 +8,4 @@ Local verification on September 22, 2026:
 - Interactive browser checks: reservation and ordering previews; admin publishing reflected on the public menu; a second independent browser retained the original menu; staff availability persisted; manager access; simulated admission and duplicate-ticket handling; blocked external callbacks, webhooks and scheduled delivery.
 - Source and filename review: no prior restaurant identifiers, original addresses, account identifiers, copied photographs, production keys or private configuration included. Only the safe `.env.example` is tracked.
 
-Production results are added after deployment. The repeatable checks are `scripts/qa-demo.mjs` and `scripts/qa-interactions.mjs`; set `QA_URL` to the deployment origin. Screenshots and raw QA output stay outside the repository.
+The repeatable local and production checks are `scripts/qa-demo.mjs` and `scripts/qa-interactions.mjs`; set `QA_URL` to the deployment origin. Screenshots and raw QA output stay outside the repository.

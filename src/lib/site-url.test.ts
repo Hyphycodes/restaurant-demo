@@ -12,7 +12,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
  * module scope in the root layout and a throw there kills the whole build.
  */
 
-const FALLBACK = 'https://restaurant-demo.vercel.app';
+const FALLBACK = 'https://restaurant-demo-two-zeta.vercel.app';
 
 const KEYS = [
   'NEXT_PUBLIC_SITE_URL',

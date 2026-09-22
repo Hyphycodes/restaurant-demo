@@ -4,6 +4,9 @@ A fictional Italian-American supper club demonstrating a complete modern restaur
 
 ## Explore
 
+[Live restaurant](https://restaurant-demo-two-zeta.vercel.app) · [Admin demo](https://restaurant-demo-two-zeta.vercel.app/demo/admin) · [Staff demo](https://restaurant-demo-two-zeta.vercel.app/demo/staff)
+
+
 - Public restaurant: `/`
 - Admin workspace: `/demo/admin`
 - Employee app: `/demo/staff`

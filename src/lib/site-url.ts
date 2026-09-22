@@ -13,7 +13,7 @@
  * parsed inside a try. Anything unusable is skipped, never propagated.
  */
 
-export const FALLBACK_SITE_URL = 'https://restaurant-demo.vercel.app';
+export const FALLBACK_SITE_URL = 'https://restaurant-demo-two-zeta.vercel.app';
 
 /**
  * Order matters. An explicit NEXT_PUBLIC_SITE_URL always wins; otherwise a
