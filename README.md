@@ -30,7 +30,7 @@ The existing repository and database abstractions remain in place. Typed static 
 - Webhooks, authentication callbacks and scheduled delivery endpoints are blocked.
 - No real email, payments, invitations, customer contact, bookings or orders are sent.
 - File uploads and external event imports are disabled. Existing local sample media remains editable in the CMS.
-- Each browser receives an opaque session cookie and separate temporary server workspace. Changes are illustrative, ephemeral, and may reset after a cold start or a move between hosting instances. This is not durable multi-instance storage.
+- Each browser carries its own compressed fictional changes in HttpOnly session cookies, lasting one hour. Edits survive serverless instance changes and never enter a shared customer database. The workspace has a small size limit; use “Reset demo” for a fresh copy. This is demonstration storage, not a production database.
 - Use fictional details in forms. Sample email addresses use `example.invalid`; the phone uses the reserved fictional 555-01xx range. There is no real street address.
 - Sales and guest lists are fictional read-only examples. Payment, refund, check-in integrations and email delivery require separate production infrastructure in a real implementation.
 

@@ -32,7 +32,7 @@ export function StaffShell({ context, unread = 0, children, wide = false }: { co
 
   return (
     <SaveStatusProvider>
-      <div className="cn-demo-bar"><span>Demo Workspace · {context.staff.name}</span><Link href="/demo/admin">Admin</Link><Link href="/demo/manager">Manager view</Link><Link href="/">Restaurant</Link></div>
+      <div className="cn-demo-bar"><span>Demo Workspace · {context.staff.name}</span><Link href="/demo/admin">Admin</Link><Link href="/demo/manager">Manager view</Link><Link href="/">Restaurant</Link><a href="/demo/reset?next=/demo/staff">Reset demo</a></div>
       <div className="min-h-dvh bg-ivory pb-24 lg:pb-8">
         <header className="sticky top-0 z-40 border-b border-night-text/10 bg-teal">
           <div className={`mx-auto flex items-center gap-x-5 px-4 py-2.5 sm:px-6 ${wide ? 'max-w-[1280px]' : 'max-w-[960px]'}`}>

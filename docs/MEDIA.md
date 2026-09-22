@@ -12,3 +12,5 @@ Source pages (Pexels License: https://www.pexels.com/license/):
 Downloaded September 22, 2026. The semantic registry is `src/content/assets.ts`; inspect exact dimensions, alt text and byte budgets there. `npm run assets:check` checks files, dimensions, use and budgets.
 
 The wordmark, CN monogram, fictional entrance artwork and cocktail/dancing/record illustrations are original SVG artwork created for this demo. Event artwork is intentionally undated; live occurrence dates are rendered as accessible HTML.
+
+Archivo and Cormorant Garamond are bundled locally as WOFF2 fonts under the SIL Open Font License. Original license notices are in `src/app/fonts`. Source: the Google Fonts repository, `ofl/archivo` and `ofl/cormorantgaramond`.

@@ -138,7 +138,7 @@ export function AdminShell({
 
   return (
     <SaveStatusProvider>
-      <div className="cn-demo-bar"><span>Demo Workspace · No live payments or email</span><Link href="/demo/staff">Staff app</Link><Link href="/demo/manager">Schedule manager</Link><Link href="/">Restaurant</Link></div>
+      <div className="cn-demo-bar"><span>Demo Workspace · No live payments or email</span><Link href="/demo/staff">Staff app</Link><Link href="/demo/manager">Schedule manager</Link><Link href="/">Restaurant</Link><a href="/demo/reset">Reset demo</a></div>
       <div className="min-h-dvh bg-ivory pb-20 lg:pb-0">
         <header className="sticky top-0 z-40 border-b border-night-text/10 bg-teal">
           <div className="mx-auto flex max-w-[1280px] items-center gap-x-6 px-4 py-2.5 sm:px-6">

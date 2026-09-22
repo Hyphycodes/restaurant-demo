@@ -54,6 +54,7 @@ export interface Db {
  */
 export const PRIMARY_KEY: Record<string, string> = {
   announcements: 'id',
+  appearance: 'id',
   audit_log: 'id',
   catering_items: 'id',
   catering_packages: 'id',

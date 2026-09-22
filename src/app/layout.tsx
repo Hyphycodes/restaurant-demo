@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Archivo } from 'next/font/google';
+import localFont from 'next/font/local';
 import { site } from '@/content/site';
 import { seo } from '@/content/pages';
 import { SITE_URL } from '@/lib/seo';
@@ -8,34 +8,9 @@ import { AppearancePreviewListener } from '@/components/appearance/AppearancePre
 import { getAppearance } from '@/server/appearance';
 import './globals.css';
 
-/**
- * Archivo, variable, with BOTH the weight and width axes.
- *
- * The width axis is what lets display type be genuinely expanded rather than
- * faux-stretched — see docs/DESIGN-DIRECTION.md §2.2 for why this substitutes for
- * the site's licensed `aether` / `neue-haas-unica-pro` pairing. One family, one
- * download, `display: swap` so text is never invisible while it loads.
- */
-const archivo = Archivo({
-  subsets: ['latin'],
-  axes: ['wdth'],
-  display: 'swap',
-  variable: '--font-archivo',
-});
-
-/**
- * Anton — the display voice. Condensed, heavy, poster-scale.
- *
- * One weight, used only for marquee statements, event posters and After Dark,
- * so it stays a deliberate voice rather than a second body font. `display: swap`
- * means a slow font never blocks the headline from rendering.
- */
-const anton = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  display: 'swap',
-  variable: '--font-anton',
-});
+// Locally bundled, openly licensed typefaces keep builds independent of font APIs.
+const archivo = localFont({src:'./fonts/archivo.woff2',weight:'100 900',display:'swap',variable:'--font-archivo'});
+const anton = localFont({src:'./fonts/cormorant.woff2',weight:'300 700',display:'swap',variable:'--font-anton'});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
