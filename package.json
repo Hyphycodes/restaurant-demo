@@ -1,0 +1,64 @@
+{
+  "name": "restaurant-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cosa Nostra \u2014 fictional Italian supper club and restaurant operations demo",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "assets:check": "tsx scripts/check-assets.ts",
+    "content:seed": "tsx scripts/generate-seed.ts",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run assets:check && npm run build",
+    "content:migrate": "tsx scripts/migrate-content.ts",
+    "seed:events": "tsx scripts/seed-events.ts",
+    "seed:staff-demo": "tsx scripts/seed-staff-demo.ts",
+    "email:dev": "email dev --dir src/emails/previews --port 3030",
+    "email:export": "email export --dir src/emails/previews --outDir .email-previews"
+  },
+  "dependencies": {
+    "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.1.0",
+    "@stripe/react-stripe-js": "^6.10.0",
+    "@stripe/stripe-js": "^9.16.0",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.10",
+    "@zxing/browser": "^0.2.1",
+    "@zxing/library": "^0.23.0",
+    "next": "^15.5.25",
+    "qrcode": "^1.5.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "resend": "^6.28.1",
+    "stripe": "^22.6.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@playwright/test": "^1.63.0",
+    "@react-email/ui": "^6.9.5",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.10.7",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.5.25",
+    "react-email": "^6.9.5",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "overrides": {
+    "postcss": "^8.5.23"
+  }
+}

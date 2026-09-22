@@ -1,0 +1,35 @@
+import { notFound, redirect } from 'next/navigation';
+import { AdminShell, NoAccess } from '@/components/admin/AdminShell';
+import { Card, LinkButton } from '@/components/admin/ui';
+import { getReadDb, isLocalDb } from '@/lib/db';
+import type { Row } from '@/lib/db/types';
+import { getStaff } from '@/server/auth';
+import { canOpen } from '@/server/permissions';
+import { getEditableHub } from '@/server/content/link-hubs';
+
+export const dynamic = 'force-dynamic';
+
+const LABEL: Record<string, string> = { view: 'Visits', display_view: 'Display views', block_click: 'Button clicks', event_click: 'Event views', review_click: 'Google Review clicks', reservation_click: 'Reservation clicks', ticket_click: 'Ticket clicks', social_click: 'Social clicks', lead_submit: 'Lead submissions' };
+
+export default async function HubAnalyticsPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ range?: string; from?: string; to?: string }> }) {
+  const staff = await getStaff(); if (!staff) redirect('/admin/login'); const local = isLocalDb();
+  if (!canOpen({ role: staff.role, sections: staff.sections }, 'hubs')) return <AdminShell staff={staff} local={local} title="Hub analytics"><NoAccess what="link hubs" /></AdminShell>;
+  const [{ id }, query] = await Promise.all([params, searchParams]); const db = getReadDb(); const data = db ? await getEditableHub(db, id) : null; if (!data) notFound();
+  const range = query.range === '7' || query.range === 'custom' ? query.range : '30'; const now = new Date();
+  const from = range === 'custom' && query.from ? new Date(`${query.from}T00:00:00`) : new Date(now.getTime() - Number(range) * 86400000);
+  const to = range === 'custom' && query.to ? new Date(`${query.to}T23:59:59`) : now;
+  const rows = db ? (await db.list<Row>('link_hub_analytics', { where: { hub_id: id }, orderBy: 'created_at', desc: true, limit: 20000 })).filter((row) => { const at = Date.parse(String(row.created_at)); return at >= from.getTime() && at <= to.getTime(); }) : [];
+  const counts = new Map<string, number>(); const sessions = new Set<string>(); const blockCounts = new Map<string, number>(); const daily = new Map<string, number>();
+  rows.forEach((row) => { const kind = String(row.event_kind); counts.set(kind, (counts.get(kind) ?? 0) + 1); if (row.session_key) sessions.add(String(row.session_key)); if (row.block_id && kind !== 'view') blockCounts.set(String(row.block_id), (blockCounts.get(String(row.block_id)) ?? 0) + 1); if (kind === 'view') { const day = String(row.created_at).slice(0,10); daily.set(day, (daily.get(day) ?? 0) + 1); } });
+  const visits = counts.get('view') ?? 0; const maxDaily = Math.max(...daily.values(), 1); const blockMap = new Map(data.blocks.map((block) => [block.id, block.config.title || block.label]));
+  const metrics = ['review_click','event_click','ticket_click','reservation_click','social_click','lead_submit'];
+  return <AdminShell staff={staff} local={local} title={`${data.hub.name} analytics`} description="Privacy-conscious visits and actions. No names, precise location, or browsing history are collected." backTo={{ href: `/admin/link-hubs/${id}`, label: data.hub.name }} actions={<LinkButton href={`/go/${data.hub.slug}`} external>Open live</LinkButton>}>
+    <form className="mb-5 flex flex-wrap items-end gap-3"><label className="grid gap-1 text-[0.75rem] font-semibold text-brown">Range<select name="range" defaultValue={range} className="min-h-10 rounded-(--radius-sm) border border-brown/25 bg-linen px-3"><option value="7">Recent 7 days</option><option value="30">Recent 30 days</option><option value="custom">Custom</option></select></label><label className="grid gap-1 text-[0.75rem] font-semibold text-brown">From<input type="date" name="from" defaultValue={query.from} className="min-h-10 rounded-(--radius-sm) border border-brown/25 bg-linen px-3" /></label><label className="grid gap-1 text-[0.75rem] font-semibold text-brown">To<input type="date" name="to" defaultValue={query.to} className="min-h-10 rounded-(--radius-sm) border border-brown/25 bg-linen px-3" /></label><button className="min-h-10 rounded-(--radius-sm) bg-teal px-4 text-[0.8125rem] font-semibold text-linen">Apply</button></form>
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><Metric label="Visits" value={visits} /><Metric label="Unique-ish sessions" value={sessions.size} /><Metric label="All action clicks" value={rows.filter((row) => String(row.event_kind).includes('click')).length} conversion={visits} /><Metric label="Leads" value={counts.get('lead_submit') ?? 0} conversion={visits} /></div>
+    <div className="mt-5 grid gap-5 lg:grid-cols-2"><Card title="Visits over time"><div className="flex h-48 items-end gap-1 border-b border-brown/15 px-1">{[...daily.entries()].sort(([a],[b]) => a.localeCompare(b)).map(([day,count]) => <div key={day} title={`${day}: ${count}`} className="min-w-2 flex-1 rounded-t bg-coral" style={{ height: `${Math.max(5, count / maxDaily * 100)}%` }} />)}{daily.size === 0 ? <p className="m-auto text-[0.875rem] text-brown-soft">No visits in this range yet.</p> : null}</div></Card><Card title="Guest actions"><dl className="grid gap-3">{metrics.map((kind) => { const count = counts.get(kind) ?? 0; return <div key={kind} className="flex items-baseline justify-between border-b border-brown/12 pb-2"><dt className="text-[0.875rem] text-brown-soft">{LABEL[kind]}</dt><dd className="tabular font-semibold text-brown">{count} <small className="font-normal text-brown-soft">{visits ? `${Math.round(count / visits * 100)}%` : '—'}</small></dd></div>; })}</dl></Card></div>
+    <div className="mt-5"><Card title="Block performance">{blockCounts.size ? <ol className="grid gap-3">{[...blockCounts.entries()].sort((a,b) => b[1]-a[1]).map(([blockId,count]) => <li key={blockId} className="flex items-center justify-between gap-4"><span className="text-[0.875rem] text-brown">{blockMap.get(blockId) ?? 'Removed block'}</span><span className="tabular font-semibold text-brown">{count}</span></li>)}</ol> : <p className="text-[0.875rem] text-brown-soft">No block clicks in this range yet.</p>}</Card></div>
+    <p className="mt-5 text-[0.8125rem] leading-relaxed text-brown-soft">Ticket attribution is prepared at the event level through hub, block, session, target, and UTM events. Purchases are not claimed here until checkout safely carries that attribution into the order record.</p>
+  </AdminShell>;
+}
+
+function Metric({ label, value, conversion }: { label: string; value: number; conversion?: number }) { return <div className="admin-raised rounded-(--radius-md) border border-brown/12 bg-linen p-4"><p className="text-[0.75rem] font-semibold uppercase tracking-[.08em] text-brown-soft">{label}</p><p className="tabular mt-2 text-[2rem] font-semibold leading-none text-brown">{value}</p>{conversion !== undefined ? <p className="mt-2 text-[0.75rem] text-brown-soft">{conversion ? `${Math.round(value / conversion * 100)}% of visits` : 'No visits yet'}</p> : null}</div>; }

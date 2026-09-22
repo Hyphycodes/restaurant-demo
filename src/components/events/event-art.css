@@ -1,0 +1,205 @@
+/* ==========================================================================
+   EVENT ART
+   The composition an event's artwork sits in. Every event carries its own
+   accent as custom properties (see presetVars), so one stylesheet dresses
+   seven different looks and a new preset needs no CSS at all.
+
+   The flyer is `object-contain` in every arrangement, on purpose and without
+   exception: a flyer prints its own name, date, price and age line along its
+   edges, and cropping it throws those away.
+   ========================================================================== */
+
+.event-art {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--e-surface, #1b0b1a);
+}
+
+/* THE FLYER IS THE SUBJECT. Restaurants print flyers square or slightly
+   upright, so the frame is close to square and the whole thing fits with very
+   little letterboxing. */
+.event-art[data-subject='flyer'] {
+  aspect-ratio: 1 / 1;
+}
+
+/* A supporting card is half a row wide, and at 1:1 that made its flyer bigger
+   than the lead's — the hierarchy upside down. Capping the height letterboxes
+   the frame instead: the flyer keeps its own size and the space left over
+   becomes ambient field. */
+.event-art[data-size='card'][data-subject='flyer'] {
+  /* `width` is stated explicitly: with only `aspect-ratio` and `max-height`,
+     the browser keeps the ratio by shrinking the WIDTH too, which left a
+     square of artwork stranded against one edge of a much wider card. */
+  width: 100%;
+  max-height: 22rem;
+}
+
+/* Key art alone still carries the cinematic frame it was composed for. */
+.event-art[data-subject='keyart'],
+.event-art[data-subject='none'] {
+  aspect-ratio: 16 / 9;
+}
+
+.event-art[data-size='card'][data-subject='keyart'],
+.event-art[data-size='card'][data-subject='none'] {
+  aspect-ratio: 4 / 3;
+}
+
+/* The lit field: the event's own colour, breathed on from one corner. */
+.event-art-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(78% 62% at 72% 14%, var(--e-glow, rgb(236 150 62 / 0.3)), transparent 68%),
+    radial-gradient(60% 55% at 8% 92%, rgb(0 0 0 / 0.45), transparent 70%);
+}
+
+.event-art-bg,
+.event-art-bg img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Backdrop mode: the art stops being a band at the top of a section and
+   becomes its full-bleed background, with the type set over it. Used by an
+   event's own page header, where the flyer is shown separately and in full
+   further down. */
+.event-art-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  aspect-ratio: auto;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* The section's own heading already prints the title; the nameplate would say
+   it a second time, in a different size, behind it. */
+.event-art-fill .event-art-nameplate {
+  display: none;
+}
+
+/* Behind a flyer the key art is ATMOSPHERE, not a picture: blurred past
+   legibility, dimmed, and pushed slightly out of frame so the blur has no soft
+   edge against the card border. Two images competing for the same frame is
+   what made these cards unreadable. */
+.event-art[data-subject='flyer'] .event-art-bg {
+  inset: -6%;
+  height: 112%;
+  width: 112%;
+  filter: blur(18px) saturate(1.15) brightness(0.55);
+  transform: scale(1.05);
+}
+
+/* Type sits over the bottom of a card; the scrim is what makes that safe
+   whatever the artwork happens to be doing there. */
+.event-art-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgb(8 4 10 / 0.88) 0%,
+    rgb(8 4 10 / 0.45) 34%,
+    transparent 68%
+  );
+}
+
+/* ------------------------------------------------------------- the flyer -- */
+
+/* Centred and generous: the flyer gets nearly the whole frame, and what is
+   left is a margin of the event's own colour rather than a second picture. */
+.event-art-official {
+  position: absolute;
+  inset: 5%;
+  z-index: 3;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+.event-art-flyer-img {
+  height: 100%;
+  width: 100%;
+  /* The shadow is on the IMAGE, not a box around it: a contained flyer does
+     not fill its own element, so a bordered box would draw a rectangle in the
+     wrong place whenever the ratios differ. */
+  filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.55));
+}
+
+/* In the lead slot the flyer is upright inside a wider frame, so it is capped
+   by height rather than width and stays centred. */
+.event-art[data-size='lead'] .event-art-official {
+  inset: 6%;
+}
+
+/* -------------------------------------------------------- no artwork -- */
+
+/* Set in the event's own accent, ruled top and bottom, centred. Deliberately
+   not a "missing image" icon: this is what a card looks like the day an event
+   is announced and before the flyer arrives, which is a normal day. */
+.event-art-nameplate {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 12% 10%;
+  text-align: center;
+}
+
+.event-art-nameplate > span {
+  color: var(--e-accent, #f0b24a);
+  font-size: clamp(1.125rem, 3.4vw, 2rem);
+  line-height: 0.95;
+  border-block: 1px solid currentColor;
+  padding-block: 0.5em;
+  opacity: 0.92;
+  text-wrap: balance;
+}
+
+.event-art[data-size='lead'] .event-art-nameplate > span {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* --------------------------------------------------------- foreground -- */
+
+/* The one layer allowed to lean past its own card. It belongs to this event's
+   composition and never appears anywhere else on the site. */
+.event-art-foreground {
+  position: absolute;
+  z-index: 4;
+  left: -6%;
+  bottom: -4%;
+  width: 46%;
+  max-width: 260px;
+  aspect-ratio: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 20px 26px rgb(0 0 0 / 0.6));
+}
+
+.event-art[data-size='lead'] .event-art-foreground {
+  width: 38%;
+  max-width: 320px;
+}
+
+/* --------------------------------------------------------------- phone -- */
+
+@media (max-width: 639px) {
+  .event-art[data-subject='keyart'],
+  .event-art[data-subject='none'] {
+    aspect-ratio: 4 / 3;
+  }
+  .event-art-foreground {
+    width: 40%;
+    left: -8%;
+  }
+}

@@ -1,0 +1,53 @@
+
+
+[data-staff] {
+  /* A touch warmer than the admin: the bar after close, not the office. */
+  --color-ivory: #160d07;
+  --color-linen: #201308;
+  --color-ivory-deep: #1b1008;
+  --color-teal: #100904;
+  --o-brown-line: rgb(247 238 220 / 0.12);
+}
+
+/* Rows in a list: full-width, one border between, a tap target the height of a thumb. */
+[data-staff] .staff-row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 3.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--o-brown-line);
+}
+[data-staff] .staff-row:last-child {
+  border-bottom: none;
+}
+
+/* The big number on a stat: the display voice, tabular. */
+[data-staff] .staff-figure {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Panels are flat with a hairline, not raised. Decoration is the food. */
+[data-staff] .staff-panel {
+  background: var(--color-linen);
+  border: 1px solid var(--o-brown-line);
+  border-radius: var(--radius-md);
+}
+
+/* Hide the scrollbar on horizontal strips (week days, filter chips). */
+[data-staff] .staff-strip {
+  scrollbar-width: none;
+}
+[data-staff] .staff-strip::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-staff] * {
+    transition-duration: 0.01ms !important;
+  }
+}

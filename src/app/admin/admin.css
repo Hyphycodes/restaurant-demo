@@ -1,0 +1,72 @@
+/* ==========================================================================
+   ADMIN — the dining room, not the walk-in.
+   The admin components are written against the same tokens the public site
+   uses (brown ink, linen panels, coral action). This file remaps those tokens
+   to the site's own night palette under one attribute, so every admin screen
+   moves into the same world at once without a component knowing.
+
+   Unlayered on purpose: it must beat Tailwind's @layer theme.
+   ========================================================================== */
+
+[data-admin-look='evening'] {
+  /* Surfaces: the deep warm dark of the public site. */
+  --color-ivory: #1a1008;        /* page */
+  --color-ivory-deep: #1f1409;
+  --color-cream: #1d1208;
+  --color-linen: #241708;        /* raised panel */
+  --color-sand: #2c1c0c;
+  --color-sand-deep: #382410;
+  --color-teal: #120b06;         /* header */
+  --color-teal-lift: #1c1108;
+  --color-teal-soft: #c4ac8c;
+
+  /* Ink becomes cream. Links are text, underlined — not a second accent. */
+  --color-brown: #f7eedc;        /* 15.1:1 on the page */
+  --color-brown-soft: #c4ac8c;   /* 8.6:1 */
+  --color-clay: #f7eedc;
+  --o-brown-line: rgb(247 238 220 / 0.14);
+
+  /* One accent: amber, for the one action on a screen. */
+  --color-coral: #e8a33d;
+  --color-coral-deep: #f5bd5f;
+  --color-coral-light: #f5bd5f;
+  --color-orange: #e8a33d;
+  --color-orange-deep: #f5bd5f;
+  --color-on-orange: #2a1203;    /* 8.2:1 on amber */
+  --color-amber: #e8a33d;
+
+  /* Status, lifted for a dark field. */
+  --color-success: #8fcf99;
+  --color-warning: #f0a548;
+  --color-danger: #f5917f;
+
+  color-scheme: dark;
+}
+
+/* `site` carries the public look's variables (emitted by the root layout under
+   this same attribute), so only the things a token cannot say live here. */
+[data-admin-look='site'] {
+  color-scheme: dark;
+}
+
+/* Panels lift with a warm tint, not a grey shadow. Two depths in the whole
+   admin: a raised panel, and the sticky bar / save pill above it. */
+[data-admin-look='evening'] .admin-raised,
+[data-admin-look='site'] .admin-raised {
+  background: linear-gradient(180deg, rgb(255 236 200 / 0.04), transparent 60%) var(--color-linen);
+  box-shadow: 0 0 0 1px rgb(247 238 220 / 0.08);
+}
+
+/* Big numbers want the display face and tabular figures. */
+.admin-figure {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The one motion on the home screen: a number that counts up on load. */
+@media (prefers-reduced-motion: reduce) {
+  .admin-countup { transition: none; }
+}

@@ -1,0 +1,1386 @@
+/* ==========================================================================
+   HALLOWEEN · DÍA DE LOS MUERTOS — seasonal theme
+   Everything in this file is scoped to [data-theme="autumn-evening"]. It is
+   deliberately UNLAYERED so it beats Tailwind's @layer theme, which is where
+   the default tokens are declared. With the theme off, none of this matches.
+
+   Two halves:
+     1. a remap of the design tokens in src/app/globals.css — this is what
+        recolours every band, button, header and footer at once without a
+        single component knowing;
+     2. the decorative layers rendered by src/components/theme/*.
+
+   The October look is ONE continuous night, not a stack of coloured bands.
+   Section surfaces are nearly transparent so the fixed candle glow and the
+   stars behind the page show through everywhere; the tone a band used to
+   carry becomes a soft pool of colour with no straight edge. Photography,
+   cards and characters float on that field.
+
+   Colour pairs were re-measured because the roles invert (bone type on a plum
+   field instead of brown on ivory). Ratios in comments are against the record.
+   ========================================================================== */
+
+[data-theme='autumn-evening']:not([data-palette='appearance']) {
+  /* --- Canvas -------------------------------------------------------- */
+  --t-record: #120a12;
+
+  /* --- Light surfaces become deep plum ------------------------------------
+     These stay REAL, opaque surfaces, because the same tokens fill things
+     that must look solid: the phone drawer, the menu's sticky category nav,
+     form fields, category tiles. A full-bleed band is the only thing that
+     dissolves, and it does that by clearing its own background (see
+     "surfaces" below) — never by thinning the token, which would put a
+     translucent rectangle with hard edges behind every one of them. */
+  --color-ivory: #1d101d;
+  --color-ivory-deep: #261424;
+  --color-cream: #22121f;
+  --color-linen: #2d1829;
+  --color-sand: #3b1526; /* burgundy — tiles and menu fills */
+  --color-sand-deep: #4d1c32;
+
+  /* --- Ink becomes bone -------------------------------------------------- */
+  --color-brown: #f4e7cf; /* 15.3:1 */
+  --color-brown-soft: #cfb58f; /* 9.4:1 */
+  --o-brown-line: rgb(244 231 207 / 0.16);
+
+  /* --- Action becomes brass ------------------------------------------ */
+  --color-coral: #e58a2e;
+  --color-coral-deep: #c96f1e;
+  --color-coral-light: #f3a75a;
+  --color-orange: #e8912c;
+  --color-orange-deep: #c9761c;
+  --color-clay: #f0a548; /* text on dark, 8.6:1 */
+  --color-on-orange: #23110a; /* 7.1:1 on brass */
+
+  /* --- Night ramp --------------------------------------------------------- */
+  --color-obsidian: #08040a;
+  --color-espresso: #150b14;
+  --color-espresso-lift: #22121f;
+  --color-night-text: #f7eedc;
+  --color-night-soft: #cfb58f;
+
+  /* --- Evening surfaces ---------------------------------------------------
+     Plum is also the hero scrim and a tile fill; the two places it was a
+     band — the hero and the footer — are cleared explicitly below. */
+  --color-teal: rgb(12 7 16 / 0.9);
+  --color-teal-lift: #1b1020;
+  --color-teal-soft: #c9a98d;
+  --color-plum: rgb(27 11 26 / 0.94);
+  --color-plum-lift: #2c1329;
+  --color-plum-soft: #d9b2a8;
+
+  /* --- Accents ----------------------------------------------------------- */
+  --color-agave: #cfa456; /* antique gold */
+  --color-agave-light: #efb8d4;
+  --color-amber: #f0b24a;
+  --color-amber-bright: #f7c76a;
+
+  /* --- Status, lifted for a dark field ----------------------------------- */
+  --color-success: #8fcf99;
+  --color-warning: #f0a548;
+  --color-danger: #f5917f;
+
+  color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------ root -- */
+
+.theme-root {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background-color: var(--t-record);
+  color: var(--color-brown);
+}
+
+/* ---------------------------------------------------------- atmosphere -- */
+
+.theme-atmosphere {
+  pointer-events: none;
+}
+
+.theme-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Candle glow, BEHIND the content. Two layers breathe out of phase so the
+   light moves the way flame-light does, slowly and never in a loop you can
+   count. */
+.theme-layer-glow {
+  z-index: -1;
+  opacity: var(--t-glow, 1);
+  background:
+    radial-gradient(58vmax 42vmax at 84% 12%, rgb(236 150 62 / 0.26), transparent 62%),
+    radial-gradient(52vmax 40vmax at 8% 86%, rgb(190 74 124 / 0.2), transparent 62%),
+    radial-gradient(70vmax 50vmax at 50% 110%, rgb(120 30 40 / 0.28), transparent 65%),
+    radial-gradient(36vmax 30vmax at 92% 70%, rgb(158 118 206 / 0.16), transparent 62%);
+  animation: theme-breathe 16s ease-in-out infinite alternate;
+}
+
+/* Smoke. Two soft shapes that cross the viewport over a minute, drawn with
+   gradients rather than blur filters so a phone can composite it for free. */
+.theme-layer-haze {
+  z-index: -1;
+  opacity: calc(var(--t-glow, 1) * 0.9);
+  background:
+    radial-gradient(40% 32% at 30% 40%, rgb(255 214 150 / 0.09), transparent 70%),
+    radial-gradient(34% 28% at 70% 65%, rgb(232 145 60 / 0.07), transparent 70%);
+  background-size: 200% 200%;
+  animation: theme-haze 64s ease-in-out infinite alternate;
+}
+
+@keyframes theme-haze {
+  from {
+    background-position:
+      0% 0%,
+      100% 100%;
+  }
+  to {
+    background-position:
+      100% 60%,
+      0% 20%;
+  }
+}
+
+.theme-layer-glow-2 {
+  background:
+    radial-gradient(38vmax 30vmax at 70% 60%, rgb(240 178 74 / 0.08), transparent 60%),
+    radial-gradient(30vmax 26vmax at 20% 30%, rgb(232 145 60 / 0.07), transparent 60%);
+  animation-duration: 23s;
+  animation-delay: -9s;
+}
+
+@keyframes theme-breathe {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: calc(var(--t-glow, 1) * 0.85);
+  }
+  to {
+    transform: scale(1.06) translate3d(-1.5%, 1%, 0);
+    opacity: var(--t-glow, 1);
+  }
+}
+
+/* Far stars. Tiny, warm, and fixed in place — the page scrolls past them the
+   way a room scrolls past a window. Two fields twinkle out of phase. */
+.theme-layer-stars {
+  z-index: -1;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(1.6px 1.6px at 7% 14%, rgb(255 236 210 / 0.95), transparent 100%),
+    radial-gradient(1.2px 1.2px at 23% 31%, rgb(255 228 190 / 0.8), transparent 100%),
+    radial-gradient(2px 2px at 41% 9%, rgb(255 240 220 / 0.9), transparent 100%),
+    radial-gradient(1.2px 1.2px at 58% 24%, rgb(246 200 150 / 0.75), transparent 100%),
+    radial-gradient(1.6px 1.6px at 74% 6%, rgb(255 236 210 / 0.9), transparent 100%),
+    radial-gradient(1.2px 1.2px at 88% 37%, rgb(236 180 220 / 0.75), transparent 100%),
+    radial-gradient(1.4px 1.4px at 15% 62%, rgb(255 236 210 / 0.8), transparent 100%),
+    radial-gradient(2px 2px at 33% 80%, rgb(255 228 190 / 0.85), transparent 100%),
+    radial-gradient(1.2px 1.2px at 51% 55%, rgb(236 180 220 / 0.7), transparent 100%),
+    radial-gradient(1.6px 1.6px at 66% 72%, rgb(255 240 220 / 0.85), transparent 100%),
+    radial-gradient(1.2px 1.2px at 81% 88%, rgb(246 200 150 / 0.7), transparent 100%),
+    radial-gradient(1.6px 1.6px at 95% 60%, rgb(255 236 210 / 0.85), transparent 100%);
+  animation: theme-twinkle 11s ease-in-out infinite alternate;
+}
+
+.theme-layer-stars-2 {
+  opacity: 0.4;
+  background-image:
+    radial-gradient(1.2px 1.2px at 4% 44%, rgb(255 236 210 / 0.8), transparent 100%),
+    radial-gradient(1.6px 1.6px at 19% 90%, rgb(255 228 190 / 0.8), transparent 100%),
+    radial-gradient(1.2px 1.2px at 29% 19%, rgb(236 180 220 / 0.7), transparent 100%),
+    radial-gradient(1.6px 1.6px at 47% 38%, rgb(255 240 220 / 0.8), transparent 100%),
+    radial-gradient(1.2px 1.2px at 62% 92%, rgb(246 200 150 / 0.7), transparent 100%),
+    radial-gradient(1.6px 1.6px at 70% 47%, rgb(255 236 210 / 0.8), transparent 100%),
+    radial-gradient(1.2px 1.2px at 84% 16%, rgb(255 228 190 / 0.7), transparent 100%),
+    radial-gradient(1.6px 1.6px at 92% 78%, rgb(236 180 220 / 0.7), transparent 100%),
+    radial-gradient(1.2px 1.2px at 38% 66%, rgb(255 240 220 / 0.7), transparent 100%);
+  animation-duration: 15s;
+  animation-delay: -6s;
+}
+
+@keyframes theme-twinkle {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
+/* Aged plaster, IN FRONT, at grain strength. */
+.theme-layer-texture {
+  z-index: 1;
+  background-image: var(--t-texture-image);
+  background-size: 480px 480px;
+  opacity: calc(0.16 * var(--t-texture, 1));
+  mix-blend-mode: soft-light;
+}
+
+/* Film vignette. Never over the sticky header, which sits at z-40. */
+.theme-layer-vignette {
+  z-index: 1;
+  opacity: var(--t-vignette, 1);
+  background: radial-gradient(118% 88% at 50% 42%, transparent 52%, rgb(6 2 8 / 0.62) 100%);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .theme-layer-texture,
+  .theme-layer-glow-2,
+  .theme-layer-stars-2 {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- petals -- */
+
+
+.theme-petals {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.theme-petal {
+  position: absolute;
+  top: -8vh;
+  width: var(--t-size, 12px);
+  height: calc(var(--t-size, 12px) * 1.35);
+  opacity: var(--t-alpha, 0.7);
+  animation: theme-fall var(--t-dur, 22s) linear var(--t-delay, 0s) infinite;
+  will-change: transform;
+}
+
+.theme-petal > i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--t-petal-image) center / contain no-repeat;
+  animation:
+    theme-sway var(--t-sway-dur, 5s) ease-in-out var(--t-delay, 0s) infinite alternate,
+    theme-spin calc(var(--t-dur, 22s) * 0.9) linear var(--t-delay, 0s) infinite;
+}
+
+@keyframes theme-fall {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 118vh, 0);
+  }
+}
+
+@keyframes theme-sway {
+  from {
+    transform: translateX(calc(var(--t-sway, 40px) * -0.5));
+  }
+  to {
+    transform: translateX(calc(var(--t-sway, 40px) * 0.5));
+  }
+}
+
+@keyframes theme-spin {
+  to {
+    rotate: var(--t-spin, 360deg);
+  }
+}
+
+/* Phones get a sparser field: the `-wide` petals only exist from 640px up. */
+@media (max-width: 639px) {
+  .theme-petal-wide {
+    display: none;
+  }
+  .theme-layer-texture {
+    opacity: calc(0.11 * var(--t-texture, 1));
+  }
+}
+
+/* ------------------------------------------------------------- surfaces -- */
+
+
+[data-theme='autumn-evening'] .o-band {
+  position: relative;
+  isolation: isolate;
+  background-color: transparent;
+}
+
+[data-theme='autumn-evening'] .o-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  
+  background: radial-gradient(92% 22vmax at 42% 50%, rgb(70 32 60 / 0.36), transparent 100%);
+}
+
+[data-theme='autumn-evening'] .o-band.bg-ivory-deep::after {
+  background: radial-gradient(94% 22vmax at 60% 50%, rgb(78 34 62 / 0.38), transparent 100%);
+}
+
+/* Deeper night for the evening programme. */
+[data-theme='autumn-evening'] .o-band.bg-espresso::after {
+  background: radial-gradient(96% 24vmax at 50% 50%, rgb(6 3 9 / 0.62), transparent 100%);
+}
+
+[data-theme='autumn-evening'] .o-band.bg-teal::after {
+  background: radial-gradient(98% 24vmax at 52% 50%, rgb(4 2 9 / 0.64), transparent 100%);
+}
+
+/* Burgundy, kept, but as a warm pool rather than a slab. */
+[data-theme='autumn-evening'] .o-band.bg-sand::after {
+  background: radial-gradient(92% 20vmax at 40% 50%, rgb(82 24 48 / 0.68), transparent 100%);
+}
+
+/* The paper grain is drawn for a solid sand field; with the field gone it is
+   texture floating on nothing, and it has square edges of its own. */
+[data-theme='autumn-evening'] .o-band.grain::before {
+  display: none;
+}
+
+/* The hero and the footer were plum bands. The hero clears so the video pool
+   and the bunting hang in open night; the footer becomes a pool that gathers
+   at the very bottom of the page, like the floor of the room. */
+[data-theme='autumn-evening'] [data-cosa-nostra-hero] {
+  background-color: transparent;
+}
+
+[data-theme='autumn-evening'] footer.bg-plum {
+  background-color: transparent;
+}
+[data-theme='autumn-evening'] footer.bg-plum::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(95% 110% at 50% 108%, rgb(34 12 32 / 0.92), transparent 74%);
+}
+
+/* The orange entry rule into After Dark and the hairline under the action rail
+   were the two hardest lines on the page. Both become light: a thread that
+   fades out at either end, with a little bloom. */
+[data-theme='autumn-evening'] main .h-1.bg-amber {
+  height: 1px;
+  opacity: 0.75;
+  background: linear-gradient(90deg, transparent, var(--color-amber) 28%, var(--color-amber) 72%, transparent);
+  box-shadow: 0 0 16px 1px rgb(240 178 74 / 0.35);
+}
+
+[data-theme='autumn-evening'] [data-cosa-nostra-hero] + div {
+  position: relative;
+  background-color: transparent;
+  border-color: transparent;
+}
+[data-theme='autumn-evening'] [data-cosa-nostra-hero] + div::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(240 178 74 / 0.32) 30%, rgb(240 178 74 / 0.32) 70%, transparent);
+}
+
+/* The "on next" strip is ruled top and bottom so it reads as a shelf. In the
+   night both rules become threads that fade out at either end, like every
+   other line on the page. */
+[data-theme='autumn-evening'] main .border-y.border-amber\/25 {
+  border-color: transparent;
+  background-image:
+    linear-gradient(90deg, transparent, rgb(240 178 74 / 0.34) 26%, rgb(240 178 74 / 0.34) 74%, transparent),
+    linear-gradient(90deg, transparent, rgb(240 178 74 / 0.34) 26%, rgb(240 178 74 / 0.34) 74%, transparent);
+  background-size:
+    100% 1px,
+    100% 1px;
+  background-repeat: no-repeat;
+  background-position:
+    top center,
+    bottom center;
+}
+
+/* Month bands on /events and the espresso page opener carry a 2px orange rule
+   in the default look. In the night it is a thread, same as the one above. */
+[data-theme='autumn-evening'] main .border-t-2.border-t-orange {
+  border-top-color: transparent;
+  background-image: linear-gradient(90deg, transparent, rgb(240 178 74 / 0.4) 30%, rgb(240 178 74 / 0.4) 70%, transparent);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+/* The one full-bleed photograph on the homepage — the room, above After
+   Dark — gets the same treatment as the reel: a soft ellipse instead of a
+   rectangle, so it hangs in the night rather than cutting across it. */
+[data-theme='autumn-evening'] main .bg-teal .mb-8.overflow-hidden {
+  -webkit-mask-image: radial-gradient(76% 64% at 50% 50%, #000 38%, rgb(0 0 0 / 0.72) 68%, transparent 100%);
+  mask-image: radial-gradient(76% 64% at 50% 50%, #000 38%, rgb(0 0 0 / 0.72) 68%, transparent 100%);
+}
+
+/* The events opener lays a photograph under its heading. It fades out
+   before the section ends instead of stopping on a line. */
+[data-theme='autumn-evening'] main section.bg-teal > .absolute:first-child {
+  /* ONE layer, deliberately. Two mask layers combined with
+     `mask-composite: intersect` composite the bottom layer against nothing,
+     which in practice can erase the element outright — that is exactly what
+     happened to the editorial ribbons below. A single radial already falls away on
+     every side, which is all any of these masks ever wanted. */
+  -webkit-mask-image: radial-gradient(96% 80% at 60% 38%, #000 26%, rgb(0 0 0 / 0.55) 62%, transparent 100%);
+  mask-image: radial-gradient(96% 80% at 60% 38%, #000 26%, rgb(0 0 0 / 0.55) 62%, transparent 100%);
+}
+
+/* The social collage is square-cornered in the default look, which reads as
+   a grid of windows; in the night the four photographs float as tiles. */
+[data-theme='autumn-evening'] main [aria-labelledby='social-scene-heading'] .grid > :not(.theme-character) {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 0 0 1px rgb(207 164 86 / 0.18),
+    0 28px 56px -28px rgb(0 0 0 / 0.75);
+}
+
+/* Photography, cards and tiles float: the antique-gold hairline they already
+   had, plus a long soft shadow underneath. */
+[data-theme='autumn-evening'] main .rounded-\(--radius-lg\) {
+  box-shadow:
+    0 0 0 1px rgb(207 164 86 / 0.18),
+    0 28px 56px -28px rgb(0 0 0 / 0.75);
+}
+
+/* ------------------------------------------------------------------ hero -- */
+
+.theme-hero {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* The reel is no longer a rectangle. A soft ellipse, centred a little right of
+   the headline, fades it into the night on every side: the top goes fully
+   dark so the bunting hangs in air, the bottom dissolves into the page instead
+   of hitting the action rail, and the left clears under the type.
+   The mask is on the wrapper so the poster and the video get it together. */
+[data-theme='autumn-evening'] [data-cosa-nostra-hero] > .absolute:first-child {
+  /* The ellipse is centred HIGH and its vertical radius reaches the bottom
+     edge exactly, so the loop is fully transparent by the time it gets there
+     and dissolves into the record instead of ending on a straight cut. The
+     old one still had roughly half its opacity left at that edge, which is
+     what drew the line. */
+  -webkit-mask-image: radial-gradient(92% 58% at 60% 40%, #000 24%, rgb(0 0 0 / 0.5) 60%, transparent 100%);
+  mask-image: radial-gradient(92% 58% at 60% 40%, #000 24%, rgb(0 0 0 / 0.5) 60%, transparent 100%);
+}
+
+/* With the reel fading out on its own, the scrims can relax and let the glow
+   behind the page through. The headline still sits over the strong end. */
+[data-theme='autumn-evening'] [data-cosa-nostra-hero] > [class*='bg-linear-to-t'] {
+  opacity: 0.62;
+  /* The scrim's strong end is the hero's bottom edge, which is exactly where
+     a step against the page would show; it lets go over the last stretch,
+     after the reel has already faded out underneath it. */
+  -webkit-mask-image: linear-gradient(180deg, #000 52%, transparent 96%);
+  mask-image: linear-gradient(180deg, #000 52%, transparent 96%);
+}
+[data-theme='autumn-evening'] [data-cosa-nostra-hero] > [class*='bg-linear-to-r'] {
+  opacity: 0.5;
+}
+
+
+.theme-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--t-record) 0%,
+    rgb(18 10 18 / 0.86) 16%,
+    rgb(18 10 18 / 0.52) 28%,
+    rgb(18 10 18 / 0.2) 38%,
+    transparent 52%
+  );
+}
+
+/* Low warm haze, so the reel sits in candle-light rather than under a scrim.
+   Both the haze and the candle fade out before the hero's bottom edge: the
+   hero clips its layers, and a glow cut flat by a clip is a line. */
+.theme-hero-haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 55% at 88% 96%, rgb(236 150 62 / 0.28), transparent 65%),
+    radial-gradient(40% 40% at 0% 100%, rgb(120 30 40 / 0.35), transparent 70%);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+
+.theme-hero-candle {
+  position: absolute;
+  right: 6%;
+  bottom: 0;
+  width: 46vmax;
+  height: 30vmax;
+  background: radial-gradient(50% 50% at 50% 60%, rgb(240 178 74 / 0.32), transparent 70%);
+  filter: blur(8px);
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+  animation: theme-flicker 5.5s ease-in-out infinite;
+}
+
+@keyframes theme-flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  37% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  62% {
+    opacity: 0.78;
+    transform: scale(0.98);
+  }
+  81% {
+    opacity: 0.95;
+  }
+}
+
+/* Editorial ribbons, in shadow. Dimmer and less saturated than the file, and it
+   fades out along its lower edge and at both ends, so the string is something
+   hanging in the dark rather than a strip pasted along the top. */
+.theme-hero-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: max(100%, 1100px);
+  height: auto;
+  max-height: 21%;
+  object-fit: cover;
+  object-position: top center;
+  translate: -50% 0;
+  transform-origin: top center;
+  /* Dimming used to live here, at brightness(0.7) — which read as "in
+     shadow" over a dark frame of the reel and as "gone" over a bright one,
+     because the reel is a moving loop and its exposure changes underneath.
+     The art now keeps very close to its own colour and the pocket of dark air
+     above (`.theme-hero::before`) does the setting-back, so how the string
+     reads no longer depends on which frame is playing. */
+  opacity: 0.94;
+  filter: brightness(0.94) saturate(0.95) drop-shadow(0 18px 22px rgb(0 0 0 / 0.55));
+  /* One layer, still — a wide ellipse rather than a vertical-only fade.
+     The element is always at least the hero's full width (`max(100%,
+     1100px)`), so on any screen 1100px or wider the string's own printed
+     edges land exactly at the hero's left and right edges: a real banner
+     would still be hanging past the frame there, but this one is a finite
+     image, and a finite image stopping at a hard edge is a hard edge,
+     whatever the excuse. The ellipse fades it out before it gets there, the
+     same way it already faded the bottom — one shape doing both jobs, so
+     there is no second mask layer for `mask-composite` to botch (see the
+     hero reel below for what happens when there is).
+     The first version of this radius (58%) still had real opacity left at
+     the true edge, because the solid stop and the box edge were the same
+     distance from centre — softening the edge softened the WHOLE shape.
+     The fix is not just a smaller radius, it is a solid stop pushed much
+     further OUT: full strength for the middle ~60% of the string on each
+     side of centre, and all of the actual fading saved for a narrow band
+     right at the edge, where the radius (48%, just inside 50%) guarantees
+     it reaches true transparent before the element's own boundary. */
+  -webkit-mask-image: radial-gradient(48% 88% at 50% 8%, #000 62%, rgb(0 0 0 / 0.55) 88%, transparent 99%);
+  mask-image: radial-gradient(48% 88% at 50% 8%, #000 62%, rgb(0 0 0 / 0.55) 88%, transparent 99%);
+  animation: theme-drape 9s ease-in-out infinite alternate;
+}
+
+/* The string behind: smaller, darker, slower, and it hangs from a little
+   lower — the eye reads the gap between the two as air. */
+.theme-hero-top-back {
+  top: 2.5%;
+  width: max(84%, 900px);
+  max-height: 17%;
+  opacity: 0.45;
+  filter: brightness(0.6) saturate(0.85) blur(0.8px);
+  animation-duration: 13s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes theme-drape {
+  from {
+    rotate: 0.18deg;
+  }
+  to {
+    rotate: -0.18deg;
+  }
+}
+
+/* Marigolds sit back a step: a little darker, a little less saturated, so
+   they belong to the same light as everything else instead of glowing on
+   top of it. */
+.theme-hero-left,
+.theme-hero-right {
+  position: absolute;
+  height: auto;
+  opacity: 0.94;
+  filter: brightness(0.95) saturate(0.96) drop-shadow(0 24px 28px rgb(0 0 0 / 0.55));
+  transform-origin: center;
+}
+
+.theme-hero-left {
+  left: 0;
+  /* Tucked into the corner under the banner: its lowest petal clears the
+     eyebrow line at every width from 640px up. */
+  top: -26%;
+  width: calc(clamp(160px, 17vw, 300px) * var(--t-edges, 1));
+  translate: -40% 0;
+  animation: theme-drift-left 14s ease-in-out infinite alternate;
+}
+
+.theme-hero-right {
+  right: 0;
+  bottom: -3%;
+  width: calc(clamp(220px, 30vw, 520px) * var(--t-edges, 1));
+  translate: 18% 0;
+  animation: theme-drift-right 17s ease-in-out infinite alternate;
+}
+
+/* Drift moves only `rotate` and `scale`, so the base offset (`translate`) and
+   the scroll parallax (`transform`) stay untouched and the three compose. */
+@keyframes theme-drift-left {
+  from {
+    rotate: 0deg;
+    scale: 1;
+  }
+  to {
+    rotate: -1.4deg;
+    scale: 1.012;
+  }
+}
+
+@keyframes theme-drift-right {
+  from {
+    rotate: 0deg;
+    scale: 1;
+  }
+  to {
+    rotate: 1.2deg;
+    scale: 1.015;
+  }
+}
+
+/* Parallax without a scroll listener: browsers with scroll-driven animations
+   let the art fall behind the page as it scrolls; everyone else sees it fixed
+   in the frame, which is also fine. */
+@supports (animation-timeline: scroll()) {
+  .theme-hero-left,
+  .theme-hero-right,
+  .theme-hero-top-back {
+    animation-name: theme-drift-left, theme-parallax;
+    animation-duration: 14s, 1s;
+    animation-timing-function: ease-in-out, linear;
+    animation-iteration-count: infinite, 1;
+    animation-direction: alternate, normal;
+    animation-fill-mode: none, both;
+    animation-timeline: auto, scroll(root);
+    animation-range: normal, 0 100vh;
+  }
+  .theme-hero-right {
+    animation-name: theme-drift-right, theme-parallax;
+    animation-duration: 17s, 1s;
+  }
+  .theme-hero-top-back {
+    animation-name: theme-drape, theme-parallax-slow;
+    animation-duration: 13s, 1s;
+    animation-direction: alternate-reverse, normal;
+  }
+}
+
+@keyframes theme-parallax {
+  to {
+    transform: translateY(14vh);
+  }
+}
+
+@keyframes theme-parallax-slow {
+  to {
+    transform: translateY(6vh);
+  }
+}
+
+/* Phones: both clusters tuck into the top corners under the banner, well
+   clear of the headline and the actions, and the banner scales down. */
+@media (max-width: 639px) {
+  .theme-hero-top {
+    width: 900px;
+    max-height: 18%;
+  }
+  .theme-hero-top-back {
+    width: 760px;
+    top: 2%;
+  }
+  .theme-hero-left {
+    top: -10%;
+    width: calc(104px * var(--t-edges, 1));
+    translate: -42% 0;
+  }
+  .theme-hero-right {
+    top: 3%;
+    bottom: auto;
+    width: calc(136px * var(--t-edges, 1));
+    translate: 34% 0;
+    scale: 1 -1;
+  }
+  @keyframes theme-drift-right {
+    from {
+      rotate: 0deg;
+      scale: 1 -1;
+    }
+    to {
+      rotate: 1.2deg;
+      scale: 1.015 -1.015;
+    }
+  }
+  .theme-hero-candle {
+    width: 90vw;
+    height: 40vw;
+    right: -10%;
+  }
+  /* On a phone the reel is the poster; keep more of it and let it fade
+     mostly at the bottom, where the headline is. */
+  [data-theme='autumn-evening'] [data-cosa-nostra-hero] > .absolute:first-child {
+    -webkit-mask-image: radial-gradient(130% 60% at 56% 40%, #000 28%, rgb(0 0 0 / 0.55) 62%, transparent 100%);
+    mask-image: radial-gradient(130% 60% at 56% 40%, #000 28%, rgb(0 0 0 / 0.55) 62%, transparent 100%);
+  }
+}
+
+/* ------------------------------------------------------------- dividers -- */
+
+.theme-divider {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  margin: -1.25rem auto -1.75rem;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+
+.theme-divider img {
+  width: min(100%, 880px);
+  height: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 12px 16px rgb(0 0 0 / 0.45));
+}
+
+.theme-divider[data-tone='dark'] {
+  margin-top: -2.5rem;
+  margin-bottom: -1rem;
+}
+
+/* --------------------------------------------------------------- footer -- */
+
+/* The footer grows a strip under the legal line, and the clusters live in
+   that strip — beside nothing, over nothing. On smaller screens the strip
+   and the clusters both go, and the footer is exactly its usual height. */
+.theme-footer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.theme-footer-left,
+.theme-footer-right {
+  position: absolute;
+  bottom: -14%;
+  width: calc(clamp(200px, 20vw, 320px) * var(--t-edges, 1));
+  height: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.5));
+}
+
+.theme-footer-left {
+  left: 0;
+  translate: -18% 0;
+}
+
+.theme-footer-right {
+  right: 0;
+  translate: 18% 0;
+  scale: -1 1;
+}
+
+@media (min-width: 1024px) {
+  [data-theme='autumn-evening'] footer > div:not(.theme-footer) {
+    padding-bottom: 12rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .theme-footer-left,
+  .theme-footer-right {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------- photo treatment -- */
+
+/* Warmer highlights, deeper blacks, a little more amber. Kept gentle so the
+   food stays food. Applied to photographs only, never to artwork the theme
+   itself draws. */
+[data-theme='autumn-evening'] main img:not(.theme-hero img, .theme-divider img, .theme-footer img, .theme-character),
+[data-theme='autumn-evening'] main video {
+  filter: sepia(0.16) saturate(1.08) contrast(1.05) brightness(0.94);
+}
+
+/* Display type reads as a lit sign: a wide, faint amber halo, never a hard
+   glow, and only inside the page — the admin never sees it. */
+[data-theme='autumn-evening'] main .display,
+[data-theme='autumn-evening'] main .display-poster {
+  text-shadow:
+    0 0 28px rgb(240 178 74 / 0.16),
+    0 2px 18px rgb(0 0 0 / 0.35);
+}
+
+/* Eyebrows pick up antique gold with a hairline, the way a menu card is set. */
+[data-theme='autumn-evening'] main .eyebrow {
+  color: var(--color-agave-light);
+}
+
+/* ----------------------------------------------------------- chrome -- */
+
+/* The header is the one thing that must stay legible over everything, but it
+   need not draw a line across the page to do it. It darkens toward its top
+   and blurs what passes under it, and its lower edge is a short fade rather
+   than a rule. */
+[data-theme='autumn-evening'] header.sticky {
+  background: linear-gradient(180deg, rgb(18 10 18 / 0.94), rgb(18 10 18 / 0.7));
+  border-bottom-color: transparent;
+  box-shadow: none;
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+}
+[data-theme='autumn-evening'] header.sticky::after {
+  content: '';
+  position: absolute;
+  inset: 100% 0 auto;
+  height: 32px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(18 10 18 / 0.5), transparent);
+}
+
+/* The menu's sticky category nav and the phone drawer are the two surfaces
+   that must stay solid: content scrolls under one and the page sits behind
+   the other. */
+[data-theme='autumn-evening'] main .sticky {
+  background-color: rgb(18 10 18 / 0.88);
+  border-bottom-color: transparent;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+[data-theme='autumn-evening'] main .sticky::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(240 178 74 / 0.3) 25%, rgb(240 178 74 / 0.3) 75%, transparent);
+}
+
+[data-theme='autumn-evening'] #mobile-drawer {
+  background-color: #1b0f1a;
+}
+
+/* Primary actions glow faintly, the way a lit sign does. */
+[data-theme='autumn-evening'] .bg-coral,
+[data-theme='autumn-evening'] .bg-orange {
+  box-shadow:
+    0 0 0 1px rgb(247 199 106 / 0.25) inset,
+    0 10px 30px -10px rgb(232 145 60 / 0.55);
+}
+
+/* Paper grain is a multiply texture tuned for sand; on burgundy it is mud. */
+[data-theme='autumn-evening'] .grain::before {
+  mix-blend-mode: screen;
+  opacity: 0.05;
+}
+
+/* ------------------------------------------------------------ motion -- */
+
+[data-motion='off'] .theme-layer-glow,
+[data-motion='off'] .theme-layer-haze,
+[data-motion='off'] .theme-layer-stars,
+[data-motion='off'] .theme-hero-candle,
+[data-motion='off'] .theme-hero-top,
+[data-motion='off'] .theme-hero-left,
+[data-motion='off'] .theme-hero-right,
+[data-motion='off'] .theme-character {
+  animation: none;
+}
+
+[data-motion='off'] .theme-petals {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-petals {
+    display: none;
+  }
+  .theme-layer-glow,
+  .theme-layer-haze,
+  .theme-layer-stars,
+  .theme-hero-candle,
+  .theme-hero-top,
+  .theme-hero-left,
+  .theme-hero-right,
+  .theme-character {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------- characters -- */
+
+/* Flyer-inspired companions belong to the seasonal look, never the base site. */
+[data-theme='autumn-evening'] #main {
+  position: relative;
+}
+
+[data-theme='autumn-evening'] .theme-character {
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 8px 18px rgb(0 0 0 / 0.3));
+}
+
+/* Everyone floats. A slow vertical bob on `translate`, which none of these
+   placements use for their base offset, so the tilt (`rotate`) and any scroll
+   parallax (`transform`) keep composing with it. Durations and phases differ
+   per guest so no two move together. */
+@keyframes theme-float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 calc(var(--f-rise, 10px) * -1);
+  }
+}
+
+.theme-hero-companion,
+.theme-rail-guest,
+.theme-world-guest,
+.theme-edge-guest,
+.theme-photo-guest,
+.theme-footer-companions .theme-character {
+  animation: theme-float var(--f-dur, 7s) ease-in-out var(--f-delay, 0s) infinite alternate;
+}
+
+
+.theme-rail-guest {
+  position: absolute;
+  right: 6px;
+  bottom: 2px;
+  z-index: 2;
+  width: 112px;
+  height: 118px;
+  opacity: 0.92;
+  --f-dur: 7.5s;
+  --f-rise: 8px;
+}
+@media (min-width: 640px) {
+  .theme-rail-guest {
+    right: 5%;
+    width: 136px;
+    height: 144px;
+  }
+}
+@media (min-width: 1024px) {
+  .theme-rail-guest {
+    display: none;
+  }
+}
+
+/* Nothing in the rail — the phone number above all — may sit under him. He is
+   `position: absolute`, so the flex row does not know to route around him on
+   its own; this reserves exactly his footprint (plus a little air) as right
+   padding, so a wrapping row breaks a line early instead of running a link
+   underneath his silhouette. Matches his two sizes above. */
+@media (max-width: 1023px) {
+  [data-theme='autumn-evening'] main .action-rail-row {
+    padding-right: 152px;
+  }
+}
+@media (max-width: 639px) {
+  [data-theme='autumn-evening'] main .action-rail-row {
+    padding-right: 132px;
+  }
+}
+
+/* He is taller than the rail, so he also leans up into whatever sits directly
+   above it — the hero's own button row, now that nothing sits between them.
+   Reserved below via `.hero-actions-row`, the same footprint-reservation
+   pattern as the rail row itself. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  [data-theme='autumn-evening'] main .hero-actions-row {
+    padding-bottom: 84px;
+  }
+}
+
+.theme-hero-companion {
+  position: absolute;
+  right: 19%;
+  bottom: 4%;
+  z-index: 1;
+  width: clamp(160px, 15vw, 215px);
+  height: auto;
+  opacity: 0.88;
+  --f-dur: 8s;
+  --f-rise: 12px;
+}
+
+.theme-footer-companions {
+  position: absolute;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: clamp(24px, 8vw, 120px);
+  inset: auto 0 8px;
+}
+.theme-footer-companions .theme-character {
+  width: 140px;
+  height: 150px;
+  opacity: 0.86;
+}
+.theme-footer-companions .theme-character:nth-child(1) {
+  --f-dur: 7.5s;
+  --f-delay: -2s;
+}
+.theme-footer-companions .theme-character:nth-child(2) {
+  --f-dur: 9s;
+  --f-delay: -5s;
+  --f-rise: 14px;
+}
+.theme-footer-companions .theme-character:nth-child(3) {
+  --f-dur: 6.5s;
+  --f-delay: -1s;
+}
+
+.theme-page-companion {
+  position: absolute;
+  right: 24px;
+  top: 30px;
+  width: 130px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.45;
+}
+#main:has([data-cosa-nostra-hero]) > .theme-page-companion {
+  display: none;
+}
+@media (max-width: 1439px) {
+  .theme-page-companion {
+    display: none;
+  }
+}
+@media (max-width: 1023px) {
+  .theme-hero-companion {
+    display: none;
+  }
+  [data-theme='autumn-evening'] footer > div:not(.theme-footer) {
+    padding-bottom: 9rem;
+  }
+  .theme-footer-companions .theme-character {
+    width: 86px;
+    height: 102px;
+  }
+  .theme-footer-companions {
+    gap: 24px;
+  }
+}
+
+/* An inhabited stretch of night between two sections: uneven pools of colour,
+   a couple of guests, a few stars, and open reading space. No box — the
+   pools fade out long before the edges and the guests are free to drift past
+   them. */
+.theme-world {
+  position: relative;
+  isolation: isolate;
+  height: clamp(135px, 14vw, 190px);
+  max-width: 1250px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+/* A background is clipped to its box, and a pool clipped flat is a
+   rectangle. The pools live on a pseudo-element taller than the scene, and
+   each ellipse reaches full transparency inside it. */
+.theme-world::before {
+  content: '';
+  position: absolute;
+  inset: -55% 0;
+  z-index: -1;
+  background:
+    radial-gradient(34% 34% at 24% 56%, rgb(207 70 139 / 0.15), transparent 100%),
+    radial-gradient(32% 32% at 80% 44%, rgb(90 112 224 / 0.15), transparent 100%);
+}
+.theme-world .theme-world-guest {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgb(0 0 0 / 0.18));
+}
+.theme-world .theme-world-guest-0 {
+  left: 10%;
+  bottom: 8px;
+  rotate: -5deg;
+  --f-dur: 7.5s;
+  --f-delay: -3s;
+}
+.theme-world .theme-world-guest-1 {
+  right: 12%;
+  top: 5px;
+  width: 125px;
+  height: 125px;
+  rotate: 6deg;
+  --f-dur: 9s;
+  --f-delay: -1s;
+  --f-rise: 13px;
+}
+.theme-world[data-scene='music']::before {
+  background:
+    radial-gradient(36% 36% at 30% 54%, rgb(169 38 84 / 0.18), transparent 100%),
+    radial-gradient(34% 34% at 78% 48%, rgb(42 100 255 / 0.18), transparent 100%);
+}
+.theme-world[data-scene='music'] .theme-world-guest-0 {
+  left: 20%;
+  width: 125px;
+  height: 155px;
+}
+.theme-world[data-scene='music'] .theme-world-guest-1 {
+  right: 17%;
+  width: 165px;
+  height: 165px;
+}
+.theme-world[data-scene='table'] .theme-world-guest-0 {
+  left: 13%;
+}
+.theme-world[data-scene='table'] .theme-world-guest-1 {
+  right: 24%;
+}
+.theme-world-orbit {
+  position: absolute;
+  width: 48%;
+  height: 50%;
+  border-top: 1px solid rgb(236 158 194 / 0.14);
+  border-radius: 50%;
+  left: 28%;
+  top: 45%;
+  rotate: -9deg;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent);
+}
+.theme-world-star {
+  position: absolute;
+  color: #e9a4cf;
+  font-size: 16px;
+  opacity: 0.6;
+  animation: theme-twinkle 7s ease-in-out infinite alternate;
+}
+.theme-world-star-one {
+  left: 39%;
+  top: 25%;
+}
+.theme-world-star-two {
+  right: 32%;
+  top: 64%;
+  color: #9bafff;
+  font-size: 22px;
+  animation-delay: -3s;
+}
+.theme-world-star-three {
+  left: 49%;
+  top: 72%;
+  color: #f6ac55;
+  font-size: 10px;
+  animation-delay: -5s;
+}
+
+/* Peripheral companions stay in the outside gutters, over nothing. */
+.theme-world-edges {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+.theme-edge-guest {
+  position: absolute;
+  width: clamp(28px, calc((100vw - 1344px) / 2 - 12px), 100px);
+  height: 125px;
+  opacity: 0.65;
+}
+.theme-edge-guest-0 {
+  left: 2px;
+  top: 10%;
+  rotate: -9deg;
+  --f-dur: 8s;
+}
+.theme-edge-guest-1 {
+  right: 4px;
+  top: 26%;
+  rotate: 12deg;
+  --f-dur: 9.5s;
+  --f-delay: -4s;
+}
+.theme-edge-guest-2 {
+  left: 1px;
+  top: 43%;
+  rotate: -7deg;
+  --f-dur: 7s;
+  --f-delay: -2s;
+}
+.theme-edge-guest-3 {
+  right: 1px;
+  top: 60%;
+  rotate: 7deg;
+  --f-dur: 10s;
+  --f-delay: -6s;
+}
+.theme-edge-guest-4 {
+  left: 3px;
+  top: 77%;
+  rotate: -12deg;
+  --f-dur: 8.5s;
+  --f-delay: -1s;
+}
+.theme-edge-guest-5 {
+  right: 1px;
+  top: 90%;
+  rotate: 9deg;
+  --f-dur: 7.5s;
+  --f-delay: -5s;
+}
+/* Only use outside gutters where the full content column has room. */
+@media (max-width: 1439px) {
+  .theme-world-edges {
+    display: none;
+  }
+}
+/* Phones have no gutters and no room in the hero, so the scenes between
+   sections carry more of the cast: taller, with the guests nearly full
+   size, the orbit wider and the stars bigger. */
+@media (max-width: 639px) {
+  .theme-world {
+    height: 140px;
+  }
+  .theme-world::before {
+    background:
+      radial-gradient(44% 40% at 26% 60%, rgb(207 70 139 / 0.2), transparent 100%),
+      radial-gradient(42% 40% at 76% 42%, rgb(90 112 224 / 0.2), transparent 100%);
+  }
+  .theme-world[data-scene='music']::before {
+    background:
+      radial-gradient(46% 42% at 30% 56%, rgb(169 38 84 / 0.24), transparent 100%),
+      radial-gradient(44% 42% at 76% 46%, rgb(42 100 255 / 0.24), transparent 100%);
+  }
+  .theme-world .theme-world-guest {
+    width: 132px;
+    height: 136px;
+    --f-rise: 12px;
+  }
+  .theme-world .theme-world-guest-0 {
+    left: 4%;
+    bottom: 6px;
+    rotate: -7deg;
+  }
+  .theme-world .theme-world-guest-1 {
+    right: 4%;
+    top: 4px;
+    width: 118px;
+    height: 124px;
+    rotate: 8deg;
+  }
+  .theme-world[data-scene='music'] .theme-world-guest-0 {
+    left: 8%;
+    width: 112px;
+    height: 144px;
+  }
+  .theme-world[data-scene='music'] .theme-world-guest-1 {
+    right: 6%;
+    width: 136px;
+    height: 144px;
+  }
+  .theme-world[data-scene='table'] .theme-world-guest-0,
+  .theme-world[data-scene='celebration'] .theme-world-guest-0 {
+    left: 5%;
+  }
+  .theme-world[data-scene='table'] .theme-world-guest-1,
+  .theme-world[data-scene='celebration'] .theme-world-guest-1 {
+    right: 6%;
+  }
+  .theme-world-orbit {
+    width: 64%;
+    left: 18%;
+    top: 40%;
+  }
+  .theme-world-star {
+    font-size: 20px;
+  }
+  .theme-world-star-two {
+    font-size: 26px;
+  }
+  .theme-world-star-three {
+    font-size: 14px;
+  }
+  .theme-footer-companions .theme-character {
+    width: 104px;
+    height: 118px;
+  }
+  .theme-footer-companions {
+    gap: 12px;
+  }
+  .theme-photo-guest {
+    width: clamp(104px, 30vw, 128px);
+    right: -8px;
+    bottom: -18px;
+  }
+  [data-theme='autumn-evening'] footer > div:not(.theme-footer) {
+    padding-bottom: 10rem;
+  }
+}
+
+/* Florals remain cultural accents, no longer the repeated visual structure. */
+.theme-footer-left,
+.theme-footer-right {
+  opacity: 0.25;
+}
+
+.theme-photo-guest {
+  position: absolute;
+  right: -12px;
+  bottom: -22px;
+  width: clamp(95px, 11vw, 155px);
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgb(0 0 0 / 0.22));
+  --f-dur: 8.5s;
+  --f-delay: -2.5s;
+}
+
+
+.theme-character.theme-photo-guest-beside {
+  top: 0;
+  right: 0;
+  bottom: auto;
+  width: clamp(76px, 7vw, 100px);
+  height: auto;
+}
+
+@media (max-width: 639px) {
+  .theme-character.theme-photo-guest-beside {
+    top: 2px;
+    right: -4px;
+    bottom: auto;
+    width: 80px;
+  }
+}
