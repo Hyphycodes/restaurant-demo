@@ -138,21 +138,6 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "roomAtmosphere": {
-    "path": "/media/roomAtmosphere.webp",
-    "kind": "image",
-    "alt": "An intimate corner with warm light and dark furniture",
-    "width": 1200,
-    "height": 800,
-    "ratio": "1200:800",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra roomAtmosphere semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
   "bartender": {
     "path": "/media/bartender.webp",
     "kind": "image",
@@ -183,36 +168,6 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "burrataPlate": {
-    "path": "/media/burrataPlate.webp",
-    "kind": "image",
-    "alt": "Burrata, prosciutto and basil on a decorative Italian plate",
-    "width": 1200,
-    "height": 900,
-    "ratio": "1200:900",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra burrataPlate semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
-  "cocktailPour": {
-    "path": "/media/cocktailPour.webp",
-    "kind": "image",
-    "alt": "Hands preparing a cocktail at the bar",
-    "width": 1000,
-    "height": 1000,
-    "ratio": "1000:1000",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra cocktailPour semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
   "houseNegroni": {
     "path": "/media/houseNegroni.webp",
     "kind": "image",
@@ -239,21 +194,6 @@ export const assets = {
     "status": "final",
     "usage": [
       "Cosa Nostra roomCrowd semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
-  "cocktailPair": {
-    "path": "/media/cocktailPair.webp",
-    "kind": "image",
-    "alt": "A classic Italian aperitivo in a low glass",
-    "width": 1200,
-    "height": 900,
-    "ratio": "1200:900",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra cocktailPair semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -303,21 +243,6 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "birthdayCelebration": {
-    "path": "/media/birthdayCelebration.webp",
-    "kind": "image",
-    "alt": "Italian antipasti made for a celebratory table",
-    "width": 1200,
-    "height": 900,
-    "ratio": "1200:900",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra birthdayCelebration semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
   "flyerVinyl": {
     "path": "/media/flyerVinyl.webp",
     "kind": "image",
@@ -363,20 +288,110 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "teamEnergy": {
-    "path": "/media/teamEnergy.webp",
+  "roomNight": {
+    "path": "/media/night/room-night.webp",
     "kind": "image",
-    "alt": "Thoughtful cocktail service for the evening",
-    "width": 1200,
-    "height": 800,
-    "ratio": "1200:800",
-    "focal": "50% 50%",
+    "alt": "The dining room after dark, candles lit on dark wood tables",
+    "width": 1800,
+    "height": 1200,
+    "ratio": "1800:1200",
+    "focal": "50% 60%",
     "status": "final",
     "usage": [
-      "Cosa Nostra teamEnergy semantic slot"
+      "Homepage hero, Behind the Hospitality"
     ],
     "containsText": "none",
-    "maxBytes": 500000
+    "maxBytes": 300000
+  },
+  "roomNightTall": {
+    "path": "/media/night/room-night-tall.webp",
+    "kind": "image",
+    "alt": "A candlelit table in the dining room after dark",
+    "width": 960,
+    "height": 1200,
+    "ratio": "960:1200",
+    "focal": "45% 70%",
+    "status": "final",
+    "usage": [
+      "Homepage hero on phones, private dining"
+    ],
+    "containsText": "none",
+    "maxBytes": 300000
+  },
+  "roomDetail": {
+    "path": "/media/night/room-detail.webp",
+    "kind": "image",
+    "alt": "Two candles glowing on a dark wood table",
+    "width": 1200,
+    "height": 900,
+    "ratio": "1200:900",
+    "focal": "45% 55%",
+    "status": "final",
+    "usage": [
+      "Evening chapters, visit"
+    ],
+    "containsText": "none",
+    "maxBytes": 300000
+  },
+  "barNight": {
+    "path": "/media/night/bar-night.webp",
+    "kind": "image",
+    "alt": "A bartender shaking a cocktail in low amber light",
+    "width": 900,
+    "height": 1000,
+    "ratio": "900:1000",
+    "focal": "45% 35%",
+    "status": "final",
+    "usage": [
+      "Evening chapters, menu bar list"
+    ],
+    "containsText": "none",
+    "maxBytes": 300000
+  },
+  "pastaNight": {
+    "path": "/media/night/pasta-night.webp",
+    "kind": "image",
+    "alt": "Spaghetti and meatballs lifted from the bowl in warm light",
+    "width": 1200,
+    "height": 1000,
+    "ratio": "1200:1000",
+    "focal": "52% 40%",
+    "status": "final",
+    "usage": [
+      "Homepage kitchen, menu"
+    ],
+    "containsText": "none",
+    "maxBytes": 300000
+  },
+  "burrataNight": {
+    "path": "/media/night/burrata-night.webp",
+    "kind": "image",
+    "alt": "Burrata with prosciutto and basil on a painted Italian plate",
+    "width": 1200,
+    "height": 900,
+    "ratio": "1200:900",
+    "focal": "50% 45%",
+    "status": "final",
+    "usage": [
+      "Menu antipasti, catering"
+    ],
+    "containsText": "none",
+    "maxBytes": 300000
+  },
+  "negroniPaper": {
+    "path": "/media/night/negroni-paper.webp",
+    "kind": "image",
+    "alt": "A Negroni over a single large ice cube on marble",
+    "width": 1000,
+    "height": 1200,
+    "ratio": "1000:1200",
+    "focal": "50% 45%",
+    "status": "final",
+    "usage": [
+      "Menu bar list, homepage bar"
+    ],
+    "containsText": "none",
+    "maxBytes": 300000
   }
 } as const satisfies Record<string, AssetRecord>;
 export type AssetId = keyof typeof assets;

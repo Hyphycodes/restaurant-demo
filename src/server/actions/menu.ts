@@ -112,6 +112,7 @@ const itemSchema = z.object({
   addOns: z.string().trim().max(600),
   dietary: z.string().trim().max(200),
   featured: z.coerce.boolean(),
+  mediaAssetId: z.string().trim().max(80).optional(),
   publish: z.string().optional(),
 });
 
@@ -146,6 +147,7 @@ export async function saveMenuItem(_prev: ActionState, formData: FormData): Prom
       _modifiers: parseModifiers(value.choices, value.addOns),
       dietary: value.dietary ? value.dietary.split(',').filter(Boolean) : [],
       featured: value.featured,
+      media_asset_id: value.mediaAssetId || null,
       ...priceFields(value.mode as PriceMode, value.amount),
     };
 

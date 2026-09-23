@@ -8,6 +8,21 @@
 -- Rollback:
 --   drop table if exists public.waitlist;
 
+-- The event key is text everywhere from here on, but 0001 created
+-- `event_occurrences.id` as uuid and the conversion was never committed. It is
+-- done here, before the first table that references it. A uuid renders to the
+-- same canonical string, so existing ids are unchanged; manual rows keep a
+-- generated uuid-string default. Idempotent.
+do $$
+begin
+  if (select data_type from information_schema.columns
+      where table_schema = 'public' and table_name = 'event_occurrences' and column_name = 'id') = 'uuid' then
+    alter table public.event_occurrences alter column id drop default;
+    alter table public.event_occurrences alter column id type text using id::text;
+    alter table public.event_occurrences alter column id set default gen_random_uuid()::text;
+  end if;
+end $$;
+
 create table if not exists public.waitlist (
   id          uuid primary key default gen_random_uuid(),
   event_id    text not null references public.event_occurrences (id) on delete cascade,

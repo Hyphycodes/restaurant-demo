@@ -16,9 +16,11 @@ export function AnnouncementBar({ announcement }: { announcement: Announcement |
 
   return (
     <div
-      className={
-        dark ? 'bg-espresso text-night-text on-dark' : 'bg-orange text-on-orange'
-      }
+      className="relative z-[55]"
+      style={{
+        background: dark ? 'var(--cn-walnut, #1a1008)' : 'var(--cn-wine, #6d1d28)',
+        color: 'var(--cn-cream, #f7eedc)',
+      }}
     >
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-3 gap-y-1 px-5 py-2 text-center text-[0.8125rem] font-medium">
         <span>{announcement.message}</span>

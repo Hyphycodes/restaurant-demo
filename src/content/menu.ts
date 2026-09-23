@@ -18,7 +18,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [{"label":"Add burrata","priceCents":600}],
-          "dietary": [],
+          "dietary": ["vegetarian"],
           "available": true,
           "featured": false
         },
@@ -54,9 +54,10 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian", "gluten-free-option"],
           "available": true,
-          "featured": true
+          "featured": true,
+          "imageAssetId": "burrataNight"
         },
         {
           "id": "sunday-meatballs",
@@ -68,7 +69,8 @@ export const foodMenu: Menu = {
           "modifiers": [],
           "dietary": [],
           "available": true,
-          "featured": false
+          "featured": true,
+          "imageAssetId": "pastaNight"
         }
       ]
     },
@@ -85,7 +87,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian", "spicy"],
           "available": true,
           "featured": true
         },
@@ -109,7 +111,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian"],
           "available": true,
           "featured": false
         },
@@ -121,9 +123,9 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian"],
           "available": true,
-          "featured": false
+          "featured": true
         },
         {
           "id": "lobster-ravioli",
@@ -164,7 +166,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["gluten-free-option"],
           "available": true,
           "featured": false
         },
@@ -188,7 +190,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["gluten-free-option"],
           "available": true,
           "featured": false
         },
@@ -200,7 +202,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["gluten-free-option"],
           "available": true,
           "featured": false
         }
@@ -219,7 +221,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegan", "spicy", "gluten-free-option"],
           "available": true,
           "featured": false
         },
@@ -231,7 +233,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian", "gluten-free-option"],
           "available": true,
           "featured": false
         },
@@ -243,7 +245,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegan"],
           "available": true,
           "featured": false
         }
@@ -262,7 +264,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian"],
           "available": true,
           "featured": false
         },
@@ -274,7 +276,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian"],
           "available": true,
           "featured": false
         },
@@ -286,7 +288,7 @@ export const foodMenu: Menu = {
           "priceNote": null,
           "modifierGroupLabel": null,
           "modifiers": [],
-          "dietary": [],
+          "dietary": ["vegetarian", "gluten-free-option"],
           "available": true,
           "featured": false
         }
@@ -315,7 +317,8 @@ export const cocktailMenu: Menu = {
           "modifiers": [],
           "dietary": [],
           "available": true,
-          "featured": true
+          "featured": true,
+          "imageAssetId": "negroniPaper"
         },
         {
           "id": "espresso-martini",
@@ -327,7 +330,8 @@ export const cocktailMenu: Menu = {
           "modifiers": [],
           "dietary": [],
           "available": true,
-          "featured": false
+          "featured": false,
+          "imageAssetId": "barNight"
         },
         {
           "id": "limoncello-spritz",
@@ -375,7 +379,7 @@ export const cocktailMenu: Menu = {
           "modifiers": [],
           "dietary": [],
           "available": true,
-          "featured": false
+          "featured": true
         },
         {
           "id": "olive-after-dark",

@@ -164,7 +164,7 @@ export function buildRecords(): { tables: Tables; report: MigrationReport } {
           availability_note: null,
           available: item.available,
           featured: item.featured,
-          media_asset_id: null,
+          media_asset_id: item.imageAssetId ?? null,
           sort: itemIndex,
           draft: null,
           archived_at: null,

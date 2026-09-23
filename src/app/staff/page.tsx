@@ -25,7 +25,7 @@ export default async function StaffHomePage() {
   const left = home.lines.filter((line) => !line.done).length;
   // Home holds a shift's worth of work, not a filing cabinet. Nine lines is
   // about a phone screen; the rest is a tap away on the checklist itself.
-  const lines = home.lines.slice(0, 9);
+  const lines = home.lines.slice(0, 6);
   const more = home.lines.length - lines.length;
   const canClockIn = today !== null && !today.clockInAt && Date.now() >= Date.parse(today.startsAt) - 60 * 60_000 && Date.now() <= Date.parse(today.endsAt) + 60 * 60_000;
   const canClockOut = today !== null && Boolean(today.clockInAt) && !today.clockOutAt;
@@ -119,6 +119,27 @@ export default async function StaffHomePage() {
           </Section>
         ) : null}
 
+        {/* ------------------------------------------------------ important */}
+        {home.announcements.length > 0 ? (
+          <Section title="Important" action={<Link href="/staff/announcements" className="text-[0.8125rem] font-semibold text-brown-soft underline underline-offset-4">All</Link>}>
+            <div className="grid gap-2">
+              {home.announcements.map((entry) => (
+                <Link key={entry.id} href="/staff/announcements" className={`staff-panel block px-4 py-3.5 active:bg-brown/6 ${entry.kind === 'urgent' ? 'border-warning/50' : ''}`}>
+                  <p className="flex flex-wrap items-center gap-2 text-[1rem] font-semibold text-brown">
+                    {entry.kind === 'urgent' ? <Pill tone="warn">Urgent</Pill> : null}
+                    {entry.title}
+                  </p>
+                  <p className="mt-1 line-clamp-2 text-[0.875rem] leading-relaxed text-brown-soft">{entry.body}</p>
+                  <p className="mt-1.5 text-[0.75rem] text-brown-soft/80">
+                    {entry.authorName ? `Posted by ${entry.authorName}` : 'Posted'}
+                    {entry.requiresAck && !entry.acknowledgedAt ? ' · needs your acknowledgement' : ''}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </Section>
+        ) : null}
+
         {/* --------------------------------------------------- what needs me */}
         {home.lines.length > 0 ? (
           <Section
@@ -147,27 +168,6 @@ export default async function StaffHomePage() {
         ) : context.employee ? (
           <Section title="Your checklist">
             <Empty title="You’re all set." detail="Nothing on your list right now." action={<Button href="/staff/tasks" variant="quiet">See everything assigned to you</Button>} />
-          </Section>
-        ) : null}
-
-        {/* ------------------------------------------------------ important */}
-        {home.announcements.length > 0 ? (
-          <Section title="Important" action={<Link href="/staff/announcements" className="text-[0.8125rem] font-semibold text-brown-soft underline underline-offset-4">All</Link>}>
-            <div className="grid gap-2">
-              {home.announcements.map((entry) => (
-                <Link key={entry.id} href="/staff/announcements" className={`staff-panel block px-4 py-3.5 active:bg-brown/6 ${entry.kind === 'urgent' ? 'border-warning/50' : ''}`}>
-                  <p className="flex flex-wrap items-center gap-2 text-[1rem] font-semibold text-brown">
-                    {entry.kind === 'urgent' ? <Pill tone="warn">Urgent</Pill> : null}
-                    {entry.title}
-                  </p>
-                  <p className="mt-1 line-clamp-2 text-[0.875rem] leading-relaxed text-brown-soft">{entry.body}</p>
-                  <p className="mt-1.5 text-[0.75rem] text-brown-soft/80">
-                    {entry.authorName ? `Posted by ${entry.authorName}` : 'Posted'}
-                    {entry.requiresAck && !entry.acknowledgedAt ? ' · needs your acknowledgement' : ''}
-                  </p>
-                </Link>
-              ))}
-            </div>
           </Section>
         ) : null}
 

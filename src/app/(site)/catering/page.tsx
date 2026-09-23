@@ -1,148 +1,132 @@
-import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import type { Metadata } from 'next';
+import { MotionScope } from '@/components/cosa/motion/MotionScope';
+import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
+import { PageHero } from '@/components/cosa/page/PageHero';
 import { CateringForm } from '@/components/forms/CateringForm';
-import { Band, Frame } from '@/components/primitives/Band';
-import { ExternalButtonLink, ExternalTextLink } from '@/components/primitives/Button';
-import { PageHeader } from '@/components/primitives/PageHeader';
-import { Eyebrow } from '@/components/primitives/Type';
+import { Asset } from '@/components/media/Asset';
+import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { pageCopy, seo } from '@/content/pages';
 import { getCateringItems, getCateringPackages, getSiteSettings } from '@/content/resolve';
+import { formatPrice, formatPriceRange } from '@/lib/format';
+import { buildMetadata } from '@/lib/seo';
 import { getPageCopy } from '@/server/content/pages';
 
-import { formatPriceRange } from '@/lib/format';
-import { buildMetadata } from '@/lib/seo';
-
 export const metadata: Metadata = buildMetadata({ ...seo.catering!, path: '/catering' });
-export const revalidate = 3600;
 
 /**
- * Catering.
- *
- * NO PRICE IS RENDERED ON THIS PAGE, by decision. Catering prices live on Demo ordering
- * and change there; a copy printed here goes stale the first time the kitchen
- * adjusts a tray, and a guest who plans around a stale number is a guest the
- * restaurant has to disappoint. The page sells the capability — what exists,
- * what is in it, how many it feeds — and Demo ordering is the single source of truth for
- * current packages and pricing.
- *
- * `formatPrice` is deliberately not imported here. Ordinary restaurant menu
- * prices are unaffected; this rule is about catering only.
+ * Catering: the supper club, packed to travel. Packages and trays come from
+ * the admin; the enquiry lands in the same pipeline as private dining.
  */
-
 export default async function CateringPage() {
-  const [packages, items, site, copy] = await Promise.all([
-    getCateringPackages(),
-    getCateringItems(),
-    getSiteSettings(),
-    getPageCopy('catering'),
-  ]);
+  const [packages, items, site, copy] = await Promise.all([getCateringPackages(), getCateringItems(), getSiteSettings(), getPageCopy('catering')]);
 
   return (
     <>
-      <PageHeader
-        eyebrow={copy.eyebrow ?? undefined}
-        heading={copy.heading}
-        body={copy.body ?? undefined}
-        actions={
-          <ExternalButtonLink
-            href={site.cateringOrderUrl}
-            destination="Demo ordering ordering"
-            size="lg"
-          >
-            View catering menu &amp; pricing on Demo ordering
-          </ExternalButtonLink>
+      <PageHero
+        eyebrow={copy.eyebrow ?? 'Catering'}
+        title={<EditorialTitle text={copy.heading} />}
+        lede={copy.body}
+        asset="burrataNight"
+        dim
+        focus={{ x: '50%', y: '45%' }}
+        aside={
+          <a href="#inquiry" className="cn-btn">
+            Start an order <span className="cn-arrow" aria-hidden="true">→</span>
+          </a>
         }
       />
 
-      {/* Packages as a full-width editorial table, not a card grid. */}
-      <Band surface="linen">
-        <Frame wide>
-          <Eyebrow tone="orange">Party packages</Eyebrow>
-          <ul className="mt-8 border-t-2 border-brown/25">
-            {packages.map((pkg) => (
-              <li key={pkg.id} className="border-b border-brown/15">
-                <div className="grid gap-x-8 gap-y-3 py-7 sm:grid-cols-12">
-                  <div className="sm:col-span-4">
-                    <h2 className="display text-[clamp(1.375rem,2vw,1.625rem)] text-brown">
-                      {pkg.name}
-                    </h2>
-                    {pkg.servesMin ? (
-                      <p className="tabular mt-2 text-[0.875rem] text-brown-soft">
-                        Serves {formatPriceRange(pkg.servesMin, pkg.servesMax)}
-                      </p>
-                    ) : null}
-                  </div>
-                  <ul className="space-y-1 text-[0.9375rem] text-brown-soft sm:col-span-8">
-                    {pkg.includes.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <p className="measure-lead text-[0.9375rem] leading-relaxed text-brown-soft">
-              Current pricing for every package is on our Demo ordering catering page, where you can also
-              place the order.
+      <MotionScope as="section" className="cn-paper cn-grain cn-section" aria-labelledby="packages-title">
+        <div className="cn-wrap">
+          <div className="cn-split-head">
+            <p className="cn-eyebrow" data-m="up">
+              Party packages
             </p>
-            <ExternalTextLink
-              href={site.cateringOrderUrl}
-              destination="Demo ordering ordering"
-              className="text-clay"
-            >
-              See package pricing
-            </ExternalTextLink>
+            <h2 id="packages-title" className="cn-display cn-lg" data-m="title">
+              Dinner for a crowd, <em>no dishes after.</em>
+            </h2>
           </div>
-        </Frame>
-      </Band>
-
-      <Band surface="cream">
-        <Frame>
-          <Eyebrow>By the tray</Eyebrow>
-          <ul className="mt-8 columns-1 gap-x-12 sm:columns-2">
-            {items.map((item) => (
-              <li key={item.id} className="mb-5 break-inside-avoid border-b border-brown/12 pb-4">
-                <h3 className="text-[0.9375rem] font-semibold text-brown">{item.name}</h3>
-                {item.note ? (
-                  <p className="mt-1.5 text-[0.875rem] leading-relaxed text-brown-soft">
-                    {item.note}
-                  </p>
-                ) : null}
+          <ol className="cn-packages" data-m="stagger">
+            {packages.map((pkg, index) => (
+              <li key={pkg.id} className="cn-package">
+                <span className="cn-package-num cn-num">{String(index + 1).padStart(2, '0')}</span>
+                <h3 className="cn-display cn-sm">{pkg.name}</h3>
+                {pkg.servesMin ? <p className="cn-eyebrow">Serves {formatPriceRange(pkg.servesMin, pkg.servesMax)}</p> : null}
+                <ul>
+                  {pkg.includes.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+                <p className="cn-package-price cn-num">{pkg.priceCents ? formatPrice(pkg.priceCents) : 'Ask us'}</p>
               </li>
             ))}
-          </ul>
+          </ol>
+        </div>
+      </MotionScope>
 
-          <p className="measure mt-6 text-[0.875rem] leading-relaxed text-brown-soft">
-            {pageCopy.catering.note}
-          </p>
-        </Frame>
-      </Band>
-
-      <Band surface="sand" id="inquiry">
-        <Frame>
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-5">
-              <Eyebrow>Catering enquiry</Eyebrow>
-              <h2 className="display mt-4 text-[clamp(1.5rem,2.4vw,1.875rem)] text-brown">
-                Tell us what you need.
-              </h2>
-              <p className="measure mt-5 text-[0.9375rem] leading-relaxed text-brown">
-                Send the date, the headcount, and roughly what you have in mind. Someone from Cosa Nostra
-                will come back to you to confirm what we can do and what it costs.
-              </p>
-            </div>
-
-            <div className="lg:col-span-7">
-              <CateringForm
-                phone={site.phone.value}
-                packageNames={packages.map((p) => p.name)}
-              />
+      <MotionScope as="section" className="cn-night cn-section" aria-labelledby="trays-title">
+        <div className="cn-wrap cn-two-col">
+          <div>
+            <div className="cn-photo" style={{ aspectRatio: '4 / 5' }} data-m="image">
+              <Asset id="pastaNight" rounded={false} sizes="(min-width: 900px) 40vw, 92vw" className="size-full" />
             </div>
           </div>
-        </Frame>
-      </Band>
+          <div>
+            <p className="cn-eyebrow" data-m="up">
+              By the tray
+            </p>
+            <h2 id="trays-title" className="cn-display cn-lg mt-4" data-m="title">
+              Or build <em>your own table.</em>
+            </h2>
+            <ul className="cn-trays" data-m="stagger">
+              {items.map((item) => (
+                <li key={item.id}>
+                  <span>
+                    {item.name}
+                    {item.note ? <small>{item.note}</small> : null}
+                  </span>
+                  <span className="cn-num">{item.priceCents ? formatPrice(item.priceCents) : ''}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="cn-body mt-6">{pageCopy.catering.note}</p>
+            <dl className="cn-lead-facts cn-num mt-8">
+              <div>
+                <dt className="cn-eyebrow">Notice</dt>
+                <dd>48 hours</dd>
+              </div>
+              <div>
+                <dt className="cn-eyebrow">Pickup</dt>
+                <dd>From 11am</dd>
+              </div>
+              <div>
+                <dt className="cn-eyebrow">Delivery</dt>
+                <dd>West Loop &amp; the Loop</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </MotionScope>
+
+      <MotionScope as="section" className="cn-wine-room cn-grain cn-section" aria-labelledby="catering-inquiry-title">
+        <div className="cn-wrap cn-form-layout" id="inquiry">
+          <div>
+            <p className="cn-eyebrow" data-m="up">
+              Catering enquiry
+            </p>
+            <h2 id="catering-inquiry-title" className="cn-display cn-lg mt-4" data-m="title">
+              Tell us <em>what you need.</em>
+            </h2>
+            <p className="cn-lede mt-6" data-m="up">
+              The date, the headcount and roughly what you have in mind. Someone from the kitchen confirms the menu and the price
+              — nothing is charged online.
+            </p>
+          </div>
+          <div className="cn-card-paper" data-m="up" data-delay="0.2">
+            <CateringForm phone={site.phone.value} packageNames={packages.map((pkg) => pkg.name)} />
+          </div>
+        </div>
+      </MotionScope>
       <ThemeWorld scene="celebration" />
     </>
   );

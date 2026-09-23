@@ -4,23 +4,30 @@ A fictional Italian-American supper club demonstrating a complete modern restaur
 
 ## Explore
 
-[Live restaurant](https://restaurant-demo-two-zeta.vercel.app) · [Admin demo](https://restaurant-demo-two-zeta.vercel.app/demo/admin) · [Staff demo](https://restaurant-demo-two-zeta.vercel.app/demo/staff)
+[Live restaurant](https://restaurant-demo-two-zeta.vercel.app) · [Explore the platform](https://restaurant-demo-two-zeta.vercel.app/demo) · [Behind the hospitality](https://restaurant-demo-two-zeta.vercel.app/behind)
 
-
-- Public restaurant: `/`
-- Admin workspace: `/demo/admin`
-- Employee app: `/demo/staff`
-- Manager scheduling: `/demo/manager`
-- Sample reservations: `/reservations`
-- Sample ordering: `/order`
+- **The restaurant**
+  - `/` is a cinematic evening. Opening titles lead into the evening's hours, the kitchen and the events, and end with the site splitting open onto the system behind it.
+  - `/menu` is an editorial menu read from the database. It shows dietary marks, featured dishes, "not tonight" items and optional dish photos.
+  - `/events` and `/events/[slug]` cover the calendar, event pages, ticketing (demo-safe) and a waitlist.
+  - `/private-events` and `/catering` explain the rooms and the service, and their enquiries feed the admin pipeline.
+  - `/reservations` and `/order` are simulated booking and pickup flows.
+  - `/visit`, `/contact`, `/careers` and `/talent` are the remaining public pages.
+- **The operating room (admin):** `/demo/admin` opens on Tonight: attendance, who's on the floor, what needs you, and ticket activity. From there you can reach the content studio, menu, media library, events and tickets, the enquiry pipeline, hiring, talent, link and QR pages, email and the Look settings.
+- **The staff workspace:** `/demo/staff` is a phone-first shift home with checklists, announcements, training and open shifts. `/demo/manager` is the scheduling calendar with draft and publish.
+- **Signage:** `/display` is a full-screen TV mode for the bar and projector.
+- **Link and QR pages:** `/go/links`, `/go/tonight`, `/go/menu`, `/go/review`, `/go/vinyl` and `/go/join`.
+- **Portfolio:** `/demo` is the explore hub with a guided tour. `/behind` is the case study.
 
 No sign-in or infrastructure credentials are required. The admin and staff routes use clearly labeled demo identities.
 
 ## Platform
 
-Next.js App Router, React, TypeScript and Tailwind power the responsive public website, menu and price management, content management, events and occurrences, ticketing interfaces, semantic media registry, private dining, catering, hiring, talent submissions, staff operations, scheduling, availability, training, announcements, checklists, email previews and communications settings.
+Next.js App Router, React, TypeScript and Tailwind, with GSAP, ScrollTrigger and Lenis for the directed motion. One set of records drives three surfaces: the guest site, the admin and the staff app. Any change in one appears in the others.
 
-The existing repository and database abstractions remain in place. Typed static content supplies the fallback and seeds an isolated temporary workspace. Supabase-compatible schemas, authorization policies, ticket inventory logic, Stripe integration code and React Email infrastructure demonstrate how the system is structured.
+The public world (`src/components/cosa`, `src/styles/cosa*.css`) belongs to Cosa Nostra alone. The restaurant platform underneath is reusable; see [RESTAURANT-FOUNDATION.md](RESTAURANT-FOUNDATION.md). The custom cinematic media still to be produced is briefed in [HIGGSFIELD-ASSETS.md](HIGGSFIELD-ASSETS.md).
+
+Motion is progressive. Content renders first; GSAP choreographs it only when JavaScript runs and the visitor has not asked for reduced motion. Pinned sequences become simple vertical reveals on phones.
 
 ## Demo safety
 
@@ -51,7 +58,7 @@ No `.env` file is needed. Do not add customer credentials to this demo. Deployme
 npm run verify
 ```
 
-This runs ESLint, TypeScript, the Vitest suite, semantic asset validation and the production build. Browser checks are available with:
+This runs ESLint, TypeScript, the Vitest suite, semantic asset validation, the migration verifier (`npm run db:verify`: every Supabase migration applied in order to a clean Postgres 17, row level security on every table, and the RLS and ticketing SQL walkthroughs) and the production build. Browser checks are available with:
 
 ```sh
 QA_URL=http://localhost:3100 node scripts/qa-demo.mjs

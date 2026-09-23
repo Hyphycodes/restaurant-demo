@@ -122,6 +122,8 @@ export interface MenuItem {
   dietary: Dietary[];
   available: boolean;
   featured: boolean;
+  /** Optional photograph of the dish (a media asset id). */
+  imageAssetId?: string | null;
 }
 
 export interface MenuCategory {
@@ -441,14 +443,35 @@ export interface PageSeo {
 
 export type InquiryType = 'catering' | 'private-event' | 'careers';
 
+/**
+ * Where an enquiry has got to. Five stages, left to right on the admin board.
+ * Mirrors `public.inquiry_status` (migration 0027).
+ */
+export type InquiryStatus = 'new' | 'contacted' | 'planning' | 'booked' | 'closed';
+
+/**
+ * What may be found in a stored row: the five stages, plus 'in-progress' from
+ * before 0027, which renders as 'contacted'. See `normalizeInquiryStatus`.
+ */
+export type StoredInquiryStatus = InquiryStatus | 'in-progress';
+
 export interface InquiryRecord {
   id: string;
+  /** Human-quotable, e.g. EVT-260923-4KQ2. Empty for very old rows. */
+  reference: string;
   type: InquiryType;
   name: string;
   email: string;
   phone: string | null;
   payload: Record<string, string | number | boolean | null>;
-  status: 'new' | 'in-progress' | 'closed';
+  /** Always one of the five stages; legacy values are normalised on read. */
+  status: InquiryStatus;
   notes: string | null;
+  /** One line: what happens next. Staff-only. */
+  nextStep: string | null;
+  /** Venue-local YYYY-MM-DD, or null. */
+  followUpOn: string | null;
+  /** When it last moved stage; falls back to createdAt for rows without one. */
+  statusChangedAt: string;
   createdAt: string;
 }

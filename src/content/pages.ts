@@ -69,8 +69,8 @@ export const pageCopy = {
     "empty": "We always make room for good people. Leave a sample introduction."
   },
   "careers": {
-    "eyebrow": "Join the",
-    "heading": "Cosa Nostra team",
+    "eyebrow": "Careers",
+    "heading": "Join the house. Stay for family meal.",
     "body": "Help make an ordinary evening feel exceptional. Explore fictional dining room, kitchen and bar roles at Cosa Nostra.",
     "energyHeading": "Good people. Great evenings.",
     "energyBody": "Our fictional team cares about the details: a remembered name, a perfectly timed course, the right record. Explore roles in the dining room, kitchen and bar. Sample applications stay in this demo.",

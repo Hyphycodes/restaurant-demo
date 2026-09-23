@@ -13,12 +13,14 @@
     "test:watch": "vitest",
     "assets:check": "tsx scripts/check-assets.ts",
     "content:seed": "tsx scripts/generate-seed.ts",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run assets:check && npm run build",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run assets:check && npm run db:verify && npm run build",
     "content:migrate": "tsx scripts/migrate-content.ts",
     "seed:events": "tsx scripts/seed-events.ts",
     "seed:staff-demo": "tsx scripts/seed-staff-demo.ts",
     "email:dev": "email dev --dir src/emails/previews --port 3030",
-    "email:export": "email export --dir src/emails/previews --outDir .email-previews"
+    "email:export": "email export --dir src/emails/previews --outDir .email-previews",
+    "db:verify": "node scripts/verify-migrations.mjs",
+    "media:grade": "tsx scripts/grade-night-media.ts"
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",
@@ -29,6 +31,8 @@
     "@supabase/supabase-js": "^2.47.10",
     "@zxing/browser": "^0.2.1",
     "@zxing/library": "^0.23.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
     "next": "^15.5.25",
     "qrcode": "^1.5.4",
     "react": "19.0.0",
@@ -38,6 +42,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.3.16",
     "@eslint/eslintrc": "^3.2.0",
     "@playwright/test": "^1.63.0",
     "@react-email/ui": "^6.9.5",
