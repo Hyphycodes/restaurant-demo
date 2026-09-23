@@ -18,7 +18,11 @@
   --cn-walnut: #1c1410;
   --cn-walnut-lift: #261b15;
   --cn-oxblood: #3b1016;
-  --cn-wine: #6d1d28;
+  /* The action colour follows the admin's Look accent (default #713239);
+     text in wine stays fixed so it always reads on paper. */
+  --cn-wine: var(--color-coral, #6d1d28);
+  --cn-on-wine: var(--color-on-orange, #f1e6d2);
+  --cn-wine-ink: #6d1d28;
   --cn-wine-bright: #93303d;
   --cn-candle: #e8b86b;
   --cn-candle-soft: #cfa66b;
@@ -169,7 +173,7 @@ html.cn-lenis.lenis-stopped {
   color: var(--cn-candle);
 }
 .cn-paper .cn-display em {
-  color: var(--cn-wine);
+  color: var(--cn-wine-ink);
 }
 .cn-xxl { font-size: clamp(3.4rem, 11.5vw, 12.5rem); }
 .cn-xl { font-size: clamp(2.8rem, 7.6vw, 8rem); }
@@ -187,7 +191,7 @@ html.cn-lenis.lenis-stopped {
   line-height: 1.4;
   color: var(--cn-candle-soft);
 }
-.cn-paper .cn-eyebrow { color: var(--cn-wine); }
+.cn-paper .cn-eyebrow { color: var(--cn-wine-ink); }
 
 .cn-lede {
   font-size: clamp(1.05rem, 1.35vw, 1.25rem);
@@ -271,7 +275,7 @@ html.cn-lenis.lenis-stopped {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-variation-settings: 'wdth' 110;
-  color: var(--cn-cream);
+  color: var(--cn-on-wine);
   background: var(--cn-wine);
   border: 1px solid rgb(232 184 107 / 0.35);
   overflow: hidden;
@@ -302,6 +306,7 @@ html.cn-lenis.lenis-stopped {
 }
 .cn-btn-ghost {
   background: transparent;
+  color: var(--cn-cream);
   border-color: rgb(241 230 210 / 0.35);
 }
 .cn-paper .cn-btn-ghost {
@@ -333,7 +338,7 @@ html.cn-lenis.lenis-stopped {
   background-position: 100% calc(100% - 10px);
   color: var(--cn-candle);
 }
-.cn-paper .cn-link:hover { color: var(--cn-wine); }
+.cn-paper .cn-link:hover { color: var(--cn-wine-ink); }
 
 .cn-site :focus-visible {
   outline: 2px solid var(--cn-candle);
@@ -787,3 +792,40 @@ html.cn-lenis.lenis-stopped {
 @media (prefers-reduced-motion: reduce) {
   .cn-candles, .cn-marquee-track, .cn-dot[data-live='true'] { animation: none; }
 }
+
+.cn-page-hero-aside {
+  display: grid;
+  gap: 1.6rem;
+  justify-items: start;
+  padding-bottom: 0.6rem;
+}
+.cn-page-hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 70% at 85% 0%, rgb(147 48 61 / 0.4), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgb(232 184 107 / 0.1), transparent 70%);
+}
+.cn-page-hero .cn-hero-tall { display: none; }
+@media (max-width: 767px) and (orientation: portrait) {
+  .cn-page-hero .cn-hero-wide:has(+ .cn-hero-tall) { display: none; }
+  .cn-page-hero .cn-hero-tall { display: block; }
+}
+
+/* Anything that is not a hero still clears the floating header. */
+.cn-site main#main > :first-child:not([data-hero]):not(.cn-page-hero):not(.theme-world-edges) {
+  margin-top: var(--cn-header);
+}
+
+/* Existing public components (event pages, forms, tickets) speak the same
+   display voice as the rest of the house. */
+.cn-site .display,
+.cn-site .display-wide,
+.cn-site .display-condensed {
+  font-family: var(--cn-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.cn-page-hero-short { min-height: min(64svh, 640px); }
+.cn-page-hero-dim .cn-page-hero-media { filter: brightness(0.55) saturate(0.8); }

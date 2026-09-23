@@ -2,6 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { AdminShell, NoAccess } from '@/components/admin/AdminShell';
 import { LinkButton } from '@/components/admin/ui';
 import { getReadDb, isLocalDb } from '@/lib/db';
+import type { Row } from '@/lib/db/types';
 import { getStaff, staffCan } from '@/server/auth';
 import { listVersions } from '@/server/content/editorial';
 import { getEditableMenus } from '@/server/content/menu';
@@ -34,7 +35,13 @@ export default async function MenuItemPage({ params }: { params: Promise<{ item:
 
   if (!found) notFound();
 
-  const versions = await listVersions(db, 'menu_items', itemId);
+  const [versions, media] = await Promise.all([
+    listVersions(db, 'menu_items', itemId),
+    db.list<Row>('media_assets', { orderBy: 'asset_id' }),
+  ]);
+  const mediaOptions = media
+    .filter((row) => row.path && !row.archived_at && row.kind !== 'vector')
+    .map((row) => ({ id: String(row.asset_id), label: String(row.title ?? row.asset_id) }));
 
   return (
     <AdminShell
@@ -58,6 +65,7 @@ export default async function MenuItemPage({ params }: { params: Promise<{ item:
         versions={versions}
         canPublish={staffCan(staff, 'content.publish')}
         archived={found.item.state === 'archived'}
+        mediaOptions={mediaOptions}
       />
     </AdminShell>
   );

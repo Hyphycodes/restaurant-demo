@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
+import { PageHero } from '@/components/cosa/page/PageHero';
 import { TalentForm } from '@/components/forms/TalentForm';
-import { Asset } from '@/components/media/Asset';
 import { Band, Frame } from '@/components/primitives/Band';
 import { Reveal } from '@/components/primitives/Reveal';
-import { Display, Eyebrow, Lead } from '@/components/primitives/Type';
+import { Eyebrow } from '@/components/primitives/Type';
 import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { MoreWays } from '@/components/visit/MoreWays';
 import { pageCopy, seo } from '@/content/pages';
@@ -20,54 +21,19 @@ export default async function TalentPage() {
 
   return (
     <>
-      <Band surface="plum" size="sm">
-        <Frame wide>
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
-            <div className="lg:col-span-6">
-              <Eyebrow tone="night">{copy.eyebrow ?? pageCopy.talent.eyebrow}</Eyebrow>
-              <Display as="h1" size="xl" className="mt-3 text-night-text">
-                {copy.heading}
-              </Display>
-              <Lead tone="night" className="mt-6">
-                {copy.body ?? pageCopy.talent.body}
-              </Lead>
-              <a
-                href="#share"
-                className="mt-8 inline-flex min-h-12 items-center justify-center rounded-(--radius-md) bg-orange px-7 text-base font-semibold tracking-[0.02em] text-on-orange transition-colors hover:bg-orange-deep"
-              >
-                Show us what you do
-              </a>
-              <p className="mt-4 text-[0.875rem] text-night-soft">
-                A sentence and a link is plenty. It takes about a minute.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 lg:col-span-5 lg:col-start-8 lg:gap-4">
-              <Asset
-                id="roomCrowd"
-                className="col-span-2 aspect-3/2 w-full"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                priority
-                tone="dark"
-              />
-              {/* Both squares, so the mosaic has one straight bottom edge
-                  rather than a ragged one. */}
-              <Asset
-                id="bartender"
-                className="aspect-square w-full"
-                sizes="(min-width: 1024px) 20vw, 50vw"
-                tone="dark"
-              />
-              <Asset
-                id="cocktailPair"
-                className="aspect-square w-full"
-                sizes="(min-width: 1024px) 20vw, 50vw"
-                tone="dark"
-              />
-            </div>
-          </div>
-        </Frame>
-      </Band>
+      <PageHero
+        eyebrow={copy.eyebrow ?? pageCopy.talent.eyebrow}
+        title={<EditorialTitle text={copy.heading} />}
+        lede={copy.body ?? pageCopy.talent.body}
+        asset="roomNight"
+        assetTall="roomNightTall"
+        focus={{ x: '52%', y: '74%' }}
+        aside={
+          <a href="#share" className="cn-btn">
+            Show us what you do <span className="cn-arrow" aria-hidden="true">→</span>
+          </a>
+        }
+      />
 
       <Band surface="ivory">
         <Frame wide>

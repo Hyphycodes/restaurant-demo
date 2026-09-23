@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
+import { PageHero } from '@/components/cosa/page/PageHero';
 import { ApplyForm } from '@/components/forms/ApplyForm';
 import { OpeningList } from '@/components/careers/OpeningList';
-import { Asset } from '@/components/media/Asset';
 import { Band, Frame } from '@/components/primitives/Band';
 import { Reveal } from '@/components/primitives/Reveal';
-import { Display, Eyebrow } from '@/components/primitives/Type';
+import { Eyebrow } from '@/components/primitives/Type';
 import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { MoreWays } from '@/components/visit/MoreWays';
 import { pageCopy, seo } from '@/content/pages';
@@ -34,53 +35,23 @@ export default async function CareersPage({
 
   return (
     <>
-      <Band surface="sand" size="sm">
-        <Frame wide>
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-12">
-            <div className="lg:col-span-6">
-              <Eyebrow>{copy.eyebrow ?? pageCopy.careers.eyebrow}</Eyebrow>
-              <Display as="h1" size="xl" className="mt-3 text-brown">
-                {copy.heading}
-              </Display>
-              <p className="measure-lead mt-6 text-[length:var(--text-body-lg)] leading-relaxed text-brown">
-                {copy.body ?? pageCopy.careers.body}
-              </p>
-              <a
-                href="#apply"
-                className="mt-8 inline-flex min-h-12 items-center justify-center rounded-(--radius-md) bg-orange px-7 py-3.5 font-semibold tracking-[0.02em] text-on-orange transition-colors hover:bg-orange-deep"
-              >
-                {hiring ? 'Apply now' : 'Put your name in'}
-              </a>
-              <p className="mt-4 text-[0.875rem] text-brown">
-                Rather talk to somebody? Call{' '}
-                <a
-                  href={formatPhoneHref(site.phone.value)}
-                  className="tabular font-semibold underline underline-offset-4"
-                >
-                  {site.phone.value}
-                </a>{' '}
-                or stop in.
-              </p>
-            </div>
-            {/* Stacked wide on a phone, a diptych from lg. Two full-width
-                3:2 photographs beside a four-line heading left a hole the
-                height of a screen above the words. */}
-            <div className="grid grid-cols-2 gap-3 lg:col-span-5 lg:col-start-8 lg:gap-4">
-              <Asset
-                id="teamEnergy"
-                className="col-span-2 aspect-3/2 w-full lg:col-span-1 lg:aspect-4/5"
-                sizes="(min-width: 1024px) 20vw, 100vw"
-                priority
-              />
-              <Asset
-                id="roomAtmosphere"
-                className="col-span-2 aspect-3/2 w-full lg:col-span-1 lg:aspect-4/5"
-                sizes="(min-width: 1024px) 20vw, 100vw"
-              />
-            </div>
+      <PageHero
+        eyebrow={copy.eyebrow ?? pageCopy.careers.eyebrow}
+        title={<EditorialTitle text={copy.heading} />}
+        lede={copy.body ?? pageCopy.careers.body}
+        asset="barNight"
+        focus={{ x: '45%', y: '35%' }}
+        aside={
+          <div className="flex flex-wrap items-center gap-4">
+            <a href="#apply" className="cn-btn">
+              {hiring ? 'Apply now' : 'Put your name in'} <span className="cn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href={formatPhoneHref(site.phone.value)} className="cn-link">
+              {site.phone.value}
+            </a>
           </div>
-        </Frame>
-      </Band>
+        }
+      />
 
       {/* What is open, first. */}
       <Band surface="ivory" id="openings">

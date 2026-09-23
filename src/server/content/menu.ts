@@ -63,6 +63,7 @@ function toPublicItem(row: Row, modifiers: Row[]): MenuItem | null {
     dietary: ((source.dietary as Dietary[]) ?? []) as Dietary[],
     available: availability === 'available',
     featured: Boolean(source.featured),
+    imageAssetId: (source.media_asset_id as string | null) ?? null,
   };
 }
 

@@ -265,15 +265,20 @@ export function buildStaffDemo(now = new Date(), options: { userIds?: boolean } 
     const tag = offset === -7 ? 'last' : offset === 0 ? 'this' : 'next';
     const nightShift = (key: string, employee: keyof typeof DEMO_EMPLOYEES | null, position: string, day: number, start: number, end: number, row: Row = {}) => shifts.push(shift(`${tag}:${key}`, employee, position, addDays(base, day), start, end, { status, published_at: status === 'published' ? addDays(base, -3) : null, ...row }));
     nightShift('alex-mon', 'alex', 'manager', 0, 15 * 60, 23 * 60);
+    nightShift('alex-wed', 'alex', 'manager', 2, 15 * 60, 23 * 60);
     nightShift('alex-thu', 'alex', 'manager', 3, 16 * 60, 60);
     nightShift('alex-fri', 'alex', 'manager', 4, 16 * 60, 90);
     nightShift('alex-sat', 'alex', 'manager', 5, 16 * 60, 90);
     nightShift('carlos-tue', 'carlos', 'bartender', 1, 16 * 60, 23 * 60);
+    // Every night has a crew, so "today" in the demo is never empty.
+    nightShift('carlos-wed', 'carlos', 'bartender', 2, 17 * 60, 23 * 60, { note: 'Aperitivo Club — batch the spritzes before five.' });
     nightShift('carlos-thu', 'carlos', 'bartender', 3, 17 * 60, 60);
     nightShift('carlos-fri', 'carlos', 'bartender', 4, 17 * 60, 90, { note: 'After Hours Saturday prep after close: restock the well.' });
     nightShift('carlos-sat', 'carlos', 'bartender', 5, 17 * 60, 90);
     nightShift('carlos-sun', 'carlos', 'server', 6, 15 * 60, 22 * 60);
+    nightShift('maria-mon', 'maria', 'server', 0, 16 * 60, 22 * 60);
     nightShift('maria-tue', 'maria', 'server', 1, 15 * 60, 22 * 60);
+    nightShift('open-wed-host', null, 'host', 2, 16 * 60, 22 * 60);
     nightShift('maria-fri', 'maria', 'server', 4, 17 * 60, 90);
     nightShift('maria-sat', 'maria', 'bartender', 5, 20 * 60 + 30, 90);
     nightShift('maria-sun', 'maria', 'server', 6, 15 * 60, 22 * 60);

@@ -332,7 +332,7 @@
 .cn-plates-index {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
-  color: var(--cn-wine);
+  color: var(--cn-wine-ink);
 }
 .cn-plates-name {
   font-family: var(--cn-serif);
@@ -352,7 +352,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--cn-wine);
+  color: var(--cn-wine-ink);
   vertical-align: 0.35em;
   margin-left: 0.6rem;
 }

@@ -1,162 +1,147 @@
 import type { Metadata } from 'next';
-import { Asset } from '@/components/media/Asset';
-import { Band, Frame } from '@/components/primitives/Band';
-import { ExternalButtonLink, ExternalTextLink } from '@/components/primitives/Button';
-import { Display, Eyebrow } from '@/components/primitives/Type';
-import { ThemePhotoGuest, ThemeWorld } from '@/components/theme/ThemeWorld';
-import { LocationCard } from '@/components/visit/LocationCard';
-import { MoreWays } from '@/components/visit/MoreWays';
+import Link from 'next/link';
+import { MotionScope } from '@/components/cosa/motion/MotionScope';
+import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
+import { NeighborhoodMap } from '@/components/cosa/page/NeighborhoodMap';
+import { PageHero } from '@/components/cosa/page/PageHero';
+import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { pageCopy, seo } from '@/content/pages';
 import { getSiteSettings } from '@/content/resolve';
+import { formatPhoneHref } from '@/lib/format';
+import { getOpenState, groupHours } from '@/lib/hours';
 import { buildMetadata } from '@/lib/seo';
-import { buildVisitLocations } from '@/lib/visit';
 import { getPageCopy } from '@/server/content/pages';
 
 export const metadata: Metadata = buildMetadata({ ...seo.visit!, path: '/visit' });
+export const dynamic = 'force-dynamic';
 
-// Hourly — the open/closed state changes through the day.
-export const revalidate = 3600;
+const ARRIVING = [
+  ['By train', 'Morgan station on the Green and Pink lines, five minutes on foot. Walk south on Morgan and look for the brass sconce.'],
+  ['By car', 'Valet at the door Thursday to Saturday from 5pm. Metered street parking on Randolph after 6pm.'],
+  ['Rideshare', 'Set your drop-off to the corner of Morgan and Randolph; the green door is thirty steps east.'],
+  ['On two wheels', 'A bike dock on the corner of Carpenter. Bring your helmet inside — we have a hook for it.'],
+];
 
-/**
- * Visit.
- *
- * The full version of what /contact previews: the same address card, the same
- * directions chooser and the same hours — one component, so the two pages
- * cannot disagree — and then everything a guest wants once they have decided
- * to come. Booking and ordering, the room itself, and where to follow us.
- *
- * There is still no interactive map embed. It would load a third-party script
- * and cost a network round trip before the guest has shown any intent;
- * "Get directions" opens the real map, in their own app, when they want it.
- */
+const BEFORE = [
+  ['Walk-ins', 'The bar and its eight stools are never booked. Come early, stay late.'],
+  ['Dress', 'Come as you are. Most people dress up a little because the room makes them want to.'],
+  ['Children', 'Welcome for dinner until 8pm. The Listening Room is 21+ after nine.'],
+  ['Accessibility', 'Step-free entrance on the alley side, accessible restroom on the ground floor.'],
+];
+
+/** Everything practical about getting to the table, in one calm place. */
 export default async function VisitPage() {
-  // Address, phone and links come from settings, so an edit in the admin
-  // reaches every page rather than only the ones somebody remembered. The
-  // heading comes from the page record, so the control in the admin does
-  // something — the address underneath it is still single-sourced.
   const [site, copy] = await Promise.all([getSiteSettings(), getPageCopy('visit')]);
-  const locations = buildVisitLocations(site);
+  const now = new Date();
+  const open = getOpenState(site.hours.value, site.temporaryClosures, now, site.timeZone);
+  const hours = groupHours(site.hours.value);
 
   return (
     <>
-      <Band surface="sand" size="sm">
-        <Frame wide>
-          <Eyebrow>{copy.eyebrow ?? pageCopy.visit.eyebrow}</Eyebrow>
-          <Display as="h1" size="lg" className="mt-3 max-w-[16ch] text-brown">
-            {copy.heading}
-          </Display>
-          <p className="measure-lead mt-4 text-[length:var(--text-body-lg)] leading-relaxed text-brown">
-            {copy.body ?? pageCopy.visit.body}
-          </p>
-
-          <div className="mt-10">
-            {locations.map((location) => (
-              <LocationCard
-                key={location.id}
-                location={location}
-                priority
-                showName={locations.length > 1}
-              />
-            ))}
-          </div>
-
-          {site.hours.provisional ? (
-            <p className="measure mt-8 text-[0.875rem] leading-relaxed text-brown">
-              Kitchen and bar hours can shift on holidays and event nights — call ahead if you are
-              making a special trip.
+      <PageHero
+        eyebrow={copy.eyebrow ?? pageCopy.visit.eyebrow}
+        title={<EditorialTitle text={copy.heading} />}
+        lede={copy.body ?? pageCopy.visit.body}
+        asset="roomNight"
+        assetTall="roomNightTall"
+        focus={{ x: '52%', y: '74%' }}
+        aside={
+          <div className="grid gap-5">
+            <p className="cn-chip" data-tone={open.open ? 'live' : undefined}>
+              <span className="cn-dot" data-live={open.open} aria-hidden="true" /> {open.label}
             </p>
-          ) : null}
-        </Frame>
-      </Band>
+            <Link href={site.reservationUrl} className="cn-btn">
+              Find your table <span className="cn-arrow" aria-hidden="true">→</span>
+            </Link>
+          </div>
+        }
+      />
 
-      <Band surface="cream">
-        <Frame wide>
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-5">
-              <Eyebrow>Book a table</Eyebrow>
-              <h2 className="display mt-4 text-[clamp(1.5rem,2.4vw,1.875rem)] text-brown">
-                Reserve, or take it with you.
-              </h2>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <ExternalButtonLink href={site.reservationUrl} destination="Demo ordering reservations">
-                  Reserve a table
-                </ExternalButtonLink>
-                <ExternalButtonLink
-                  href={site.orderUrl}
-                  destination="Demo ordering ordering"
-                  variant="secondary"
-                >
-                  Order online
-                </ExternalButtonLink>
+      <MotionScope as="section" className="cn-night cn-section" aria-labelledby="where-title">
+        <div className="cn-wrap cn-two-col">
+          <div>
+            <p className="cn-eyebrow" data-m="up">
+              Where
+            </p>
+            <h2 id="where-title" className="cn-display cn-lg mt-4" data-m="title">
+              A green door, <em>mid-block.</em>
+            </h2>
+            <address className="cn-lede mt-6 not-italic" data-m="up">
+              {site.name} · {site.street}, {site.locality}
+              <br />
+              <span className="cn-body">A fictional address — the restaurant is imagined, the neighbourhood is real.</span>
+            </address>
+            <dl className="cn-arrive" data-m="stagger">
+              {ARRIVING.map(([title, text]) => (
+                <div key={title}>
+                  <dt className="cn-eyebrow">{title}</dt>
+                  <dd className="cn-body">{text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="cn-map-frame" data-m="up">
+            <NeighborhoodMap />
+          </div>
+        </div>
+      </MotionScope>
+
+      <MotionScope as="section" className="cn-paper cn-grain cn-section" aria-labelledby="hours-title">
+        <div className="cn-wrap cn-two-col">
+          <div>
+            <p className="cn-eyebrow" data-m="up">
+              Hours
+            </p>
+            <h2 id="hours-title" className="cn-display cn-lg mt-4" data-m="title">
+              Dinner nightly. <em>Late on weekends.</em>
+            </h2>
+            <dl className="cn-visit-hours cn-num mt-8" data-m="stagger">
+              <div className="cn-visit-now">
+                <dt className="cn-eyebrow">Right now</dt>
+                <dd>{open.label}</dd>
               </div>
-            </div>
-
-            <div className="lg:col-span-3 lg:col-start-7">
-              <Eyebrow>Getting here</Eyebrow>
-              <address className="mt-6 not-italic leading-relaxed text-brown">
-                <span className="block font-medium">{site.name}</span>
-                <span className="block">{site.street}</span>
-                <span className="block">
-                  {site.locality}, {site.region} {site.postalCode}
-                </span>
-              </address>
-              <div className="mt-4 flex flex-col gap-2 text-[0.9375rem]">
-                <ExternalTextLink
-                  href={site.directionsUrl}
-                  destination="Google Maps"
-                  className="text-brown"
-                >
-                  Open in Google Maps
-                </ExternalTextLink>
-              </div>
-            </div>
-
-            <div className="lg:col-span-3 lg:col-start-10">
-              <Eyebrow>Follow</Eyebrow>
-              <ul className="mt-6 space-y-2 text-[0.9375rem]">
-                {site.socials.map((social) => (
-                  <li key={social.platform}>
-                    <ExternalTextLink
-                      href={social.url}
-                      destination={social.platform}
-                      className="text-brown"
-                    >
-                      {social.handle}
-                    </ExternalTextLink>
+              {hours.map((group) => (
+                <div key={group.label}>
+                  <dt>{group.label}</dt>
+                  <dd>{group.value}</dd>
+                </div>
+              ))}
+            </dl>
+            {site.temporaryClosures.length > 0 ? (
+              <ul className="cn-body mt-6">
+                {site.temporaryClosures.map((closure) => (
+                  <li key={closure.id}>
+                    <strong>{closure.date}</strong> — {closure.reason}
                   </li>
                 ))}
               </ul>
+            ) : null}
+          </div>
+          <div>
+            <p className="cn-eyebrow" data-m="up">
+              Before you come
+            </p>
+            <dl className="cn-service mt-6" data-m="stagger">
+              {BEFORE.map(([title, text]) => (
+                <div key={title}>
+                  <dt className="cn-display cn-sm">{title}</dt>
+                  <dd className="cn-body">{text}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="mt-10 flex flex-wrap items-center gap-5" data-m="up">
+              <a href={formatPhoneHref(site.phone.value)} className="cn-btn">
+                Call {site.phone.value}
+              </a>
+              {site.email ? (
+                <a href={`mailto:${site.email}`} className="cn-link">
+                  {site.email}
+                </a>
+              ) : null}
             </div>
           </div>
-        </Frame>
-      </Band>
-
-      {/* The room, before you arrive. */}
-      <Band surface="ivory-deep" size="sm">
-        <Frame wide>
-          <Eyebrow>The room</Eyebrow>
-          <div className="relative mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-            <ThemePhotoGuest name="supper-guests" />
-            <Asset
-              id="diningRoom"
-              className="aspect-3/4 w-full"
-              sizes="(min-width: 640px) 30vw, 50vw"
-            />
-            <Asset
-              id="backBar"
-              className="aspect-3/4 w-full"
-              sizes="(min-width: 640px) 30vw, 50vw"
-            />
-            <Asset
-              id="cocktailPair"
-              className="col-span-2 aspect-3/2 w-full sm:col-span-1 sm:aspect-3/4"
-              sizes="(min-width: 640px) 30vw, 100vw"
-            />
-          </div>
-        </Frame>
-      </Band>
-
-      <MoreWays current="visit" />
+        </div>
+      </MotionScope>
       <ThemeWorld scene="welcome" />
     </>
   );

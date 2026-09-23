@@ -28,7 +28,9 @@ export function ItemEditor({
   versions,
   canPublish,
   archived,
+  mediaOptions = [],
 }: {
+  mediaOptions?: { id: string; label: string }[];
   item: AdminMenuItem;
   categories: AdminMenuCategory[];
   versions: VersionEntry[];
@@ -197,6 +199,24 @@ export function ItemEditor({
                 {tag.label}
               </label>
             ))}
+          </div>
+          <div className="mt-3 border-t border-brown/12 pt-3">
+            <label htmlFor="mediaAssetId" className="block text-[0.9375rem] font-semibold text-brown">
+              Photograph <span className="font-normal text-brown-soft">(optional — shown beside the dish on the menu)</span>
+            </label>
+            <select
+              id="mediaAssetId"
+              name="mediaAssetId"
+              defaultValue={item.mediaAssetId ?? ''}
+              className="mt-2 min-h-11 w-full rounded-(--radius-md) border border-brown/25 bg-transparent px-3 text-[0.9375rem] text-brown"
+            >
+              <option value="">No photograph</option>
+              {mediaOptions.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mt-3 border-t border-brown/12 pt-3">
             <Checkbox id="featured" name="featured" defaultChecked={item.featured}>

@@ -1,19 +1,34 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { AdminShell } from '@/components/admin/AdminShell';
-import { CountUp } from '@/components/admin/CountUp';
-import { Card, LinkButton, TaskLink } from '@/components/admin/ui';
+import { LinkButton } from '@/components/admin/ui';
+import { HeadlineStrip, type HeadlineCell } from '@/components/admin/tonight/HeadlineStrip';
+import {
+  loadFloor,
+  loadRecentOrders,
+  loadTeamWaiting,
+  previewEnquiries,
+  roomTonight,
+  safely,
+  serviceDate,
+  type FloorTonight,
+  type TeamWaiting,
+} from '@/components/admin/tonight/load';
+import { NeedsYou, type NeedsItem } from '@/components/admin/tonight/NeedsYou';
+import { NightHero, whenLabel } from '@/components/admin/tonight/NightHero';
+import { OnTheFloor } from '@/components/admin/tonight/OnTheFloor';
+import { Quiet } from '@/components/admin/tonight/parts';
+import { QuickActions } from '@/components/admin/tonight/QuickActions';
+import { ComingUp, formatMoney, TicketActivity } from '@/components/admin/tonight/TicketActivity';
 import { getSiteSettings } from '@/content/resolve';
+import type { ResolvedEvent } from '@/content/types';
 import { getReadDb, isLocalDb } from '@/lib/db';
 import type { Row } from '@/lib/db/types';
-import type { ResolvedEvent } from '@/content/types';
 import { getUpcomingEvents, venueIsoDate } from '@/lib/events';
-import { formatEventDateCompact, formatPrice, formatTimeRangeCompact } from '@/lib/format';
+import { formatTimeRangeCompact } from '@/lib/format';
 import { getOpenState } from '@/lib/hours';
+import { addDays, formatDate, formatDayShort, formatClockShort } from '@/lib/staff/time';
 import { getStaff } from '@/server/auth';
-import { getAttention, housekeepingSentence } from '@/server/content/attention';
-import { countNewApplications } from '@/server/content/hiring';
-import { countNewTalent } from '@/server/content/talent';
+import { getAttention, housekeepingSentence, type Attention } from '@/server/content/attention';
 import { getEditableEvents } from '@/server/content/events';
 import { getEventAvailability } from '@/server/ticketing/availability';
 import { isTicketingConfigured } from '@/server/ticketing/db';
@@ -22,12 +37,17 @@ import { getSalesSummaries, type SalesSummary } from '@/server/ticketing/sales';
 export const dynamic = 'force-dynamic';
 
 /**
- * Home: a money screen, not a task screen.
+ * Home is "Tonight": what is happening today, answered before anything else.
  *
- * The first thing on it is what is selling and what is next. Housekeeping is
- * one quiet, uncounted sentence at the bottom. Nothing here is red, nothing
- * says SOON, nothing carries a badge. The only things that get a band at the
- * top are the ones that cost money right now.
+ * Read top to bottom it is the owner's walk-through at five o'clock: is the
+ * room open and until when, what is on and how full it is, who is working,
+ * what is waiting on me, how the week is selling. It is not an analytics
+ * screen — every figure is one somebody can act on tonight, and every empty
+ * section says so in a sentence instead of a zero.
+ *
+ * Money problems (a night on sale with nothing priced, a door nobody is
+ * scanning) lead "Needs you", marked "Now". Housekeeping is one quiet,
+ * uncounted sentence at the end of it.
  */
 export default async function AdminHome() {
   const staff = await getStaff();
@@ -37,235 +57,328 @@ export default async function AdminHome() {
 
   const now = new Date();
   const db = getReadDb();
-  const [settings, events, attention, inquiries, newApplicants, newTalent] = await Promise.all([
-    getSiteSettings(),
-    db ? getEditableEvents(db) : { series: [], occurrences: [] },
-    db ? getAttention(db, now) : [],
-    db ? db.list<Row>('inquiries', { where: { status: 'new' } }) : [],
-    db ? countNewApplications(db) : 0,
-    db ? countNewTalent(db) : 0,
+  // The roster and the team's requests are people's data: owner and managers only.
+  const seesTeam = staff.role === 'owner' || staff.role === 'admin';
+  const settings = await getSiteSettings();
+  const timeZone = settings.timeZone || 'America/Chicago';
+
+  const noTeam: TeamWaiting = { coverage: [], timeOff: [], unacknowledged: [] };
+  const [events, attention, inquiries, applicants, talent, floor, team] = await Promise.all([
+    db ? safely(getEditableEvents(db), { series: [], occurrences: [] }) : { series: [], occurrences: [] },
+    db ? safely(getAttention(db, now), [] as Attention[]) : [],
+    db ? safely(db.list<Row>('inquiries', { where: { status: 'new' } }), [] as Row[]) : [],
+    db ? safely(db.list<Row>('job_applications', { where: { status: 'new' }, limit: 200 }), [] as Row[]) : [],
+    db ? safely(db.list<Row>('talent_submissions', { where: { status: 'new' }, limit: 200 }), [] as Row[]) : [],
+    db && seesTeam ? safely(loadFloor(db, now, timeZone), null) : null,
+    db && seesTeam ? safely(loadTeamWaiting(db, now), noTeam) : noTeam,
   ]);
 
-  const upcoming = getUpcomingEvents(events, now).filter((event) => event.seriesSlug === null);
-  const next = upcoming[0] ?? null;
-  const later = upcoming.slice(1, 6);
-  const week = upcoming.filter((event) => Date.parse(event.startsAt) < now.getTime() + 7 * 86_400_000);
-  const ids = upcoming.map((event) => event.overrideId!).filter(Boolean);
-  const [summaries, nextAvailability] = await Promise.all([
-    getSalesSummaries(ids),
-    next?.ticketing.enabled && next.overrideId ? getEventAvailability(next.overrideId) : Promise.resolve(null),
+  /* ------------------------------------------------------------ the night -- */
+
+  const today = floor?.date ?? serviceDate(now, timeZone);
+  const tomorrow = addDays(today, 1);
+  const upcoming = getUpcomingEvents(events, now);
+  const happening = (event: ResolvedEvent) => event.status !== 'cancelled' && event.status !== 'postponed';
+  // Tonight is every night on the calendar today, recurring or not; a
+  // ticketed one leads because it has a door to run.
+  const tonight = upcoming
+    .filter((event) => venueIsoDate(event.startsAt) === today && happening(event))
+    .sort((a, b) => Number(b.ticketing.enabled) - Number(a.ticketing.enabled));
+  // Beyond tonight, the one-off nights: the weekly regulars would otherwise
+  // fill every slot and bury the night that is actually selling.
+  const oneOffs = upcoming.filter((event) => event.seriesSlug === null && !tonight.includes(event));
+  const hero = tonight[0] ?? oneOffs[0] ?? upcoming.find(happening) ?? null;
+  const later = oneOffs.filter((event) => event !== hero).slice(0, 4);
+  const week = upcoming.filter((event) => event.ticketing.enabled && Date.parse(event.startsAt) < now.getTime() + 7 * 86_400_000);
+
+  const ids = [...new Set([...tonight, ...oneOffs.slice(0, 8), ...week].map((event) => event.overrideId).filter((id): id is string => Boolean(id)))];
+  const [summaries, heroAvailability, orders] = await Promise.all([
+    safely(getSalesSummaries(ids), new Map<string, SalesSummary>()),
+    hero?.ticketing.enabled && hero.overrideId ? safely(getEventAvailability(hero.overrideId), null) : Promise.resolve(null),
+    safely(loadRecentOrders(week, 4), []),
   ]);
-  const nextSummary = next?.overrideId ? summaries.get(next.overrideId) ?? null : null;
+  const summaryOf = (event: ResolvedEvent | null | undefined) => (event?.overrideId ? summaries.get(event.overrideId) ?? null : null);
+  const weekSold = week.reduce((sum, event) => sum + (summaryOf(event)?.ticketsSold ?? 0), 0);
+  const weekCents = week.reduce((sum, event) => sum + (summaryOf(event)?.netCents ?? 0), 0);
 
-  const weekSold = week.reduce((sum, event) => sum + (summaries.get(event.overrideId ?? '')?.ticketsSold ?? 0), 0);
-  const weekCents = week.reduce((sum, event) => sum + (summaries.get(event.overrideId ?? '')?.netCents ?? 0), 0);
+  /* ------------------------------------------------------------- the room -- */
 
-  const openState = getOpenState(settings.hours.value, settings.temporaryClosures, now, settings.timeZone);
-  const hour = Number(new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: settings.timeZone }).format(now));
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const openState = getOpenState(settings.hours.value, settings.temporaryClosures, now, timeZone);
+  const room = roomTonight(settings.hours.value, settings.temporaryClosures, today);
+  const roomOpenTonight = room.hours !== null;
+
+  const hour = Number(new Intl.DateTimeFormat('en-US', { hour: 'numeric', hourCycle: 'h23', timeZone }).format(now));
+  const greeting = hour < 5 ? 'Still up' : hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
   const name = staff.source === 'open' ? '' : `, ${(staff.name || staff.email).split(/[\s@]+/)[0]}`;
-  const stateLine = `${openState.open ? `Open now, ${openState.label.toLowerCase()}` : openState.label}. ${
-    upcoming.length === 0 ? 'Nothing on the calendar yet.' : upcoming.length === 1 ? 'One event on the calendar.' : `${upcoming.length} events on the calendar.`
+  const dateLine = `${formatDate(today)}. ${
+    tonight.length === 0
+      ? roomOpenTonight
+        ? 'Dinner service, nothing special on.'
+        : 'No service tonight.'
+      : tonight.length === 1
+        ? `${tonight[0]!.title} tonight.`
+        : `${tonight.length} things on tonight.`
   }`;
 
-  // The only things that get a band: what costs money right now.
-  const problems = moneyProblems(upcoming, summaries, now, nextAvailability?.tiers.length ?? null);
-  const housekeeping = housekeepingSentence(attention.filter((entry) => entry.kind !== 'tickets'));
+  /* ------------------------------------------------------------ the strip -- */
 
-  // One line, not three badges. Each item is somebody waiting on a reply, and
-  // anything with nobody waiting says nothing at all. Labels are written in
-  // lower case and the first one is capitalised where it is rendered, because
-  // which item comes first depends on what happens to be waiting.
-  const waiting: { href: string; label: string }[] = [];
+  const cells: HeadlineCell[] = [
+    roomCell(openState, room),
+    tonightCell(tonight, summaryOf, roomOpenTonight),
+    seesTeam && floor ? floorCell(floor) : nextCell(oneOffs[0] ?? null, summaryOf),
+    {
+      label: 'Next 7 days',
+      value: week.length === 0 ? 'Quiet' : formatMoney(weekCents),
+      numeric: week.length > 0,
+      detail: week.length === 0 ? 'No ticketed nights this week' : `${weekSold} tickets · ${week.length} ${week.length === 1 ? 'night' : 'nights'}`,
+      href: '/admin/events',
+    },
+  ];
+
+  /* ----------------------------------------------------------- needs you -- */
+
+  const needs: NeedsItem[] = [
+    ...moneyProblems(hero, summaries, now, heroAvailability?.tiers.length ?? null, upcoming),
+    ...needsFromTeam(team, today, tomorrow, 'soon'),
+  ];
   if (inquiries.length > 0) {
-    waiting.push({
+    const preview = previewEnquiries(inquiries);
+    needs.push({
+      id: 'inquiries',
+      lead: inquiries.length,
+      title: inquiries.length === 1 ? 'New enquiry' : 'New enquiries',
+      detail: preview.slice(0, 2).map((entry) => `${entry.name} — ${entry.kind}`).join(' · '),
       href: '/admin/inquiries',
-      label: inquiries.length === 1 ? 'one new enquiry' : `${inquiries.length} new enquiries`,
     });
   }
-  if (newApplicants > 0) {
-    waiting.push({
+  needs.push(...needsFromTeam(team, today, tomorrow, 'later'));
+  if (applicants.length > 0) {
+    needs.push({
+      id: 'applicants',
+      lead: applicants.length,
+      title: applicants.length === 1 ? 'New job application' : 'New job applications',
+      detail: applicants.slice(0, 2).map((row) => [row.name, row.position].filter(Boolean).join(' for ')).join(' · '),
       href: '/admin/hiring',
-      label: newApplicants === 1 ? 'one job application' : `${newApplicants} job applications`,
     });
   }
-  if (newTalent > 0) {
-    waiting.push({
+  if (talent.length > 0) {
+    needs.push({
+      id: 'talent',
+      lead: talent.length,
+      title: talent.length === 1 ? 'New talent submission' : 'New talent submissions',
+      detail: talent.slice(0, 2).map((row) => String(row.name ?? 'Someone')).join(' · '),
       href: '/admin/talent',
-      label: newTalent === 1 ? 'one talent submission' : `${newTalent} talent submissions`,
     });
   }
+  for (const announcement of team.unacknowledged.slice(0, 2)) {
+    const waiting = (announcement.audience ?? 0) - (announcement.acknowledged ?? 0);
+    needs.push({
+      id: `announcement-${announcement.id}`,
+      lead: waiting,
+      title: `Still to confirm “${announcement.title}”`,
+      detail: `${announcement.acknowledged ?? 0} of ${announcement.audience ?? 0} of the team have read and acknowledged it`,
+      href: '/staff/announcements/manage',
+    });
+  }
+  const blocking = attention.filter((entry) => entry.severity === 'blocking' && entry.kind !== 'tickets');
+  if (blocking.length > 0) {
+    needs.push({
+      id: 'website',
+      lead: blocking.length,
+      title: blocking.length === 1 ? 'Thing on the website needs fixing' : 'Things on the website need fixing',
+      detail: blocking[0]!.message,
+      href: blocking.length === 1 ? blocking[0]!.href : '/admin/tidy',
+    });
+  }
+  const housekeeping = housekeepingSentence(attention.filter((entry) => entry.severity !== 'blocking' && entry.kind !== 'tickets'));
+
+  /* --------------------------------------------------------------- render -- */
 
   return (
-    <AdminShell staff={staff} local={isLocalDb()} title={`${greeting}${name}.`} description={stateLine}>
-      {problems.length > 0 ? (
-        <div className="mb-6 grid gap-2">
-          {problems.map((problem) => (
-            <div key={problem.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-(--radius-md) border border-amber/50 bg-amber/8 px-4 py-3 text-[0.9375rem] text-brown">
-              <p className="min-w-0">{problem.message}</p>
-              <LinkButton href={problem.href} variant="primary">{problem.action}</LinkButton>
-            </div>
-          ))}
-        </div>
-      ) : null}
+    <AdminShell staff={staff} local={isLocalDb()} title={`${greeting}${name}.`} description={dateLine}>
+      <HeadlineStrip cells={cells} />
 
-      {/* Up next — the only bold element. */}
-      {next ? (
-        <UpNext event={next} summary={nextSummary} tiersKnown={nextAvailability?.tiers.length ?? null} ticketingOn={isTicketingConfigured()} />
-      ) : (
-        <Card>
-          <p className="display text-[clamp(1.5rem,3vw,2rem)] leading-none text-brown">Nothing on the calendar yet.</p>
-          <p className="mt-3 text-[0.9375rem] leading-relaxed text-brown-soft">Want to put something up? A flyer and a date is enough to start.</p>
-          <div className="mt-5">
-            <LinkButton href="/admin/events/new" variant="primary">Add an event</LinkButton>
+      {/* Two columns from a laptop up. On a phone the columns dissolve
+          (`contents`) so the sections can be re-ordered: the night, then
+          what is waiting on you, then the floor, then the money. */}
+      <div className="mt-8 grid gap-x-8 gap-y-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <div className="contents lg:grid lg:min-w-0 lg:content-start lg:gap-10">
+          <div className="order-1 min-w-0 lg:order-none">
+            {hero ? (
+              <NightHero
+                event={hero}
+                eyebrow={tonight.includes(hero) ? 'Tonight' : `Up next · ${whenLabel(hero, today, tomorrow, venueIsoDate)}`}
+                summary={summaryOf(hero)}
+                tiersKnown={heroAvailability?.tiers.length ?? null}
+                ticketingOn={isTicketingConfigured()}
+              >
+                {tonight.length > 1 ? (
+                  <p className="text-[0.9375rem] text-brown-soft">
+                    Also tonight:{' '}
+                    {tonight.slice(1).map((event, index) => (
+                      <span key={event.id}>
+                        {index > 0 ? ', ' : ''}
+                        <span className="font-semibold text-brown">{event.title}</span>{' '}
+                        <span className="tabular">{formatTimeRangeCompact(event.startsAt, event.endsAt)}</span>
+                      </span>
+                    ))}
+                  </p>
+                ) : null}
+              </NightHero>
+            ) : (
+              <Quiet title="Nothing on the calendar yet.">
+                <p>Want to put something up? A flyer and a date is enough to start.</p>
+                <div className="mt-4">
+                  <LinkButton href="/admin/events/new" variant="primary">
+                    Add an event
+                  </LinkButton>
+                </div>
+              </Quiet>
+            )}
           </div>
-        </Card>
-      )}
 
-      {/* This week, in one line, then the errands. */}
-      <div className="mt-8 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h2 className="text-[1rem] font-semibold text-brown">This week</h2>
-        <p className="tabular text-[0.9375rem] text-brown-soft">
-          {week.length === 0
-            ? 'Nothing on this week.'
-            : `${formatPrice(weekCents)} in tickets · ${weekSold} sold · ${week.length} ${week.length === 1 ? 'event' : 'events'}`}
-        </p>
+          {seesTeam && floor ? (
+            <div className="order-3 min-w-0 lg:order-none">
+              <OnTheFloor floor={floor} roomOpen={roomOpenTonight} now={now} />
+            </div>
+          ) : null}
+
+          <div className="order-4 min-w-0 lg:order-none">
+            <TicketActivity weekCents={weekCents} weekSold={weekSold} weekEvents={week.length} orders={orders} now={now} />
+          </div>
+        </div>
+
+        <div className="contents lg:grid lg:min-w-0 lg:content-start lg:gap-10">
+          <div className="order-2 min-w-0 lg:order-none">
+            <NeedsYou items={needs} housekeeping={housekeeping} />
+          </div>
+          <div className="order-5 min-w-0 lg:order-none">
+            <ComingUp events={later} summaries={summaries} />
+          </div>
+        </div>
       </div>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <TaskLink href="/admin/events/new" icon="events" title="Add an event" />
-        <TaskLink href="/admin/menu" icon="menu" title="Update the menu" />
-        <TaskLink href="/admin/link-hubs" icon="hubs" title="Link hubs" />
-        <TaskLink href="/admin/media?upload=1" icon="photos" title="Add a photo or video" />
+
+      <div className="mt-12 border-t border-brown/10 pt-8">
+        <QuickActions />
       </div>
-      {waiting.length > 0 ? (
-        <p className="mt-3 text-[0.9375rem] text-brown-soft">
-          {waiting.map((entry, index) => (
-            <span key={entry.href}>
-              {index > 0 ? (index === waiting.length - 1 ? ' and ' : ', ') : ''}
-              <Link href={entry.href} className="font-semibold text-brown underline underline-offset-4">
-                {index === 0 ? entry.label[0]!.toUpperCase() + entry.label.slice(1) : entry.label}
-              </Link>
-            </span>
-          ))}{' '}
-          to read.
-        </p>
-      ) : null}
-
-      {later.length > 0 ? (
-        <section className="mt-8">
-          <h2 className="text-[1rem] font-semibold text-brown">Later</h2>
-          <ul className="mt-2 divide-y divide-brown/10">
-            {later.map((event) => {
-              const summary = summaries.get(event.overrideId ?? '');
-              return (
-                <li key={event.id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3 text-[0.9375rem]">
-                  <span className="tabular w-20 shrink-0 text-brown-soft">{formatEventDateCompact(event.startsAt).replace(/^\w+ /, '')}</span>
-                  <Link href={`/admin/events/one/${encodeURIComponent(event.overrideId ?? '')}`} className="min-w-0 flex-1 truncate font-semibold text-brown underline-offset-4 hover:underline">
-                    {event.title}
-                  </Link>
-                  <span className="tabular text-brown-soft">{soldLine(event, summary)}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      ) : null}
-
-      {housekeeping ? (
-        <p className="mt-10 border-t border-brown/10 pt-5 text-[0.9375rem] leading-relaxed text-brown-soft">
-          {housekeeping}{' '}
-          <Link href="/admin/tidy" className="underline underline-offset-4 hover:text-brown">
-            See the list
-          </Link>
-        </p>
-      ) : null}
     </AdminShell>
   );
 }
 
-function soldLine(event: ResolvedEvent, summary: SalesSummary | undefined): string {
-  if (!event.published) return 'draft';
-  if (!event.ticketing.enabled) return event.ticketUrl ? 'on Tickeri' : 'not on sale';
-  if (!summary) return 'not on sale yet';
-  return summary.capacity ? `${summary.ticketsSold} of ${summary.capacity}` : `${summary.ticketsSold} sold`;
+/* -------------------------------------------------------------------------- */
+
+function roomCell(openState: ReturnType<typeof getOpenState>, room: ReturnType<typeof roomTonight>): HeadlineCell {
+  const base = { label: 'The room', href: '/admin/settings' };
+  if (openState.open) {
+    return { ...base, value: openState.label, signal: 'on', detail: room.hours ? `Tonight ${room.hours}` : 'Open now' };
+  }
+  if (room.hours && openState.label.startsWith('Opens at')) {
+    return { ...base, value: openState.label, signal: 'off', detail: `Tonight ${room.hours}` };
+  }
+  if (room.hours) {
+    return { ...base, value: 'Closed', signal: 'off', detail: `Tonight was ${room.hours}. Rest up.` };
+  }
+  return { ...base, value: 'Closed tonight', signal: 'off', detail: room.closedReason ?? openState.closureReason ?? 'No service today' };
 }
 
-function UpNext({
-  event,
-  summary,
-  tiersKnown,
-  ticketingOn,
-}: {
-  event: ResolvedEvent;
-  summary: SalesSummary | null;
-  tiersKnown: number | null;
-  ticketingOn: boolean;
-}) {
-  const inHouse = event.ticketing.enabled;
-  const capacity = summary?.capacity ?? event.ticketing.capacity ?? null;
-  const sold = summary?.ticketsSold ?? 0;
-  const left = capacity !== null ? Math.max(0, capacity - (summary?.seatsTaken ?? 0)) : null;
-  const percent = capacity ? Math.min(100, Math.round((sold / capacity) * 100)) : 0;
-  const isToday = venueIsoDate(event.startsAt) === venueIsoDate(new Date().toISOString());
-  const editHref = `/admin/events/one/${encodeURIComponent(event.overrideId ?? '')}`;
-  const salesHref = `/admin/events/${encodeURIComponent(event.overrideId ?? '')}/sales`;
-
-  return (
-    <section aria-labelledby="up-next" className="admin-raised rounded-(--radius-lg) border border-brown/12 bg-linen p-5 sm:p-7">
-      <p id="up-next" className="text-[0.8125rem] font-semibold text-brown-soft">
-        Up next · {isToday ? 'Today' : formatEventDateCompact(event.startsAt)}
-      </p>
-      <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h2 className="display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-none text-brown">{event.title}</h2>
-        <p className="tabular text-[1rem] text-brown-soft">{formatTimeRangeCompact(event.startsAt, event.endsAt)}</p>
-      </div>
-
-      {inHouse && summary ? (
-        <>
-          <div className="mt-6 h-2 overflow-hidden rounded-full bg-brown/10" role="img" aria-label={capacity ? `${sold} of ${capacity} sold` : `${sold} sold`}>
-            <div className="h-full rounded-full bg-amber" style={{ width: `${capacity ? percent : sold > 0 ? 100 : 0}%` }} />
-          </div>
-          <p className="admin-figure mt-3 text-[clamp(2rem,5vw,3rem)] text-brown">
-            <CountUp value={sold} />
-            {capacity ? <span className="text-brown-soft"> of {capacity} sold</span> : <span className="text-brown-soft"> sold</span>}
-          </p>
-          <p className="tabular mt-2 text-[0.9375rem] text-brown-soft">
-            {formatPrice(summary.netCents)} collected
-            {left !== null ? ` · ${left} left` : ''}
-            {summary.lastSaleAt ? ` · last sale ${ago(summary.lastSaleAt)}` : ' · no sales yet'}
-            {summary.doorCents > 0 ? ` · ${formatPrice(summary.doorCents)} at the door` : ''}
-          </p>
-        </>
-      ) : inHouse ? (
-        <p className="mt-5 text-[0.9375rem] leading-relaxed text-brown-soft">
-          {!ticketingOn
-            ? 'Ticket sales are not connected on this copy of the site.'
-            : tiersKnown === 0
-              ? 'Ticketing is on but nothing is priced yet.'
-              : 'No sales yet.'}
-        </p>
-      ) : (
-        <p className="mt-5 text-[0.9375rem] leading-relaxed text-brown-soft">
-          {event.ticketUrl ? 'Tickets are sold on Tickeri, so sales are not counted here.' : 'Not on sale.'}
-        </p>
-      )}
-
-      <div className="mt-6 flex flex-wrap gap-2">
-        {inHouse ? <LinkButton href={salesHref} variant="primary">Open door list</LinkButton> : null}
-        <LinkButton href={editHref} variant={inHouse ? 'secondary' : 'primary'}>Edit event</LinkButton>
-        {inHouse ? <LinkButton href={`/admin/door?event=${encodeURIComponent(event.overrideId ?? '')}`} variant="secondary">Door</LinkButton> : null}
-      </div>
-    </section>
-  );
+function tonightCell(
+  tonight: ResolvedEvent[],
+  summaryOf: (event: ResolvedEvent) => SalesSummary | null,
+  roomOpen: boolean,
+): HeadlineCell {
+  const first = tonight[0];
+  if (!first) {
+    return {
+      label: 'Tonight',
+      value: roomOpen ? 'Dinner service' : 'Nothing on',
+      detail: roomOpen ? 'No event on the calendar' : 'A night off',
+      href: '/admin/events',
+    };
+  }
+  const summary = summaryOf(first);
+  const attendance = first.ticketing.enabled
+    ? summary
+      ? summary.capacity
+        ? `${summary.ticketsSold} of ${summary.capacity} expected`
+        : `${summary.ticketsSold} expected`
+      : 'no sales yet'
+    : first.ticketUrl
+      ? 'sold on Tickeri'
+      : 'walk-in';
+  return {
+    label: tonight.length > 1 ? `Tonight · ${tonight.length} events` : 'Tonight',
+    value: first.title,
+    detail: `${formatTimeRangeCompact(first.startsAt, first.endsAt)} · ${attendance}`,
+    href: first.overrideId ? `/admin/events/one/${encodeURIComponent(first.overrideId)}` : `/admin/events/${first.seriesSlug ?? ''}`,
+  };
 }
 
-function ago(iso: string): string {
-  const minutes = Math.round((Date.now() - Date.parse(iso)) / 60_000);
-  if (minutes < 2) return 'just now';
-  if (minutes < 60) return `${minutes} minutes ago`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 36) return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
-  return `${Math.round(hours / 24)} days ago`;
+function floorCell(floor: FloorTonight): HeadlineCell {
+  const count = floor.scheduled.length;
+  const openShifts = floor.open.length;
+  if (count === 0 && openShifts === 0) {
+    return {
+      label: 'On the floor',
+      value: 'Nobody on',
+      detail: floor.nextNight ? `Next: ${formatDate(floor.nextNight.date, 'short')}, ${floor.nextNight.scheduled.length} on` : 'Nothing scheduled this week',
+      href: '/staff/schedule',
+    };
+  }
+  return {
+    label: 'On the floor',
+    value: count === 1 ? '1 person' : `${count} people`,
+    detail: openShifts > 0 ? `${openShifts} ${openShifts === 1 ? 'shift' : 'shifts'} still open` : 'Every shift filled',
+    href: '/staff/schedule',
+  };
+}
+
+function nextCell(next: ResolvedEvent | null, summaryOf: (event: ResolvedEvent) => SalesSummary | null): HeadlineCell {
+  if (!next) return { label: 'Up next', value: 'Nothing yet', detail: 'The calendar is clear', href: '/admin/events/new' };
+  const summary = summaryOf(next);
+  return {
+    label: 'Up next',
+    value: next.title,
+    detail: `${formatDayShort(next.startsAt, 'America/Chicago')}${summary?.capacity ? ` · ${summary.ticketsSold} of ${summary.capacity}` : ''}`,
+    href: next.overrideId ? `/admin/events/one/${encodeURIComponent(next.overrideId)}` : '/admin/events',
+  };
+}
+
+/**
+ * Coverage and time off, split by urgency: a shift in the next two nights
+ * with nobody to work it outranks an enquiry; one next week does not.
+ */
+function needsFromTeam(team: TeamWaiting, today: string, tomorrow: string, when: 'soon' | 'later'): NeedsItem[] {
+  const items: NeedsItem[] = [];
+  const soon = (iso: string) => {
+    const date = venueIsoDate(iso);
+    return date === today || date === tomorrow;
+  };
+  const coverage = team.coverage.filter((request) => (when === 'soon' ? soon(request.shift.startsAt) : !soon(request.shift.startsAt)));
+  if (coverage.length > 0) {
+    const first = coverage[0]!;
+    const zone = first.shift.locationTimezone;
+    const whenText = `${formatDayShort(first.shift.startsAt, zone).split(',')[0]} ${formatClockShort(first.shift.startsAt, zone).toLowerCase().replace(' ', '')}`;
+    items.push({
+      id: `coverage-${when}`,
+      lead: coverage.length,
+      title: coverage.length === 1 ? 'Shift needs cover' : 'Shifts need cover',
+      detail:
+        first.status === 'claimed' && first.claimedByName
+          ? `${first.claimedByName} will take ${first.requestedByName}’s ${first.shift.positionName.toLowerCase()} shift, ${whenText} — approve?`
+          : `${first.requestedByName} asked for cover · ${first.shift.positionName}, ${whenText}`,
+      href: '/staff/schedule/coverage',
+    });
+  }
+  if (when === 'later' && team.timeOff.length > 0) {
+    items.push({
+      id: 'time-off',
+      lead: team.timeOff.length,
+      title: team.timeOff.length === 1 ? 'Time-off request to decide' : 'Time-off requests to decide',
+      detail: team.timeOff.slice(0, 2).map((request) => `${request.employeeName}, ${formatDate(request.startsOn, 'short')}`).join(' · '),
+      href: '/staff/operations/time-off',
+    });
+  }
+  return items;
 }
 
 /**
@@ -273,19 +386,20 @@ function ago(iso: string): string {
  * Anything else is housekeeping, and if it is not clear which, it is housekeeping.
  */
 function moneyProblems(
-  upcoming: ResolvedEvent[],
+  hero: ResolvedEvent | null,
   summaries: Map<string, SalesSummary>,
   now: Date,
-  nextTiers: number | null,
-): { id: string; message: string; href: string; action: string }[] {
-  const problems: { id: string; message: string; href: string; action: string }[] = [];
-  const next = upcoming[0];
-  if (next?.published && next.ticketing.enabled && nextTiers === 0) {
+  heroTiers: number | null,
+  upcoming: ResolvedEvent[],
+): NeedsItem[] {
+  const problems: NeedsItem[] = [];
+  if (hero?.published && hero.ticketing.enabled && heroTiers === 0) {
     problems.push({
       id: 'no-tiers',
-      message: `${next.title} is on sale with nothing priced. Guests can see it but cannot buy.`,
-      href: `/admin/events/one/${encodeURIComponent(next.overrideId ?? '')}`,
-      action: 'Add a ticket price',
+      lead: 'Now',
+      title: `${hero.title} is on sale with nothing priced`,
+      detail: 'Guests can see it but cannot buy. Add a ticket price.',
+      href: `/admin/events/one/${encodeURIComponent(hero.overrideId ?? '')}`,
     });
   }
   for (const event of upcoming) {
@@ -295,9 +409,10 @@ function moneyProblems(
     if (summary && summary.ticketsSold > 0 && summary.checkedIn === 0 && now.getTime() > started + 30 * 60_000 && now.getTime() < Date.parse(event.endsAt)) {
       problems.push({
         id: `no-checkins-${event.id}`,
-        message: `${event.title} started half an hour ago and nobody has been checked in yet.`,
+        lead: 'Now',
+        title: `Nobody checked in at ${event.title} yet`,
+        detail: 'It started half an hour ago. Open the scanner at the door.',
         href: `/admin/scan?event=${encodeURIComponent(event.overrideId)}`,
-        action: 'Open the scanner',
       });
     }
   }
