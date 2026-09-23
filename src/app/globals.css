@@ -439,3 +439,6 @@
 
 /* Keep thumbnail aspect ratios from expanding past their mobile column. */
 @media(max-width:639px){.cn-event-thumbnail{width:100%;height:100%;aspect-ratio:auto!important;min-height:150px}.cn-event-thumbnail .event-art-nameplate{padding:.5rem;font-size:1rem}}
+
+/* Cormorant's old-style figures make "11 PM" read as "I I PM" in the apps. */
+.display, .display-wide, .display-condensed { font-variant-numeric: lining-nums; }

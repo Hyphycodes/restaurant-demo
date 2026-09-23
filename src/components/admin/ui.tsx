@@ -111,7 +111,7 @@ export function Tabs({
               aria-current={item.active ? 'page' : undefined}
               className={`inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.9375rem] font-semibold transition-colors duration-150 ${
                 item.active
-                  ? 'bg-teal text-linen'
+                  ? 'bg-brown text-ivory'
                   : 'text-brown-soft hover:bg-brown/8 hover:text-brown'
               }`}
             >
@@ -119,7 +119,7 @@ export function Tabs({
               {item.count !== undefined && item.count > 0 ? (
                 <span
                   className={`tabular inline-flex min-w-5 items-center justify-center rounded-full px-1.5 text-[0.75rem] ${
-                    item.active ? 'bg-linen/20 text-linen' : 'bg-brown/10 text-brown-soft'
+                    item.active ? 'bg-ivory/20 text-ivory' : 'bg-brown/10 text-brown-soft'
                   }`}
                 >
                   {item.count}

@@ -11,6 +11,7 @@
  *   npx tsx scripts/grade-night-media.ts
  *
  * Output: public/media/night/*.webp (registered in src/content/assets.ts).
+ * Sources that are no longer published themselves live in assets-src/.
  */
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -45,7 +46,7 @@ const GRADES: Grade[] = [
   { topShade: 0.75, out: 'room-night-tall', src: 'heroImage.webp', extract: { left: 560, top: 0, width: 960, height: 1200 }, resize: { width: 960, height: 1200 }, brightness: 0.56, saturation: 0.7, warmth: 0.6, vignette: 0.8, glow: { x: 0.45, y: 0.74, r: 0.42, strength: 0.6 } },
   { out: 'bar-night', src: 'bartender.webp', brightness: 0.78, saturation: 0.82, warmth: 0.5, vignette: 0.75, glow: { x: 0.45, y: 0.35, r: 0.4, strength: 0.4 } },
   { out: 'pasta-night', src: 'signaturePasta.webp', brightness: 0.8, saturation: 0.95, warmth: 0.35, vignette: 0.9, glow: { x: 0.52, y: 0.4, r: 0.38, strength: 0.35 } },
-  { out: 'burrata-night', src: 'burrataPlate.webp', brightness: 0.72, saturation: 0.78, warmth: 0.45, vignette: 0.95, glow: { x: 0.5, y: 0.45, r: 0.35, strength: 0.3 } },
+  { out: 'burrata-night', src: '../../assets-src/burrataPlate.webp', brightness: 0.72, saturation: 0.78, warmth: 0.45, vignette: 0.95, glow: { x: 0.5, y: 0.45, r: 0.35, strength: 0.3 } },
   { out: 'negroni-paper', src: 'houseNegroni.webp', brightness: 0.96, saturation: 0.9, warmth: 0.3, vignette: 0.35, paper: true },
   { topShade: 0.75, out: 'room-detail', src: 'heroImage.webp', extract: { left: 700, top: 560, width: 800, height: 600 }, resize: { width: 1200, height: 900 }, brightness: 0.62, saturation: 0.65, warmth: 0.65, vignette: 0.9, glow: { x: 0.45, y: 0.55, r: 0.4, strength: 0.6 } },
 ];

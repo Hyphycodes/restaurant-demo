@@ -138,21 +138,6 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "roomAtmosphere": {
-    "path": "/media/roomAtmosphere.webp",
-    "kind": "image",
-    "alt": "An intimate corner with warm light and dark furniture",
-    "width": 1200,
-    "height": 800,
-    "ratio": "1200:800",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra roomAtmosphere semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
   "bartender": {
     "path": "/media/bartender.webp",
     "kind": "image",
@@ -183,36 +168,6 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "burrataPlate": {
-    "path": "/media/burrataPlate.webp",
-    "kind": "image",
-    "alt": "Burrata, prosciutto and basil on a decorative Italian plate",
-    "width": 1200,
-    "height": 900,
-    "ratio": "1200:900",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra burrataPlate semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
-  "cocktailPour": {
-    "path": "/media/cocktailPour.webp",
-    "kind": "image",
-    "alt": "Hands preparing a cocktail at the bar",
-    "width": 1000,
-    "height": 1000,
-    "ratio": "1000:1000",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra cocktailPour semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
   "houseNegroni": {
     "path": "/media/houseNegroni.webp",
     "kind": "image",
@@ -239,21 +194,6 @@ export const assets = {
     "status": "final",
     "usage": [
       "Cosa Nostra roomCrowd semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
-  "cocktailPair": {
-    "path": "/media/cocktailPair.webp",
-    "kind": "image",
-    "alt": "A classic Italian aperitivo in a low glass",
-    "width": 1200,
-    "height": 900,
-    "ratio": "1200:900",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra cocktailPair semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -303,21 +243,6 @@ export const assets = {
     "containsText": "none",
     "maxBytes": 500000
   },
-  "birthdayCelebration": {
-    "path": "/media/birthdayCelebration.webp",
-    "kind": "image",
-    "alt": "Italian antipasti made for a celebratory table",
-    "width": 1200,
-    "height": 900,
-    "ratio": "1200:900",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra birthdayCelebration semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
   "flyerVinyl": {
     "path": "/media/flyerVinyl.webp",
     "kind": "image",
@@ -359,21 +284,6 @@ export const assets = {
     "status": "final",
     "usage": [
       "Cosa Nostra flyerAperitivo semantic slot"
-    ],
-    "containsText": "none",
-    "maxBytes": 500000
-  },
-  "teamEnergy": {
-    "path": "/media/teamEnergy.webp",
-    "kind": "image",
-    "alt": "Thoughtful cocktail service for the evening",
-    "width": 1200,
-    "height": 800,
-    "ratio": "1200:800",
-    "focal": "50% 50%",
-    "status": "final",
-    "usage": [
-      "Cosa Nostra teamEnergy semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
