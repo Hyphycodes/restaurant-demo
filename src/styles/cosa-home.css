@@ -6,7 +6,8 @@
 
 .cn-hero {
   position: relative;
-  min-height: 100svh;
+  /* The whole opening fits the first screen, under the demo ribbon. */
+  min-height: calc(100svh - var(--cn-ribbon-h, 46px));
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -56,8 +57,8 @@
 .cn-hero-content {
   position: relative;
   z-index: 4;
-  padding-top: calc(var(--cn-header) + 40px);
-  padding-bottom: clamp(28px, 5vh, 64px);
+  padding-top: calc(var(--cn-header) + 24px);
+  padding-bottom: clamp(24px, 4.5vh, 56px);
 }
 .cn-hero-kicker {
   max-width: none;
@@ -65,7 +66,7 @@
 .cn-hero-kicker span { padding-inline: 0.5em; color: var(--cn-brass); }
 .cn-hero-title {
   margin-top: clamp(16px, 2.2vw, 28px);
-  font-size: min(clamp(3.3rem, 9.2vw, 10rem), 15.5svh);
+  font-size: min(clamp(3.3rem, 9vw, 10rem), 13.5svh);
   line-height: 0.88;
   letter-spacing: -0.035em;
 }
@@ -90,6 +91,10 @@
   align-items: end;
   gap: 1.5rem 3rem;
   margin-top: clamp(18px, 2.6vh, 32px);
+}
+.cn-hero-foot .cn-lede {
+  font-size: clamp(0.98rem, 1.1vw, 1.1rem);
+  max-width: 40ch;
 }
 .cn-hero-actions {
   display: flex;
@@ -152,6 +157,7 @@
   .cn-hero-actions .cn-btn { flex: 1 1 auto; }
   .cn-hero-status { gap: 1.5rem; }
   .cn-hero-foot .cn-lede { font-size: 1rem; }
+  .cn-hero { --cn-ribbon-h: 62px; }
 }
 
 /* -------------------------------------------------------------------------- */

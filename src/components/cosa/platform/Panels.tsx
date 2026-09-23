@@ -194,7 +194,7 @@ export function ChecklistPanel() {
     ['Patio photo', false, 'Photo required'],
   ];
   return (
-    <Panel area="check" label="Opening checklist" meta="3 of 5" href="/staff/checklists/demo-opening">
+    <Panel area="check" label="Opening checklist" meta="3 of 5" href="/demo/staff">
       <ul className="cn-ui-checks">
         {items.map(([label, done, note]) => (
           <li key={label} data-done={done}>

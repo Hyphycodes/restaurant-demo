@@ -1,5 +1,43 @@
 # Release verification
 
+## Flagship release — September 23, 2026
+
+Local verification against a production build (`npm run build && npm start`):
+
+- **`npm run verify` suite:**
+  - ESLint, TypeScript, Vitest (54 files, 749 tests) and the asset registry check all pass.
+  - The production build passes.
+  - First-load JS for public pages is about 160 kB, including GSAP, ScrollTrigger, SplitText and Lenis.
+- **`npm run db:verify`:**
+  - All 24 Supabase migrations apply in order to a clean Postgres 17 (PGlite with a Supabase platform shim), and 0027 re-applies cleanly.
+  - The resulting schema has 80 tables, all with row level security, plus 176 policies, 191 indexes and 153 foreign keys. It includes the storage buckets `media`, `employee-files` and `applications`.
+  - `supabase/tests/employee-operations-rls.sql` (13 RLS assertions) and `ticketing-walkthrough.sql` pass.
+  - The run exposed that `event_occurrences.id` had never been converted to text, so no clean database could apply 0006 onwards. 0006 now performs that conversion first.
+- **`scripts/qa-demo.mjs`** covers 52 routes at 1440px and 390px:
+  - With reduced motion: 100 page checks. Every route returned 200 except one bad route in the QA list itself (fixed).
+  - With motion on (`QA_MOTION=on`): 104 page checks.
+  - Both runs found no horizontal overflow and no broken images.
+  - The only console errors were the sandbox blocking production-domain images inside email previews.
+- **`scripts/qa-interactions.mjs`** passes:
+  - the simulated reservation flow
+  - the simulated pickup order
+  - public private-dining enquiry → admin pipeline → stage moved to Contacted
+  - admin publish → public menu, with a second browser unchanged
+  - staff availability persisted
+  - manager scheduling entry
+  - simulated door admission and duplicate handling
+  - blocked external callbacks and webhooks
+  - no runtime errors
+- **Visual review** used `scripts/qa-film.mjs`, which records scroll positions with motion on:
+  - the homepage hero at 1280×720, 1440×900 and 390×844
+  - the evening sequence, the kitchen, events, rooms and the Behind the Hospitality sequence
+  - menu, events, private dining, catering, visit, contact, careers, talent, reservations, pickup, `/demo` and `/behind`
+  - admin Tonight, the enquiry pipeline, media, the staff home and `/display` at 1920×1080
+
+**Supabase:** no Supabase project is connected to Cosa Nostra. The site permanently runs in demo mode on an isolated, per-visitor store (see `docs/ARCHITECTURE.md`), so no hosted database is read or written. The migrations remain the production-compatible schema, and they are now proven applyable by `npm run db:verify`.
+
+## Earlier releases
+
 Local verification on September 22, 2026:
 
 - `npm install`: completed; no dependency audit vulnerabilities reported.

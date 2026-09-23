@@ -2,12 +2,12 @@ import { chromium } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
 const origin=process.env.QA_URL||'http://localhost:3100';
 const out=process.env.QA_OUTPUT||'/tmp/cosa-qa';await mkdir(out,{recursive:true});
-const browser=await chromium.launch();
-const context=await browser.newContext({reducedMotion:'reduce'});const page=await context.newPage();
+const browser=await chromium.launch(process.env.CHROMIUM?{executablePath:process.env.CHROMIUM}:{});
+const context=await browser.newContext({reducedMotion:process.env.QA_MOTION==='on'?'no-preference':'reduce'});const page=await context.newPage();
 const errors=[];const results=[];
 page.on('pageerror',e=>errors.push({route:page.url(),message:e.message}));
 page.on('console',m=>{if(m.type()==='error')errors.push({route:page.url(),message:m.text()});});
-const routes=['/','/menu','/events','/events/vinyl-vermouth','/events/sunday-supper','/events/after-hours-friday','/events/vinyl-vermouth-session','/private-events','/catering','/careers','/contact','/talent','/reservations','/order','/demo/admin','/admin/menu','/admin/events','/admin/media','/admin/inquiries','/admin/hiring','/admin/emails','/admin/events/demo-vinyl-opening/sales','/demo/staff','/staff/schedule','/staff/training','/staff/availability','/demo/manager','/admin/look','/admin/theme','/admin/website','/admin/settings','/admin/team','/admin/talent','/admin/link-hubs','/admin/door','/admin/scan','/admin/emails/sending','/staff/team','/staff/operations','/staff/announcements','/staff/profile'];
+const routes=['/','/behind','/demo','/visit','/display','/go/links','/go/tonight','/go/review','/admin/inquiries','/reservations','/order','/catering','/menu','/events','/events/vinyl-vermouth','/events/sunday-supper','/events/after-hours-friday','/events/vinyl-vermouth-session','/private-events','/catering','/careers','/contact','/talent','/reservations','/order','/demo/admin','/admin/menu','/admin/events','/admin/media','/admin/inquiries','/admin/hiring','/admin/emails','/admin/events/demo-vinyl-opening/sales','/demo/staff','/staff/schedule','/staff/training','/staff/availability','/demo/manager','/admin/look','/admin/theme','/admin/website','/admin/settings','/admin/team','/admin/talent','/admin/link-hubs','/admin/door','/admin/scan','/admin/emails/sending','/staff/team','/staff/operations','/staff/announcements','/staff/profile'];
 for(const width of [1440,390]){await page.setViewportSize({width,height:900});for(const route of routes){
  try{
  const response=await page.goto(origin+route,{waitUntil:'domcontentloaded',timeout:60000});
