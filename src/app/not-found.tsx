@@ -1,70 +1,47 @@
 import Link from 'next/link';
-import { Footer } from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
-import { Band, Frame } from '@/components/primitives/Band';
-import { ExternalButtonLink, ButtonLink } from '@/components/primitives/Button';
-import { Display, Eyebrow } from '@/components/primitives/Type';
-import { pageCopy } from '@/content/pages';
+import { Footer } from '@/components/cosa/chrome/Footer';
+import { Header } from '@/components/cosa/chrome/Header';
+import { Ribbon } from '@/components/cosa/chrome/Ribbon';
 import { site } from '@/content/site';
 
 const LINKS = [
-  { href: '/menu', label: 'Food menu' },
-  { href: '/menu#cocktails', label: 'Cocktails & bar' },
-  { href: '/events', label: 'Events' },
-  { href: '/catering', label: 'Catering' },
-  { href: '/private-events', label: 'Private events' },
+  { href: '/menu', label: 'The menu' },
+  { href: '/events', label: 'What’s on' },
+  { href: '/private-events', label: 'Private dining' },
   { href: '/visit', label: 'Hours & directions' },
 ];
 
-/**
- * 404. Centered composition is deliberate here — it is one of only two places on
- * the site where centering is allowed, because there is genuinely nothing else
- * on the page to compose against.
- */
+/** 404: a wrong door, not a dead end. */
 export default function NotFound() {
   return (
-    <>
-      <Header />
-      <main id="main">
-        <Band surface="sand">
-          <Frame>
-            <div className="mx-auto max-w-xl text-center">
-              <Eyebrow>404</Eyebrow>
-              <Display as="h1" size="lg" className="mt-4 text-brown">
-                {pageCopy.notFound.heading}
-              </Display>
-              <p className="mt-5 text-[length:var(--text-body-lg)] leading-relaxed text-brown">
-                {pageCopy.notFound.body}
-              </p>
-
-              <ul className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3">
-                {LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="inline-flex min-h-11 items-center font-medium text-brown underline underline-offset-4 transition-[text-underline-offset] hover:underline-offset-[6px]"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-10 flex flex-wrap justify-center gap-3">
-                <ButtonLink href="/">Back to the homepage</ButtonLink>
-                <ExternalButtonLink
-                  href={site.reservationUrl}
-                  destination="Demo ordering reservations"
-                  variant="secondary"
-                >
-                  Reserve a table
-                </ExternalButtonLink>
-              </div>
-            </div>
-          </Frame>
-        </Band>
+    <div className="cn-site">
+      <Ribbon />
+      <Header reservationUrl={site.reservationUrl} phone={site.phone.value} />
+      <main id="main" className="cn-page-hero cn-page-hero-compact cn-grain" style={{ minHeight: '80svh' }}>
+        <span className="cn-candles" aria-hidden="true" />
+        <div className="cn-wrap relative z-[2]">
+          <p className="cn-eyebrow">404 — wrong door</p>
+          <h1 className="cn-display cn-xl mt-6">
+            This room is <em>closed tonight.</em>
+          </h1>
+          <p className="cn-lede mt-6">The page you were looking for has moved or never existed. The rest of the house is open.</p>
+          <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-2">
+            {LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="cn-link">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10">
+            <Link href="/" className="cn-btn">
+              Back to the dining room <span className="cn-arrow" aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -1,8 +1,9 @@
-import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { Footer } from '@/components/cosa/chrome/Footer';
+import { Header } from '@/components/cosa/chrome/Header';
+import { Ribbon } from '@/components/cosa/chrome/Ribbon';
+import { SmoothScroll } from '@/components/cosa/motion/SmoothScroll';
 import { activeAnnouncement, AnnouncementBar } from '@/components/layout/AnnouncementBar';
-import { Footer } from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
 import { ThemeWorldEdges } from '@/components/theme/ThemeWorld';
 import { ThemeRoot } from '@/components/theme/ThemeRoot';
 import { getAnnouncements, getSiteSettings } from '@/content/resolve';
@@ -22,18 +23,24 @@ export async function SiteChrome({ theme, children }: { theme: ResolvedTheme; ch
 
   return (
     <ThemeRoot theme={theme}>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-(--radius-md) focus:bg-orange focus:px-4 focus:py-2.5 focus:font-semibold focus:text-on-orange"
-      >
-        Skip to main content
-      </a>
-      <div className="cn-demo-bar"><span>A fictional supper club. A real restaurant platform.</span><Link href="/demo/admin">Explore admin</Link><Link href="/demo/staff">Explore staff</Link></div>
-      <AnnouncementBar announcement={announcement} />
-      <Header />
-      <main id="main">{theme.definition && theme.config.options.edges ? <ThemeWorldEdges /> : null}{children}</main>
-      <Footer />
-      <JsonLd data={restaurantJsonLd(settings)} />
+      <div className="cn-site">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:bg-[color:var(--cn-candle)] focus:px-4 focus:py-2.5 focus:font-semibold focus:text-[color:var(--cn-ink)]"
+        >
+          Skip to main content
+        </a>
+        <Ribbon />
+        <AnnouncementBar announcement={announcement} />
+        <Header reservationUrl={settings.reservationUrl} phone={settings.phone.value} />
+        <main id="main">
+          {theme.definition && theme.config.options.edges ? <ThemeWorldEdges /> : null}
+          {children}
+        </main>
+        <Footer />
+        <SmoothScroll />
+        <JsonLd data={restaurantJsonLd(settings)} />
+      </div>
     </ThemeRoot>
   );
 }

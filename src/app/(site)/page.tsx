@@ -1,70 +1,63 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Celebrations } from '@/components/home/Celebrations';
-import { FindUs } from '@/components/home/FindUs';
-import { ActionRail, Hero } from '@/components/home/Hero';
-import { FeaturedEvents } from '@/components/home/FeaturedEvents';
-import { Offerings } from '@/components/home/Offerings';
+import { Evening } from '@/components/cosa/home/Evening';
+import { Hero } from '@/components/cosa/home/Hero';
+import { Kitchen } from '@/components/cosa/home/Kitchen';
+import { Nights } from '@/components/cosa/home/Nights';
+import { Overture } from '@/components/cosa/home/Overture';
+import { Rooms } from '@/components/cosa/home/Rooms';
+import { VisitBand } from '@/components/cosa/home/Visit';
+import { Behind } from '@/components/cosa/platform/Behind';
+import { getPlatformSnapshot } from '@/components/cosa/platform/snapshot';
 import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { seo } from '@/content/pages';
-import { getSiteSettings } from '@/content/resolve';
-import { getPublicEvents } from '@/server/content/events';
-import { getPageCopy } from '@/server/content/pages';
+import { getAllMenus, getSiteSettings } from '@/content/resolve';
 import { selectHomepageEvents } from '@/lib/event-feature';
 import { getOpenState } from '@/lib/hours';
 import { buildMetadata } from '@/lib/seo';
+import { getPublicEvents } from '@/server/content/events';
 
 export const metadata: Metadata = buildMetadata({ ...seo.home!, path: '/' });
 
 /**
- * Five minutes, not an hour.
- *
- * The homepage renders the next event date. With an hour-long window a cached
- * page can keep advertising a night that has already finished, which is precisely
- * what the August 15 audit found. The page is still statically served; the
- * staleness is just bounded to something shorter than a service.
- * See docs/EVENTS-FRESHNESS.md.
+ * Rendered per request: the hero says whether the doors are open and what is
+ * on next, and a cached page would keep advertising a night that has passed.
  */
 export const dynamic = 'force-dynamic';
 
-
-
+/**
+ * The homepage is the beginning of an evening, in order: arriving, the first
+ * drink, dinner, the second act, the back room — and then the doors behind
+ * the bar open onto the system that runs it all.
+ */
 export default async function HomePage() {
   const now = new Date();
-  const [settings, events, breadth, twoPaths] = await Promise.all([
+  const [settings, events, menus, snapshot] = await Promise.all([
     getSiteSettings(),
     getPublicEvents(),
-    getPageCopy('home', 'breadth'),
-    getPageCopy('home', 'two-paths'),
+    getAllMenus(),
+    getPlatformSnapshot(),
   ]);
 
-  // One pass decides everything the homepage says about events: what is on
-  // next, what leads the featured module, and whether a scheduled takeover is
-  // running right now.
   const homepageEvents = selectHomepageEvents(events, now);
-  const openState = getOpenState(
-    settings.hours.value,
-    settings.temporaryClosures,
-    now,
-    settings.timeZone,
-  );
+  const nights = [homepageEvents.lead, ...homepageEvents.supporting].filter((event) => event !== null);
+  const openState = getOpenState(settings.hours.value, settings.temporaryClosures, now, settings.timeZone);
 
   return (
     <>
-      {/* The soonest night of any series, not the first series' next night —
-          "what's on" means tonight's Saturday, not next week's Friday. */}
-      <Hero takeover={homepageEvents.takeover} />
-      <ActionRail openLabel={openState.label} isOpen={openState.open} />
-      {}
-      <Offerings section={breadth} />
-      {/* Seasonal scenes share the room with the content. */}
+      <Hero
+        reservationUrl={settings.reservationUrl}
+        openLabel={openState.label}
+        isOpen={openState.open}
+        next={homepageEvents.takeover ?? homepageEvents.next}
+      />
+      <Overture />
+      <Evening />
+      <Kitchen menus={menus} />
+      <Nights events={nights} />
       <ThemeWorld scene="listening" />
-      {/* The kitchen and the bar, formerly two bands. */}
-      <FeaturedEvents events={homepageEvents} />
-      {}
-      <Celebrations />
-      <FindUs section={twoPaths} />
-      <section className="cn-portfolio"><div><p className="eyebrow">Behind the hospitality</p><h2>A restaurant. And everything behind it.</h2><p>This fictional supper club runs on a complete restaurant platform. Explore the content studio, event management and employee workspace with safe sample data.</p></div><nav aria-label="Explore the platform"><Link href="/demo/admin">Open admin demo ↗</Link><Link href="/demo/staff">Open staff demo ↗</Link></nav></section>
+      <Rooms />
+      <Behind snapshot={snapshot} id="behind-the-hospitality" />
+      <VisitBand site={settings} openLabel={openState.label} isOpen={openState.open} />
     </>
   );
 }
