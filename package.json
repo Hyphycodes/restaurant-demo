@@ -2,7 +2,7 @@
   "name": "restaurant-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "Cosa Nostra — fictional Italian supper club and restaurant operations demo",
+  "description": "Cosa Nostra \u2014 fictional Italian supper club and restaurant operations demo",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,12 +13,14 @@
     "test:watch": "vitest",
     "assets:check": "tsx scripts/check-assets.ts",
     "content:seed": "tsx scripts/generate-seed.ts",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run assets:check && npm run build",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run assets:check && npm run db:verify && npm run build",
     "content:migrate": "tsx scripts/migrate-content.ts",
     "seed:events": "tsx scripts/seed-events.ts",
     "seed:staff-demo": "tsx scripts/seed-staff-demo.ts",
     "email:dev": "email dev --dir src/emails/previews --port 3030",
-    "email:export": "email export --dir src/emails/previews --outDir .email-previews"
+    "email:export": "email export --dir src/emails/previews --outDir .email-previews",
+    "db:verify": "node scripts/verify-migrations.mjs",
+    "media:grade": "tsx scripts/grade-night-media.ts"
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",
@@ -40,6 +42,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.3.16",
     "@eslint/eslintrc": "^3.2.0",
     "@playwright/test": "^1.63.0",
     "@react-email/ui": "^6.9.5",
