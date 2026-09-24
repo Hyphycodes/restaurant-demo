@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { motion, motionArmed } from '../motion/engine';
-import { cosaDrawerNav, cosaHouseNav } from './nav';
+import { aureliaDrawerNav, aureliaHouseNav } from './nav';
 
 const FOCUSABLE = 'a[href], button:not([disabled])';
 
@@ -78,7 +78,7 @@ export function Drawer({
     >
       <div className="cn-drawer-top">
         <span className="cn-wordmark">
-          <span className="cn-wordmark-name">Cosa Nostra</span>
+          <span className="cn-wordmark-name">Casa Aurelia</span>
           <span className="cn-wordmark-sub">Italian Supper Club</span>
         </span>
         <button type="button" className="cn-menu-toggle" style={{ display: 'inline-flex' }} onClick={onClose}>
@@ -87,7 +87,7 @@ export function Drawer({
       </div>
       <nav aria-label="Site">
         <ol>
-          {cosaDrawerNav.map((item) => (
+          {aureliaDrawerNav.map((item) => (
             <li key={item.href}>
               <Link href={item.href} aria-current={pathname === item.href ? 'page' : undefined} onClick={onClose}>
                 {item.label}
@@ -101,7 +101,7 @@ export function Drawer({
           Find your table <span className="cn-arrow" aria-hidden="true">→</span>
         </Link>
         <div className="cn-drawer-small">
-          {cosaHouseNav.map((item) => (
+          {aureliaHouseNav.map((item) => (
             <Link key={item.href} href={item.href} onClick={onClose}>
               {item.label}
             </Link>

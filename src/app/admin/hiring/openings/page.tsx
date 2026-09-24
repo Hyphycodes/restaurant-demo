@@ -82,7 +82,7 @@ export default async function OpeningsPage() {
           <Card title="Switched off" tone="quiet">
             <HelpNote>
               These are ready to go. Edit the sentence under a title if you want one, then switch
-              it on — nothing here is visible to anybody outside Cosa Nostra.
+              it on — nothing here is visible to anybody outside Casa Aurelia.
             </HelpNote>
             {off.length === 0 ? (
               <p className="mt-4 text-[0.9375rem] text-brown-soft">Nothing waiting.</p>

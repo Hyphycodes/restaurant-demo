@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MotionScope } from '@/components/cosa/motion/MotionScope';
-import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
-import { NeighborhoodMap } from '@/components/cosa/page/NeighborhoodMap';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { MotionScope } from '@/components/aurelia/motion/MotionScope';
+import { EditorialTitle } from '@/components/aurelia/page/EditorialTitle';
+import { NeighborhoodMap } from '@/components/aurelia/page/NeighborhoodMap';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { pageCopy, seo } from '@/content/pages';
 import { getSiteSettings } from '@/content/resolve';

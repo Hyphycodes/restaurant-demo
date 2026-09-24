@@ -152,7 +152,7 @@ export function EditorialMenu({ menus, footNotes }: { menus: Menu[]; footNotes: 
           ))}
           <p className="cn-menu-foot">
             Please tell your server about allergies before you order; our kitchen handles nuts, gluten, dairy and shellfish.
-            Cosa Nostra is fictional — dishes and prices are for this portfolio experience.
+            Casa Aurelia is fictional — dishes and prices are for this portfolio experience.
           </p>
         </div>
       </div>

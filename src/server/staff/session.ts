@@ -26,7 +26,7 @@ import { clampPreview, deriveOpsRole, isPreviewableRole, isManagerRole, opsCan, 
  * ladder, so the cookie is not a privilege to forge — at worst you preview
  * yourself as something smaller.
  */
-export const PREVIEW_COOKIE = 'cosa-nostra_ops_preview';
+export const PREVIEW_COOKIE = 'casa-aurelia_ops_preview';
 
 export interface StaffContext {
   staff: Staff;

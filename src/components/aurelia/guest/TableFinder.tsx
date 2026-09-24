@@ -78,7 +78,7 @@ export function TableFinder() {
           </div>
         </dl>
         <p className="cn-body mt-6">
-          Nothing was booked and nothing was sent — Cosa Nostra is a fictional supper club. In a live build this step hands off to
+          Nothing was booked and nothing was sent — Casa Aurelia is a fictional supper club. In a live build this step hands off to
           the restaurant&apos;s reservation provider and the confirmation arrives by text and email.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">

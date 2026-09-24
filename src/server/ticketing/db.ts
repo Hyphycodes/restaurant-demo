@@ -15,7 +15,7 @@ function buildClient(key: string): SupabaseClient | null {
   return createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     global: {
-      headers: { 'x-cosa-nostra-source': 'ticketing' },
+      headers: { 'x-casa-aurelia-source': 'ticketing' },
       fetch: (input, init) =>
         fetch(input, {
           ...init,

@@ -67,7 +67,7 @@ export default async function HiringPage({
       staff={staff}
       local={local}
       title="Applicants"
-      description="Everyone who has asked to work at Cosa Nostra, newest first."
+      description="Everyone who has asked to work at Casa Aurelia, newest first."
       actions={<LinkButton href="/admin/hiring/openings">Job openings</LinkButton>}
     >
       {!db ? (

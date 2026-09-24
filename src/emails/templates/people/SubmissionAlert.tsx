@@ -4,7 +4,7 @@ import type { StaffEmailProps } from '../../types';
 
 
 export function subject({ headline }: StaffEmailProps): string {
-  return `New at Cosa Nostra: ${headline}`;
+  return `New at Casa Aurelia: ${headline}`;
 }
 
 export function text(props: StaffEmailProps): string {

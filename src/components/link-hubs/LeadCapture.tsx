@@ -47,7 +47,7 @@ export function LeadCapture({ hubId, block, preview = false }: { hubId: string; 
     <form className={styles.lead} onSubmit={submit}>
       <div>
         <p className={styles.blockEyebrow}>Stay in the loop</p>
-        <h2>{block.config.title || 'Join the Cosa Nostra list'}</h2>
+        <h2>{block.config.title || 'Join the Casa Aurelia list'}</h2>
         {block.config.subtitle ? <p>{block.config.subtitle}</p> : null}
       </div>
       <div className={styles.leadGrid}>

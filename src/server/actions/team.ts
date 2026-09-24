@@ -122,7 +122,7 @@ export async function addTeamMember(_prev: ActionState, formData: FormData): Pro
     revalidatePath('/admin/team');
     // The invitation goes through Supabase Auth, which is what makes the link
     // a real credential. With the auth email hook pointed at this site it
-    // arrives as the branded Cosa Nostra staff invitation; without it, Supabase's
+    // arrives as the branded Casa Aurelia staff invitation; without it, Supabase's
     // own template. An already-verified address gets no invite — they sign in.
     if (user.email_confirmed_at) return saved(`Account created for ${email}. They already have a verified sign-in, so they can use the staff sign-in page straight away.`);
     const invited = await service.auth.admin.inviteUserByEmail(email, { redirectTo: `${SITE_URL}/auth/activate`, data: { name: parsed.data.name, invited_by: staff.name || staff.email || null } });

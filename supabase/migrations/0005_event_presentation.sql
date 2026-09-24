@@ -1,4 +1,4 @@
--- Cosa Nostra events become a first-class, presentable CMS object.
+-- Casa Aurelia events become a first-class, presentable CMS object.
 --
 -- The shape does NOT change: a recurring night is still an `event_series` with
 -- no date, and a one-off event is still an `event_occurrences` row with no

@@ -29,7 +29,7 @@ function event(overrides: Partial<ResolvedEvent> = {}): ResolvedEvent {
     ageMin: null,
     ageNote: null,
     musicFormats: [],
-    venueName: 'Cosa Nostra',
+    venueName: 'Casa Aurelia',
     flyerAssetId: null,
     flyerPrintedDate: null,
     note: null,
@@ -51,7 +51,7 @@ describe('getTicketOffer', () => {
     getEventAvailability.mockReset();
   });
 
-  it('returns tiers when Cosa Nostra ticketing is on and priced', async () => {
+  it('returns tiers when Casa Aurelia ticketing is on and priced', async () => {
     getEventAvailability.mockResolvedValueOnce(
       availability({
         tiers: [{ id: 't1', name: 'Adult', description: null, priceCents: 1000, seatsPerTicket: 1, minPerOrder: 0, maxPerOrder: 10, available: 40, onSale: true, capacity: 40, taken: 0 }],
@@ -61,7 +61,7 @@ describe('getTicketOffer', () => {
     expect(offer.kind).toBe('tiers');
   });
 
-  it('never falls back to the external URL once Cosa Nostra ticketing is enabled, even with a stale ticketUrl', async () => {
+  it('never falls back to the external URL once Casa Aurelia ticketing is enabled, even with a stale ticketUrl', async () => {
     getEventAvailability.mockResolvedValueOnce(availability({ tiers: [] }));
     const offer = await getTicketOffer(
       event({ ticketing: { ...DEFAULT_TICKETING, enabled: true }, ticketUrl: 'https://example.invalid/demo' }),
@@ -77,7 +77,7 @@ describe('getTicketOffer', () => {
     expect(offer.kind).toBe('pending');
   });
 
-  it('uses the external link only when Cosa Nostra ticketing is off', async () => {
+  it('uses the external link only when Casa Aurelia ticketing is off', async () => {
     const offer = await getTicketOffer(event({ ticketing: { ...DEFAULT_TICKETING, enabled: false }, ticketUrl: 'https://example.invalid/demo' }));
     expect(offer).toMatchObject({ kind: 'external', url: 'https://example.invalid/demo' });
     expect(getEventAvailability).not.toHaveBeenCalled();

@@ -67,35 +67,35 @@ describe('SITE_URL', () => {
   });
 
   it('uses an explicit value', async () => {
-    process.env.NEXT_PUBLIC_SITE_URL = 'https://cosa-nostra.example';
-    await expect(loadSiteUrl()).resolves.toBe('https://cosa-nostra.example');
+    process.env.NEXT_PUBLIC_SITE_URL = 'https://casa-aurelia.example';
+    await expect(loadSiteUrl()).resolves.toBe('https://casa-aurelia.example');
   });
 
   it('strips a trailing slash, path, query and hash', async () => {
-    process.env.NEXT_PUBLIC_SITE_URL = 'https://cosa-nostra.example/some/path?x=1#y';
-    await expect(loadSiteUrl()).resolves.toBe('https://cosa-nostra.example');
+    process.env.NEXT_PUBLIC_SITE_URL = 'https://casa-aurelia.example/some/path?x=1#y';
+    await expect(loadSiteUrl()).resolves.toBe('https://casa-aurelia.example');
   });
 
   it('trims surrounding whitespace', async () => {
-    process.env.NEXT_PUBLIC_SITE_URL = '  https://cosa-nostra.example  ';
-    await expect(loadSiteUrl()).resolves.toBe('https://cosa-nostra.example');
+    process.env.NEXT_PUBLIC_SITE_URL = '  https://casa-aurelia.example  ';
+    await expect(loadSiteUrl()).resolves.toBe('https://casa-aurelia.example');
   });
 
   it('adds https:// to the bare host Vercel supplies', async () => {
-    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL = 'cosa-nostra.vercel.app';
-    await expect(loadSiteUrl()).resolves.toBe('https://cosa-nostra.vercel.app');
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL = 'casa-aurelia.vercel.app';
+    await expect(loadSiteUrl()).resolves.toBe('https://casa-aurelia.vercel.app');
   });
 
   it('prefers an explicit value over the Vercel-supplied one', async () => {
     process.env.NEXT_PUBLIC_SITE_URL = 'https://example.invalid';
-    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL = 'cosa-nostra.vercel.app';
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL = 'casa-aurelia.vercel.app';
     await expect(loadSiteUrl()).resolves.toBe('https://example.invalid');
   });
 
   it('skips a blank explicit value and uses the next candidate', async () => {
     process.env.NEXT_PUBLIC_SITE_URL = '';
-    process.env.NEXT_PUBLIC_VERCEL_URL = 'cosa-nostra-preview.vercel.app';
-    await expect(loadSiteUrl()).resolves.toBe('https://cosa-nostra-preview.vercel.app');
+    process.env.NEXT_PUBLIC_VERCEL_URL = 'casa-aurelia-preview.vercel.app';
+    await expect(loadSiteUrl()).resolves.toBe('https://casa-aurelia-preview.vercel.app');
   });
 });
 

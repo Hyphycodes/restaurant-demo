@@ -91,7 +91,7 @@ export async function saveTheme(_prev: ActionState, formData: FormData): Promise
 
     const name = THEMES[slug].name;
     const message = !enabled
-      ? 'The website is back to Default Cosa Nostra.'
+      ? 'The website is back to Default Casa Aurelia.'
       : value.scheduleEnabled
         ? `${name} is saved and will show itself between the dates you set.`
         : `${name} is live on the website now.`;
@@ -125,7 +125,7 @@ export async function deactivateThemes(_prev: ActionState, _formData: FormData):
     for (const record of await listThemeRecords(db)) {
       if (record.enabled) await db.update(THEME_TABLE, record.slug, { enabled: false });
     }
-    return done('The website is back to Default Cosa Nostra.', 'theme');
+    return done('The website is back to Default Casa Aurelia.', 'theme');
   });
 }
 

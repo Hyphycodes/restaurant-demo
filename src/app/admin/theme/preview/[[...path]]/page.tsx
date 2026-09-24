@@ -22,7 +22,7 @@ import '@/themes/autumn-evening/theme.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Theme preview — Cosa Nostra Admin',
+  title: 'Theme preview — Casa Aurelia Admin',
   robots: { index: false, follow: false, nocache: true },
 };
 
@@ -44,8 +44,8 @@ const PAGES: { key: string; label: string; Page: () => Promise<React.ReactNode> 
   { key: 'visit', label: 'Visit', Page: VisitPage },
   { key: 'contact', label: 'Contact', Page: ContactPage },
   // Careers reads searchParams to preselect a role; the preview has none.
-  { key: 'careers', label: 'Work at Cosa Nostra', Page: () => CareersPage({ searchParams: Promise.resolve({}) }) },
-  { key: 'talent', label: 'Create with Cosa Nostra', Page: TalentPage },
+  { key: 'careers', label: 'Work at Casa Aurelia', Page: () => CareersPage({ searchParams: Promise.resolve({}) }) },
+  { key: 'talent', label: 'Create with Casa Aurelia', Page: TalentPage },
 ];
 
 export default async function ThemePreviewPage({
@@ -76,7 +76,7 @@ export default async function ThemePreviewPage({
   // is the one being previewed.
   setThemeOverride(theme);
 
-  const name = theme.definition?.name ?? 'Default Cosa Nostra';
+  const name = theme.definition?.name ?? 'Default Casa Aurelia';
   const { Page } = entry;
 
   return (

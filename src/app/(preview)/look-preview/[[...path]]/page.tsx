@@ -10,7 +10,7 @@ import { DEFAULT_RESOLVED, getActiveTheme, setThemeOverride } from '@/themes/res
 import '@/themes/autumn-evening/theme.css';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'Look preview — Cosa Nostra Admin', robots: { index: false, follow: false, nocache: true } };
+export const metadata: Metadata = { title: 'Look preview — Casa Aurelia Admin', robots: { index: false, follow: false, nocache: true } };
 
 
 export default async function LookPreview({

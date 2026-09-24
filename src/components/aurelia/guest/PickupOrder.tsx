@@ -36,7 +36,7 @@ export function PickupOrder({ items }: { items: PickupItem[] }) {
         </h2>
         <p className="cn-body">
           {lines.map((item) => `${basket[item.id]} × ${item.name}`).join(', ')} — {formatPrice(subtotal)}. Nothing was ordered or
-          charged; Cosa Nostra is fictional.
+          charged; Casa Aurelia is fictional.
         </p>
         <div className="flex flex-wrap gap-3">
           <button type="button" className="cn-btn cn-btn-ghost" onClick={() => { setBasket({}); setDone(false); }}>

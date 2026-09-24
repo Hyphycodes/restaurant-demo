@@ -28,7 +28,7 @@ import { primaryKey } from './types';
 
 type Tables = Record<string, Row[]>;
 
-const DEFAULT_DIR = path.join(process.cwd(), '.cosa-nostra-local');
+const DEFAULT_DIR = path.join(process.cwd(), '.casa-aurelia-local');
 const FILE = 'content.json';
 
 export class LocalDb implements Db {

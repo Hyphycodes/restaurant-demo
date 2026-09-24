@@ -33,7 +33,7 @@ export function Hero({
 
       <div className="cn-wrap cn-hero-content">
         <p className="cn-eyebrow cn-hero-kicker" data-m>
-          Cosa Nostra <span aria-hidden="true">·</span> Italian supper club <span aria-hidden="true">·</span> West Loop, Chicago
+          Casa Aurelia <span aria-hidden="true">·</span> Italian supper club <span aria-hidden="true">·</span> West Loop, Chicago
         </p>
 
         <h1 id="hero-title" className="cn-display cn-hero-title" data-m>

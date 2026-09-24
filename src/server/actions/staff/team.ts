@@ -103,8 +103,8 @@ export async function addEmployee(_prev: ActionState, form: FormData): Promise<A
       note = invite.note;
       await notify(
         withEmailDetails(
-          { employeeIds: [employee.id], kind: 'welcome', title: `Welcome to Cosa Nostra, ${employee.displayName}`, href: '/staff/onboarding', email: { subject: 'Welcome to Cosa Nostra', intro: `${context.staff.name || 'A manager'} added you to the Cosa Nostra team. Everything you need for work — your schedule, training, tasks and documents — is in the Cosa Nostra staff app.`, cta: 'Start onboarding' } },
-          { headline: `Welcome to Cosa Nostra, ${employee.displayName}.`, details: [...(employee.primaryPositionId ? [{ label: 'Position', value: employee.primaryPositionId }] : []), { label: 'Location', value: context.location.name }, ...(input.startDate ? [{ label: 'Start date', value: input.startDate }] : [])], note: 'Finish your onboarding checklist before your first shift.' },
+          { employeeIds: [employee.id], kind: 'welcome', title: `Welcome to Casa Aurelia, ${employee.displayName}`, href: '/staff/onboarding', email: { subject: 'Welcome to Casa Aurelia', intro: `${context.staff.name || 'A manager'} added you to the Casa Aurelia team. Everything you need for work — your schedule, training, tasks and documents — is in the Casa Aurelia staff app.`, cta: 'Start onboarding' } },
+          { headline: `Welcome to Casa Aurelia, ${employee.displayName}.`, details: [...(employee.primaryPositionId ? [{ label: 'Position', value: employee.primaryPositionId }] : []), { label: 'Location', value: context.location.name }, ...(input.startDate ? [{ label: 'Start date', value: input.startDate }] : [])], note: 'Finish your onboarding checklist before your first shift.' },
         ),
       );
     }

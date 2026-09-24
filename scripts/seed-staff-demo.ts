@@ -51,7 +51,7 @@ async function main() {
     return;
   }
 
-  const dir = path.join(process.cwd(), '.cosa-nostra-local');
+  const dir = path.join(process.cwd(), '.casa-aurelia-local');
   const file = path.join(dir, 'content.json');
   await mkdir(dir, { recursive: true });
   let tables: Record<string, unknown[]> = {};

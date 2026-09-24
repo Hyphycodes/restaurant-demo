@@ -1,5 +1,23 @@
 # Release verification
 
+## Casa Aurelia rename — September 24, 2026
+
+The concept's working title was retired and the restaurant is now Casa Aurelia everywhere: copy,
+metadata, Open Graph cards, structured data, the wordmark and sign artwork, favicon and touch icon,
+admin and staff apps, emails, link pages, seeds, migrations, tests and docs. Internal identifiers
+followed (`src/components/aurelia`, `src/styles/aurelia*.css`, theme id `casa-aurelia-default`,
+cookie, storage and header names). The migrations were edited in place because no hosted database
+has applied them (see Supabase below). No public route used the old name, so no redirects were
+needed; the public URL is unchanged.
+
+- `npm run verify` passes: ESLint, TypeScript, Vitest (54 files, 749 tests), the asset registry,
+  `db:verify` (24 migrations, RLS and ticketing walkthroughs) and the production build.
+- `scripts/qa-demo.mjs` against a production build: 104 page checks at 1440px and 390px, all 200,
+  no horizontal overflow, no broken images. The only console errors were the sandbox blocking
+  external fonts inside email previews. Home, admin, staff, menu, link page and private dining were
+  also checked at 768px.
+- A case-insensitive search for the old name and its slug variants returns nothing.
+
 ## Flagship release — September 23, 2026
 
 Local verification against a production build (`npm run build && npm start`):
@@ -34,7 +52,7 @@ Local verification against a production build (`npm run build && npm start`):
   - menu, events, private dining, catering, visit, contact, careers, talent, reservations, pickup, `/demo` and `/behind`
   - admin Tonight, the enquiry pipeline, media, the staff home and `/display` at 1920×1080
 
-**Supabase:** no Supabase project is connected to Cosa Nostra. The site permanently runs in demo mode on an isolated, per-visitor store (see `docs/ARCHITECTURE.md`), so no hosted database is read or written. The migrations remain the production-compatible schema, and they are now proven applyable by `npm run db:verify`.
+**Supabase:** no Supabase project is connected to Casa Aurelia. The site permanently runs in demo mode on an isolated, per-visitor store (see `docs/ARCHITECTURE.md`), so no hosted database is read or written. The migrations remain the production-compatible schema, and they are now proven applyable by `npm run db:verify`.
 
 ## Earlier releases
 

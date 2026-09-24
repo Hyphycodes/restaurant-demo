@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { EditorialTitle } from '@/components/aurelia/page/EditorialTitle';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { TalentForm } from '@/components/forms/TalentForm';
 import { Band, Frame } from '@/components/primitives/Band';
 import { Reveal } from '@/components/primitives/Reveal';

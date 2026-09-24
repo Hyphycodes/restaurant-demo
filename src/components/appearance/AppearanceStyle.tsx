@@ -7,5 +7,5 @@ export function AppearanceStyle({ appearance }: { appearance: Appearance }) {
     cssFor(':root', look.vars),
     appearance.adminFollowsSite ? cssFor("[data-admin-look='site']", look.vars) : '',
   ].join('');
-  return <style id="cosa-nostra-appearance" data-preset={look.preset}>{css}</style>;
+  return <style id="casa-aurelia-appearance" data-preset={look.preset}>{css}</style>;
 }

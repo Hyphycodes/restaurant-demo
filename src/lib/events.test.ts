@@ -235,7 +235,7 @@ describe('one-time events', () => {
     id: 'nye-2026',
     seriesSlug: null,
     slug: 'new-years-eve',
-    title: 'New Year’s Eve at Cosa Nostra',
+    title: 'New Year’s Eve at Casa Aurelia',
     startsAt: '2026-12-31T03:00:00.000Z',
     endsAt: '2026-12-31T09:00:00.000Z',
     published: true,
@@ -249,7 +249,7 @@ describe('one-time events', () => {
     const found = events.find((e) => e.id === 'one-time:nye-2026');
     expect(found).toBeDefined();
     expect(found!.seriesSlug).toBeNull();
-    expect(found!.title).toBe('New Year’s Eve at Cosa Nostra');
+    expect(found!.title).toBe('New Year’s Eve at Casa Aurelia');
     expect(found!.musicFormats).toEqual(['Latin', 'Top 100']);
     expect(found!.flyerAssetId).toBe('nye-artwork');
   });

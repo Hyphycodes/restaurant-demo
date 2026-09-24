@@ -24,7 +24,7 @@ let dir: string;
 let db: LocalDb;
 
 beforeEach(async () => {
-  dir = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-media-'));
+  dir = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-media-'));
   db = new LocalDb(dir, () => buildRecords().tables);
   __setLocalDbForTests(db);
 });

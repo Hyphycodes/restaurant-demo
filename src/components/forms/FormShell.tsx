@@ -52,7 +52,7 @@ export function FormShell({
         <div className="measure mt-3 text-[0.9375rem] leading-relaxed text-brown-soft">
           {success?.body ?? (
             <p>
-              It is saved in our inbox for the Cosa Nostra team. If your date is soon, call us at{' '}
+              It is saved in our inbox for the Casa Aurelia team. If your date is soon, call us at{' '}
               <a
                 href={`tel:+1${phone.replace(/\D/g, '')}`}
                 className="tabular text-brown underline underline-offset-4"

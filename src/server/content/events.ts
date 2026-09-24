@@ -106,7 +106,7 @@ function seriesFromRow(row: Row, mode: Mode): EventSeries {
     ageMin: (source.age_min as number | null) ?? null,
     ageNote: (source.age_note as string | null) ?? null,
     musicFormats: (source.music_formats as string[]) ?? [],
-    venueName: String(source.venue_name ?? 'Cosa Nostra'),
+    venueName: String(source.venue_name ?? 'Casa Aurelia'),
     artworkAssetId: (source.artwork_asset_id as string | null) ?? null,
     flyerAssetId: (source.flyer_asset_id as string | null) ?? null,
     flyerPrintedDate: (source.flyer_printed_date as string | null) ?? null,

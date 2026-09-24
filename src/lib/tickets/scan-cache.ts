@@ -35,7 +35,7 @@ export interface QueuedScan {
   deviceLabel: string;
 }
 
-const DB = 'cosa-nostra-door';
+const DB = 'casa-aurelia-door';
 const VERSION = 1;
 
 function open(): Promise<IDBDatabase> {

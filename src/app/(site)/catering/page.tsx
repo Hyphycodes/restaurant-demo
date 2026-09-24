@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { MotionScope } from '@/components/cosa/motion/MotionScope';
-import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { MotionScope } from '@/components/aurelia/motion/MotionScope';
+import { EditorialTitle } from '@/components/aurelia/page/EditorialTitle';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { CateringForm } from '@/components/forms/CateringForm';
 import { Asset } from '@/components/media/Asset';
 import { ThemeWorld } from '@/components/theme/ThemeWorld';

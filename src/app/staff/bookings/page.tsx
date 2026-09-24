@@ -62,14 +62,14 @@ export default async function ContractorBookingsPage() {
   const upcoming = bookings.filter((booking) => booking.status !== 'cancelled' && booking.startsAt && Date.parse(booking.startsAt) >= now - 6 * 3_600_000).sort((a, b) => (a.startsAt ?? '').localeCompare(b.startsAt ?? ''));
   const past = bookings.filter((booking) => !upcoming.includes(booking)).sort((a, b) => (b.startsAt ?? '').localeCompare(a.startsAt ?? ''));
   const zoneOf = (locationId: string | null) => locations.find((entry) => entry.id === locationId)?.timezone ?? locations[0]?.timezone ?? 'America/Chicago';
-  const venueOf = (locationId: string | null) => locations.find((entry) => entry.id === locationId)?.name ?? locations[0]?.name ?? 'Cosa Nostra';
+  const venueOf = (locationId: string | null) => locations.find((entry) => entry.id === locationId)?.name ?? locations[0]?.name ?? 'Casa Aurelia';
 
   return (
     <ContractorFrame name={contractor.name} previewing={context.previewing === 'contractor'}>
-      <Screen title={`Hi, ${contractor.name.split(/\s+/)[0]}`} eyebrow="Your bookings at Cosa Nostra" lead={contractor.companyName ?? CONTRACTOR_SERVICE_LABEL[contractor.serviceType]}>
+      <Screen title={`Hi, ${contractor.name.split(/\s+/)[0]}`} eyebrow="Your bookings at Casa Aurelia" lead={contractor.companyName ?? CONTRACTOR_SERVICE_LABEL[contractor.serviceType]}>
         <Section title="Coming up">
           {upcoming.length === 0 ? (
-            <Empty title="Nothing booked right now." detail="When Cosa Nostra books you, it shows up here with the details." />
+            <Empty title="Nothing booked right now." detail="When Casa Aurelia books you, it shows up here with the details." />
           ) : (
             <div className="grid gap-3">
               {upcoming.map((booking) => {
@@ -152,7 +152,7 @@ function ContractorFrame({ name, previewing = false, children }: { name: string;
       <header className="sticky top-0 z-40 border-b border-night-text/10 bg-teal">
         <div className="mx-auto flex max-w-[720px] items-center gap-4 px-4 py-2.5 sm:px-6">
           <span className="display shrink-0 text-[1.375rem] leading-none text-night-text">
-            Cosa Nostra
+            Casa Aurelia
             <span className="ml-1.5 font-sans text-[0.75rem] font-medium normal-case tracking-[0.12em] text-night-text/55">bookings</span>
           </span>
           <span className="ml-auto flex items-center gap-3 text-[0.8125rem]">

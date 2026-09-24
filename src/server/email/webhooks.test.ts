@@ -38,12 +38,12 @@ describe('standard webhook signatures', () => {
 });
 
 describe('the Supabase auth email hook', () => {
-  const context = { brand: f.brand, supabaseUrl: 'https://proj.supabase.co', siteUrl: 'https://cosa-nostra.example.com' };
+  const context = { brand: f.brand, supabaseUrl: 'https://proj.supabase.co', siteUrl: 'https://casa-aurelia.example.com' };
 
   function payload(action: string, extra: Partial<AuthHookPayload['user']> = {}): AuthHookPayload {
     return {
       user: { id: 'u1', email: 'alex@example.com', user_metadata: { name: 'Nico Moretti', invited_by: 'Alessandro' }, ...extra },
-      email_data: { token: '123456', token_hash: 'hash_abc', redirect_to: 'https://cosa-nostra.example.com/auth/activate', email_action_type: action, site_url: 'https://cosa-nostra.example.com' },
+      email_data: { token: '123456', token_hash: 'hash_abc', redirect_to: 'https://casa-aurelia.example.com/auth/activate', email_action_type: action, site_url: 'https://casa-aurelia.example.com' },
     };
   }
 
@@ -54,8 +54,8 @@ describe('the Supabase auth email hook', () => {
   });
 
   it('builds the same verify link Supabase’s own templates use', () => {
-    const url = supabaseVerifyUrl('https://proj.supabase.co', 'hash_abc', 'magiclink', 'https://cosa-nostra.example.com/auth/callback');
-    expect(url).toBe('https://proj.supabase.co/auth/v1/verify?token=hash_abc&type=magiclink&redirect_to=https%3A%2F%2Fcosa-nostra.example.com%2Fauth%2Fcallback');
+    const url = supabaseVerifyUrl('https://proj.supabase.co', 'hash_abc', 'magiclink', 'https://casa-aurelia.example.com/auth/callback');
+    expect(url).toBe('https://proj.supabase.co/auth/v1/verify?token=hash_abc&type=magiclink&redirect_to=https%3A%2F%2Fcasa-aurelia.example.com%2Fauth%2Fcallback');
   });
 
   it('maps an invitation to the staff invitation, with role and inviter', () => {
@@ -66,7 +66,7 @@ describe('the Supabase auth email hook', () => {
     expect(plan.props.invitedBy).toBe('Alessandro');
     expect(plan.props.name).toBe('Nico Moretti');
     expect(plan.props.acceptUrl).toContain('type=invite');
-    expect(plan.props.acceptUrl).toContain(encodeURIComponent('https://cosa-nostra.example.com/auth/activate'));
+    expect(plan.props.acceptUrl).toContain(encodeURIComponent('https://casa-aurelia.example.com/auth/activate'));
   });
 
   it('maps the sign-in link, the password reset and the confirmations', () => {
@@ -81,10 +81,10 @@ describe('the Supabase auth email hook', () => {
   it('falls back to the site callback when no redirect is given', () => {
     const plan = planAuthEmail(payload('magiclink'), context);
     if (plan.template !== 'magic_link') throw new Error('wrong template');
-    expect(plan.props.actionUrl).toContain('redirect_to=https%3A%2F%2Fcosa-nostra.example.com%2Fauth%2Factivate');
+    expect(plan.props.actionUrl).toContain('redirect_to=https%3A%2F%2Fcasa-aurelia.example.com%2Fauth%2Factivate');
     const bare = { ...payload('magiclink'), email_data: { ...payload('magiclink').email_data, redirect_to: '' } };
     const fallback = planAuthEmail(bare, context);
     if (fallback.template !== 'magic_link') throw new Error('wrong template');
-    expect(fallback.props.actionUrl).toContain(encodeURIComponent('https://cosa-nostra.example.com/auth/callback'));
+    expect(fallback.props.actionUrl).toContain(encodeURIComponent('https://casa-aurelia.example.com/auth/callback'));
   });
 });

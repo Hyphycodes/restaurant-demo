@@ -1,4 +1,4 @@
--- Cosa Nostra staff operating system, second pass: the schedule week as a thing
+-- Casa Aurelia staff operating system, second pass: the schedule week as a thing
 -- with a status, the night brief an employee is allowed to read, and a
 -- contractor who can see their own booking and nothing else.
 --

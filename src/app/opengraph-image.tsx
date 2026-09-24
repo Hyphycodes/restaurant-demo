@@ -44,7 +44,7 @@ export default function OpengraphImage() {
               fontWeight: 600,
             }}
           >
-            COSA NOSTRA · ITALIAN SUPPER CLUB
+            CASA AURELIA · ITALIAN SUPPER CLUB
           </div>
         </div>
 

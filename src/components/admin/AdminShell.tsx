@@ -143,7 +143,7 @@ export function AdminShell({
         <header className="sticky top-0 z-40 border-b border-night-text/10 bg-teal">
           <div className="mx-auto flex max-w-[1280px] items-center gap-x-6 px-4 py-2.5 sm:px-6">
             <Link href="/admin" className="display shrink-0 text-[1.375rem] leading-none text-night-text transition-opacity hover:opacity-80">
-              Cosa Nostra
+              Casa Aurelia
               <span className="ml-1.5 font-sans text-[0.75rem] font-medium normal-case tracking-[0.12em] text-night-text/55">
                 admin
               </span>

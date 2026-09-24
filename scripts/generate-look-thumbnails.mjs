@@ -14,7 +14,7 @@ await mkdir('public/admin/looks', { recursive: true });
 
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 640, height: 400 }, deviceScaleFactor: 1.5, reducedMotion: 'reduce' });
-await context.addCookies([{ name: 'cosa-nostra_local_staff', value: 'owner', domain: new URL(origin).hostname, path: '/' }]);
+await context.addCookies([{ name: 'casa-aurelia_local_staff', value: 'owner', domain: new URL(origin).hostname, path: '/' }]);
 const page = await context.newPage();
 
 for (const preset of presets) {

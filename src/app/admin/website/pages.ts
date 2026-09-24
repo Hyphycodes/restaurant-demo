@@ -34,13 +34,13 @@ export const PAGES = [
   },
   {
     slug: 'careers',
-    label: 'Work at Cosa Nostra',
+    label: 'Work at Casa Aurelia',
     route: '/careers',
     hint: 'Recruitment copy and perks. Openings are in People → Job openings.',
   },
   {
     slug: 'talent',
-    label: 'Create with Cosa Nostra',
+    label: 'Create with Casa Aurelia',
     route: '/talent',
     hint: 'The invitation to local DJs, artists and performers',
   },

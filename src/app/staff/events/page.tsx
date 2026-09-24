@@ -53,7 +53,7 @@ export default async function StaffEventsPage() {
 
   return (
     <StaffShell context={context} unread={unread} wide={staffs}>
-      <Screen title="Events" lead={staffs ? 'The next six weeks. Tap a night to staff it.' : 'What’s coming up at Cosa Nostra.'}>
+      <Screen title="Events" lead={staffs ? 'The next six weeks. Tap a night to staff it.' : 'What’s coming up at Casa Aurelia.'}>
         {events.length === 0 ? <Empty title="Nothing on the calendar." detail={staffs ? 'Events are created in the admin; staffing and briefs happen here.' : 'No events coming up.'} /> : null}
         {Array.from(weeks.keys())
           .sort()

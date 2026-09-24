@@ -55,7 +55,7 @@ export function LookEditor({
   useEffect(() => {
     const id = window.setTimeout(() => {
       for (const frame of frames.current) {
-        frame?.contentWindow?.postMessage({ type: 'cosa-nostra:appearance', vars: look.vars }, window.location.origin);
+        frame?.contentWindow?.postMessage({ type: 'casa-aurelia:appearance', vars: look.vars }, window.location.origin);
       }
     }, 150);
     return () => window.clearTimeout(id);
@@ -65,11 +65,11 @@ export function LookEditor({
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return;
-      if ((event.data as { type?: string } | null)?.type !== 'cosa-nostra:appearance-ready') return;
+      if ((event.data as { type?: string } | null)?.type !== 'casa-aurelia:appearance-ready') return;
       for (const frame of frames.current) {
         const target = frame?.contentWindow;
         if (target && target === event.source) {
-          target.postMessage({ type: 'cosa-nostra:appearance', vars: look.vars }, window.location.origin);
+          target.postMessage({ type: 'casa-aurelia:appearance', vars: look.vars }, window.location.origin);
         }
       }
     };

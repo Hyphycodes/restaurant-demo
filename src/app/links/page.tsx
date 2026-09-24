@@ -5,8 +5,8 @@ import { getDefaultPublicHub } from '@/server/content/link-hubs';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
-  title: 'Cosa Nostra Links — Cosa Nostra',
-  description: 'Events, reservations, menu and more from Cosa Nostra.',
+  title: 'Links — Casa Aurelia',
+  description: 'Events, reservations, menu and more from Casa Aurelia.',
   alternates: { canonical: '/links' },
   robots: { index: false, follow: true },
 };

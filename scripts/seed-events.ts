@@ -36,7 +36,7 @@ export const SAMPLE_EVENTS = [
     draft: null,
     age_min: null,
     music_formats: [],
-    venue_name: 'Cosa Nostra',
+    venue_name: 'Casa Aurelia',
     price_cents: 1000,
     ticket_url: 'https://example.invalid/demo',
     flyer_asset_id: null,
@@ -62,7 +62,7 @@ export const SAMPLE_EVENTS = [
     draft: null,
     age_min: 21,
     music_formats: ['Soul', 'Disco'],
-    venue_name: 'Cosa Nostra',
+    venue_name: 'Casa Aurelia',
     price_cents: 0,
     ticket_url: null,
     flyer_asset_id: null,
@@ -114,7 +114,7 @@ async function seedSupabase(url: string, key: string) {
 }
 
 async function seedLocal() {
-  const dir = path.join(process.cwd(), '.cosa-nostra-local');
+  const dir = path.join(process.cwd(), '.casa-aurelia-local');
   const file = path.join(dir, 'content.json');
   await mkdir(dir, { recursive: true });
   let tables: Record<string, Record<string, unknown>[]> = {};

@@ -36,7 +36,7 @@ export function Overture() {
   }, []);
 
   return (
-    <section ref={ref} className="cn-night cn-overture cn-section" aria-label="About Cosa Nostra">
+    <section ref={ref} className="cn-night cn-overture cn-section" aria-label="About Casa Aurelia">
       <div className="cn-wrap">
         <p className="cn-eyebrow">Est. for the evening</p>
         <p className="cn-display cn-overture-text">

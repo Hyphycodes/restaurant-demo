@@ -1,4 +1,4 @@
-# Higgsfield asset brief — Cosa Nostra
+# Higgsfield asset brief — Casa Aurelia
 
 The site's strength is interface design and directed motion. The one ceiling that design cannot raise is the photography: the current library is five licensed stock photographs, re-graded for the evening (`scripts/grade-night-media.ts`). They were shot in daylight and studio light. None of them shows people, the exterior, the city at night, or anything moving.
 
@@ -9,7 +9,7 @@ Eight assets would change that. Each one replaces a specific graded still or fil
 - **Light:** practical light only. Candles, brass sconces and a warm bar back-light at about 2200–2700K. Deep shadows, no fill, no flash. Blacks should sit at the warm brown of `#120d0a`, never crushed to neutral.
 - **Palette:** walnut, oxblood, candle amber, cream linen, subtle olive, polished brass. One restrained red per frame, from a Negroni, the wine or a napkin.
 - **People:** real hospitality, not a campaign. No faces turned to the lens. Hands, shoulders, profiles and soft focus. Nobody should be recognisable.
-- **Avoid:** neon, logos, visible text (Cosa Nostra is fictional and must not be signed), smoke machines, glossy commercial food styling, and the teal-and-orange grade.
+- **Avoid:** neon, logos, visible text (Casa Aurelia is fictional and must not be signed), smoke machines, glossy commercial food styling, and the teal-and-orange grade.
 - **Finish:** a light 35mm grain, gentle halation around flames, and a shallow depth of field (roughly f/1.8–2.8).
 - **Video:** slow and continuous. Seamless loops where noted. No cuts, no speed ramps. Export a 1080p master plus a 720p web version and a still poster frame. Target size: under 4MB for a 10s web loop.
 

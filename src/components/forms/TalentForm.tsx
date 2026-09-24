@@ -34,7 +34,7 @@ export function TalentForm({ phone }: { phone: string }) {
       statusId={form.statusId}
       onSubmit={form.onSubmit}
       encType="multipart/form-data"
-      privacyNote="This goes to the Cosa Nostra team. We never publish anything you send without asking you first."
+      privacyNote="This goes to the Casa Aurelia team. We never publish anything you send without asking you first."
       success={{
         title: 'We got it.',
         body: (
@@ -121,7 +121,7 @@ export function TalentForm({ phone }: { phone: string }) {
           />
           <TextArea
             name="idea"
-            label="What would you want to do at Cosa Nostra?"
+            label="What would you want to do at Casa Aurelia?"
             rows={3}
             placeholder="A Thursday residency, a mural on the patio wall, a listening night for Día de Muertos…"
             error={form.errors.idea}

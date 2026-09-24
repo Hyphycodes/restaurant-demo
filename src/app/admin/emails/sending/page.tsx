@@ -43,7 +43,7 @@ export default async function CommunicationsPage() {
       staff={staff}
       local={local}
       title="Sending &amp; log"
-      description="Whether Cosa Nostra can send email at all, a test to one address, the one send a manager makes on purpose, and everything that has gone out."
+      description="Whether Casa Aurelia can send email at all, a test to one address, the one send a manager makes on purpose, and everything that has gone out."
       backTo={{ href: '/admin/emails', label: 'Emails' }}
       actions={<LinkButton href="/admin/emails">See every email</LinkButton>}
     >
@@ -66,7 +66,7 @@ export default async function CommunicationsPage() {
               neutral={!config.deliveryEnabled}
             />
             <Status ok={config.webhookSecretSet} label="Delivery reports" detail={config.webhookSecretSet ? 'Resend reports delivered, bounced and delayed back to this log.' : 'RESEND_WEBHOOK_SECRET not set: the log records sends, not deliveries.'} neutral={!config.webhookSecretSet} />
-            <Status ok={config.authHookSecretSet} label="Staff sign-in emails" detail={config.authHookSecretSet ? 'Sent as Cosa Nostra emails through the Supabase auth hook.' : 'Supabase sends its own plain sign-in and invitation emails until the auth hook is pointed here.'} neutral={!config.authHookSecretSet} />
+            <Status ok={config.authHookSecretSet} label="Staff sign-in emails" detail={config.authHookSecretSet ? 'Sent as Casa Aurelia emails through the Supabase auth hook.' : 'Supabase sends its own plain sign-in and invitation emails until the auth hook is pointed here.'} neutral={!config.authHookSecretSet} />
           </dl>
           {!isTicketingConfigured() ? <div className="mt-4"><HelpNote>Ticketing is not connected on this copy of the site, so there are no orders to email and the log is empty. Previews still work against the built-in events.</HelpNote></div> : null}
         </Card>

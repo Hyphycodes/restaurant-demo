@@ -18,7 +18,7 @@ export function VisitBand({ site, openLabel, isOpen }: { site: SiteSettings; ope
           </h2>
           <p className="cn-body mt-5" data-m="up">
             Look for the brass sconce and the small sign. Valet on Fridays and Saturdays; the Morgan stop on the Green and Pink
-            lines is a five-minute walk. <em>(Cosa Nostra is fictional — no street address is published.)</em>
+            lines is a five-minute walk. <em>(Casa Aurelia is fictional — no street address is published.)</em>
           </p>
         </div>
         <dl className="cn-visit-hours cn-num" data-m="stagger">

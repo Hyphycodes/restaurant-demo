@@ -17,7 +17,7 @@ import { resolveEventArtwork } from '@/server/content/event-art';
 import { getOrderByNumber, holdIsLive, isPaidStatus, type OrderRecord, type TicketRecord } from '@/server/ticketing/orders';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'Your tickets — Cosa Nostra', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Your tickets — Casa Aurelia', robots: { index: false, follow: false } };
 
 /**
  * The tickets page.

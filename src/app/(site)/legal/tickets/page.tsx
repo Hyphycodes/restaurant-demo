@@ -6,8 +6,8 @@ import { formatPhoneHref } from '@/lib/format';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Ticket terms — Cosa Nostra',
-  description: 'What a ticket to an Cosa Nostra event gets you, our refund policy, age rules, and what happens if an event changes.',
+  title: 'Ticket terms — Casa Aurelia',
+  description: 'What a ticket to a Casa Aurelia event gets you, our refund policy, age rules, and what happens if an event changes.',
   path: '/legal/tickets',
 });
 

@@ -38,7 +38,7 @@ function fallbackOffer(event: ResolvedEvent): TicketOffer {
 
 export async function getTicketOffer(event: ResolvedEvent): Promise<TicketOffer> {
   if (event.ticketing.enabled) {
-    // Cosa Nostra ticketing is the owner's explicit choice for this event. Once it's
+    // Casa Aurelia ticketing is the owner's explicit choice for this event. Once it's
     // on, an external `ticketUrl` never controls the public CTA again — not
     // even a stale one left over from before the switch, and not even while
     // availability is briefly unreachable or has no priced tiers yet. The

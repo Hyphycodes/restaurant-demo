@@ -58,7 +58,7 @@ function harness(
   const logged: EmailLogEntry[] = [];
   const config: EmailConfig = {
     transportConfigured: options.transport ?? true,
-    from: 'Cosa Nostra <tickets@tickets.example.com>',
+    from: 'Casa Aurelia <tickets@tickets.example.com>',
     fromAddress: 'tickets@tickets.example.com',
     fromProblem: null,
     replyTo: null,
@@ -195,7 +195,7 @@ describe('the ticket confirmation', () => {
     // The transport throws on a subject containing BOOM; an event title carries it into every subject.
     const { service, logged } = harness({}, { orders: [order] });
     const boom = createEmailService({
-      config: () => ({ transportConfigured: true, from: 'Cosa Nostra <t@t.example.com>', fromAddress: 't@t.example.com', fromProblem: null, replyTo: null, deliveryEnabled: true, redirectTo: null, ownerAlertEmail: null, webhookSecretSet: false, authHookSecretSet: false, ticketDirection: 'pass' }),
+      config: () => ({ transportConfigured: true, from: 'Casa Aurelia <t@t.example.com>', fromAddress: 't@t.example.com', fromProblem: null, replyTo: null, deliveryEnabled: true, redirectTo: null, ownerAlertEmail: null, webhookSecretSet: false, authHookSecretSet: false, ticketDirection: 'pass' }),
       transport: () => ({ async send() { throw new Error('provider down'); } }),
       store: () => ({ async log(entry) { logged.push(entry); }, async hasSent() { return false; } }),
       loadOrder: async () => order,
@@ -277,7 +277,7 @@ describe('reminders and previews', () => {
     const { service, sent } = harness({ deliveryEnabled: false });
     expect((await service.sendOwnerAlert('Chargeback', 'Details')).status).toBe('sent');
     expect(sent[0]!.to).toBe('owner@example.com');
-    expect(sent[0]!.subject).toBe('[Cosa Nostra tickets] Chargeback');
+    expect(sent[0]!.subject).toBe('[Casa Aurelia tickets] Chargeback');
   });
 });
 

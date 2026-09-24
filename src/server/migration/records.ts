@@ -50,7 +50,7 @@ export function buildRecords(): { tables: Tables; report: MigrationReport } {
   // migration never publishes a demo page by surprise.
   put('link_hub_locations', [{
     id: 'chicago',
-    name: 'Cosa Nostra — Chicago',
+    name: 'Casa Aurelia — Chicago',
     address: 'West Loop, Chicago, IL ',
     phone: site.phone.value,
     review_url: null,

@@ -19,7 +19,7 @@ export default async function RequirementTypesPage({ searchParams }: { searchPar
   return (
     <StaffShell context={context} unread={unread} wide>
       <Back href="/staff/operations/documents" label="Documents" />
-      <Screen title="Requirements" lead="Documents, policies, certifications and onboarding steps. Each is a slot Cosa Nostra fills with its own form, link or policy — nothing here decides what the law requires.">
+      <Screen title="Requirements" lead="Documents, policies, certifications and onboarding steps. Each is a slot Casa Aurelia fills with its own form, link or policy — nothing here decides what the law requires.">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <Section title="Configured" count={types.length}>
             <div className="staff-panel px-4">

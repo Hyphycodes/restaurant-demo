@@ -35,7 +35,7 @@ function event(
     ageMin: null,
     ageNote: null,
     musicFormats: [],
-    venueName: 'Cosa Nostra',
+    venueName: 'Casa Aurelia',
     flyerAssetId: null,
     note: null,
     presentation: {
@@ -171,7 +171,7 @@ describe('buildCalendar and recurring nights', () => {
     ageMin: 18,
     ageNote: null,
     musicFormats: ['House'],
-    venueName: 'Cosa Nostra',
+    venueName: 'Casa Aurelia',
     flyerAssetId: null,
     flyerPrintedDate: null,
     priceCents: 1000,

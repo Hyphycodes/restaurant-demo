@@ -51,14 +51,14 @@ export const assets = {
   "brandLogo": {
     "path": "/media/brandLogo.webp",
     "kind": "image",
-    "alt": "Cosa Nostra Italian Supper Club",
+    "alt": "Casa Aurelia Italian Supper Club",
     "width": 1000,
     "height": 260,
     "ratio": "1000:260",
     "focal": "50% 50%",
     "status": "brand",
     "usage": [
-      "Cosa Nostra brandLogo semantic slot"
+      "Casa Aurelia brandLogo semantic slot"
     ],
     "containsText": "brand",
     "maxBytes": 500000
@@ -73,7 +73,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra heroImage semantic slot"
+      "Casa Aurelia heroImage semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -88,7 +88,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra backBar semantic slot"
+      "Casa Aurelia backBar semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -96,14 +96,14 @@ export const assets = {
   "exteriorSign": {
     "path": "/media/exteriorSign.webp",
     "kind": "image",
-    "alt": "Cosa Nostra fictional supper club entrance artwork",
+    "alt": "Casa Aurelia fictional supper club entrance artwork",
     "width": 900,
     "height": 1125,
     "ratio": "900:1125",
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra exteriorSign semantic slot"
+      "Casa Aurelia exteriorSign semantic slot"
     ],
     "containsText": "brand",
     "maxBytes": 500000
@@ -118,7 +118,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra diningRoom semantic slot"
+      "Casa Aurelia diningRoom semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -133,7 +133,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra signaturePasta semantic slot"
+      "Casa Aurelia signaturePasta semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -148,7 +148,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra bartender semantic slot"
+      "Casa Aurelia bartender semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -163,7 +163,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra dishPasta semantic slot"
+      "Casa Aurelia dishPasta semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -178,7 +178,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra houseNegroni semantic slot"
+      "Casa Aurelia houseNegroni semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -193,7 +193,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra roomCrowd semantic slot"
+      "Casa Aurelia roomCrowd semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -208,7 +208,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra flyerFridays semantic slot"
+      "Casa Aurelia flyerFridays semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -223,7 +223,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra flyerSaturday semantic slot"
+      "Casa Aurelia flyerSaturday semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -238,7 +238,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra privateEvents semantic slot"
+      "Casa Aurelia privateEvents semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -253,7 +253,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra flyerVinyl semantic slot"
+      "Casa Aurelia flyerVinyl semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -268,7 +268,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra flyerSupper semantic slot"
+      "Casa Aurelia flyerSupper semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000
@@ -283,7 +283,7 @@ export const assets = {
     "focal": "50% 50%",
     "status": "final",
     "usage": [
-      "Cosa Nostra flyerAperitivo semantic slot"
+      "Casa Aurelia flyerAperitivo semantic slot"
     ],
     "containsText": "none",
     "maxBytes": 500000

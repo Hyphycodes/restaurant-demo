@@ -13,15 +13,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const imageId = page.hub.heroAssetId || page.hub.backgroundAssetId;
   const image = imageId ? page.media[imageId] : null;
   return {
-    title: `${page.hub.title} — Cosa Nostra`,
-    description: page.hub.subtitle || page.hub.internalDescription || 'Cosa Nostra links, events and guest actions.',
+    title: page.hub.title === 'Casa Aurelia' ? 'Links — Casa Aurelia' : `${page.hub.title} — Casa Aurelia`,
+    description: page.hub.subtitle || page.hub.internalDescription || 'Casa Aurelia links, events and guest actions.',
     alternates: { canonical: `/go/${page.hub.slug}` },
     robots: page.hub.searchVisibility === 'searchable' ? { index: true, follow: true } : { index: false, follow: true },
     openGraph: {
       type: 'website',
       url: absoluteUrl(`/go/${page.hub.slug}`),
       title: page.hub.title,
-      description: page.hub.subtitle || 'Cosa Nostra',
+      description: page.hub.subtitle || 'Casa Aurelia',
       ...(image?.kind === 'image' ? { images: [{ url: absoluteUrl(image.path), width: image.width, height: image.height, alt: image.alt }] } : {}),
     },
   };

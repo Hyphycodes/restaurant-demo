@@ -111,7 +111,7 @@ export function LocationCard({
           <a href={formatPhoneHref(location.phone)} className={`tabular ${secondary}`}>
             <PhoneIcon />
             {location.phone}
-            <span className="sr-only">— call Cosa Nostra</span>
+            <span className="sr-only">— call Casa Aurelia</span>
           </a>
           <div className="grid grid-cols-2 gap-2">
             <Link href="/menu" className={secondary}>

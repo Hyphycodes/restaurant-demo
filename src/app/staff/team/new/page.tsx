@@ -14,7 +14,7 @@ export default async function NewEmployeePage() {
   return (
     <StaffShell context={context} unread={unread}>
       <Back href="/staff/team" label="Team" />
-      <Screen title="Add an employee" lead="They get an invitation, a welcome email, their onboarding checklist and any required training. Nothing legal is assumed: the checklist is whatever Cosa Nostra put in it.">
+      <Screen title="Add an employee" lead="They get an invitation, a welcome email, their onboarding checklist and any required training. Nothing legal is assumed: the checklist is whatever Casa Aurelia put in it.">
         <EmployeeForm employee={null} positions={positions.filter((position) => position.active)} locations={context.locations} managers={employees.filter((employee) => employee.positionIds.includes('manager') || employee.accessRole === 'admin' || employee.accessRole === 'owner')} defaultLocationId={context.location.id} />
       </Screen>
     </StaffShell>

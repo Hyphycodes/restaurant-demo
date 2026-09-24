@@ -15,7 +15,7 @@ function SiteFace() {
         <span>Menu</span>
         <span>Events</span>
         <span>Private Dining</span>
-        <b>Cosa Nostra</b>
+        <b>Casa Aurelia</b>
         <span>Catering</span>
         <span>Visit</span>
         <i>Reserve</i>
@@ -49,7 +49,7 @@ export function Behind({ snapshot, id }: { snapshot: PlatformSnapshot; id?: stri
           </h2>
         </div>
 
-        <div className="cn-bh-os" aria-label="The Cosa Nostra operating system: admin and staff tools">
+        <div className="cn-bh-os" aria-label="The Casa Aurelia operating system: admin and staff tools">
           <svg className="cn-bh-wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             {WIRES.map((d) => (
               <path key={d} d={d} vectorEffect="non-scaling-stroke" />
@@ -82,7 +82,7 @@ export function Behind({ snapshot, id }: { snapshot: PlatformSnapshot; id?: stri
         </p>
 
         <div className="cn-bh-finale cn-wrap">
-          <p className="cn-eyebrow">The Cosa Nostra platform</p>
+          <p className="cn-eyebrow">The Casa Aurelia platform</p>
           <p className="cn-display cn-xl">
             One restaurant. <em>One connected system.</em>
           </p>

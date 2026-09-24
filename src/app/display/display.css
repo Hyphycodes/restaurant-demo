@@ -3,7 +3,7 @@
    One unit, --u, is 1% of the largest 16:9 box that fits the screen, so a
    1080p TV, a 4K projector and a laptop previewing it all set the same
    composition. Everything is sized in it; nothing depends on the device.
-   Built on the public site's tokens (cosa.css): walnut, candle, cream, wine.
+   Built on the public site's tokens (aurelia.css): walnut, candle, cream, wine.
    ========================================================================== */
 
 .cnd {

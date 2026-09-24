@@ -1,10 +1,10 @@
-export interface CosaNavItem {
+export interface AureliaNavItem {
   label: string;
   href: string;
 }
 
 /** The desktop bar: the five reasons someone opens a restaurant's website. */
-export const cosaPrimaryNav: CosaNavItem[] = [
+export const aureliaPrimaryNav: AureliaNavItem[] = [
   { label: 'Menu', href: '/menu' },
   { label: 'Events', href: '/events' },
   { label: 'Private Dining', href: '/private-events' },
@@ -13,13 +13,13 @@ export const cosaPrimaryNav: CosaNavItem[] = [
 ];
 
 /** The drawer and footer carry the rest of the house. */
-export const cosaDrawerNav: CosaNavItem[] = [
-  ...cosaPrimaryNav,
+export const aureliaDrawerNav: AureliaNavItem[] = [
+  ...aureliaPrimaryNav,
   { label: 'Reservations', href: '/reservations' },
   { label: 'Contact', href: '/contact' },
 ];
 
-export const cosaHouseNav: CosaNavItem[] = [
+export const aureliaHouseNav: AureliaNavItem[] = [
   { label: 'Work with us', href: '/careers' },
   { label: 'Artists & DJs', href: '/talent' },
   { label: 'Order pickup', href: '/order' },

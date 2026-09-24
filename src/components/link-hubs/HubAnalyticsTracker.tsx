@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 type EventKind = 'view' | 'display_view' | 'block_click' | 'event_click' | 'review_click' | 'reservation_click' | 'ticket_click' | 'social_click';
 
 function sessionKey(): string {
-  const key = 'cosa-nostra-hub-session-v1';
+  const key = 'casa-aurelia-hub-session-v1';
   try {
     const found = sessionStorage.getItem(key);
     if (found) return found;

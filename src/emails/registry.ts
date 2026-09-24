@@ -104,7 +104,7 @@ export const EMAIL_TEMPLATES: TemplateInfo[] = [
   {
     id: 'event_reminder',
     name: 'Event reminder',
-    description: '“Tomorrow at Cosa Nostra”: the night, the door details, the tickets again.',
+    description: '“Tomorrow at Casa Aurelia”: the night, the door details, the tickets again.',
     category: 'transactional',
     logType: 'reminder',
     needsEvent: true,
@@ -223,7 +223,7 @@ const STAFF_OPS_TEMPLATES: TemplateInfo[] = [
   {
     id: 'staff_welcome',
     name: 'Welcome to the team',
-    description: 'A new employee’s first email: what Cosa Nostra is, and the button into their onboarding checklist.',
+    description: 'A new employee’s first email: what Casa Aurelia is, and the button into their onboarding checklist.',
     category: 'staff',
     logType: 'staff_welcome',
     needsEvent: false,

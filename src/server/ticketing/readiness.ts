@@ -146,7 +146,7 @@ export async function readiness(): Promise<ReadinessItem[]> {
         { name: 'RESEND_WEBHOOK_SECRET', set: has('RESEND_WEBHOOK_SECRET') },
       ],
       steps: [
-        'Create the Resend account and verify a sending subdomain (tickets.cosa-nostraitaliankitchenbar.com).',
+        'Create the Resend account and verify a sending subdomain (tickets.casaaurelia.example).',
         'Add its SPF, DKIM and DMARC records at the registrar.',
         'Add RESEND_API_KEY, ORDERS_FROM_EMAIL and OWNER_ALERT_EMAIL in Vercel.',
         'Add a Resend webhook for https://…/api/webhooks/resend and put its signing secret in RESEND_WEBHOOK_SECRET. docs/email-system.md has the full checklist.',

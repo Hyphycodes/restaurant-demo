@@ -10,7 +10,7 @@ export const HUB_TYPES = [
 
 export type LinkHubType = (typeof HUB_TYPES)[number];
 export type LinkHubStatus = 'draft' | 'published' | 'archived';
-export type HubTheme = 'cosa-nostra-default' | 'evening' | 'teal' | 'plum' | 'seasonal' | 'custom';
+export type HubTheme = 'casa-aurelia-default' | 'evening' | 'teal' | 'plum' | 'seasonal' | 'custom';
 export type SearchVisibility = 'searchable' | 'noindex';
 export type ModeStrategy = 'auto' | 'manual';
 

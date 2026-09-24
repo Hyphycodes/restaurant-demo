@@ -3,7 +3,7 @@ import { getSiteSettings } from '@/content/resolve';
 import { formatPhoneHref } from '@/lib/format';
 import { groupHours } from '@/lib/hours';
 import { MotionScope } from '../motion/MotionScope';
-import { cosaDrawerNav, cosaHouseNav } from './nav';
+import { aureliaDrawerNav, aureliaHouseNav } from './nav';
 
 export async function Footer() {
   const site = await getSiteSettings();
@@ -31,7 +31,7 @@ export async function Footer() {
           <div>
             <h3 className="cn-eyebrow">The house</h3>
             <ul>
-              {cosaDrawerNav.map((item) => (
+              {aureliaDrawerNav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href}>{item.label}</Link>
                 </li>
@@ -59,7 +59,7 @@ export async function Footer() {
               </a>
             </address>
             <ul className="mt-4">
-              {cosaHouseNav.map((item) => (
+              {aureliaHouseNav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href}>{item.label}</Link>
                 </li>
@@ -68,10 +68,10 @@ export async function Footer() {
           </div>
         </div>
         <p className="cn-footer-mark mt-16" aria-hidden="true" data-m="up">
-          Cosa <em>Nostra</em>
+          Casa <em>Aurelia</em>
         </p>
         <div className="cn-footer-base">
-          <span>© {year} Cosa Nostra — a fictional supper club, designed and built by Hyphy Studio.</span>
+          <span>© {year} Casa Aurelia — a fictional supper club, designed and built by Hyphy Studio.</span>
           <span className="flex gap-5">
             <Link href="/legal/privacy">Privacy</Link>
             <Link href="/demo">Platform demo</Link>

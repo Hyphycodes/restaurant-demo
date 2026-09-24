@@ -18,7 +18,7 @@ export const eventSeries: EventSeries[] = [
       "Disco",
       "Italian classics"
     ],
-    "venueName": "Cosa Nostra · West Loop",
+    "venueName": "Casa Aurelia · West Loop",
     "artworkAssetId": null,
     "flyerAssetId": "flyerVinyl",
     "flyerPrintedDate": null,
@@ -45,7 +45,7 @@ export const eventSeries: EventSeries[] = [
       "Jazz",
       "Italian classics"
     ],
-    "venueName": "Cosa Nostra · West Loop",
+    "venueName": "Casa Aurelia · West Loop",
     "artworkAssetId": null,
     "flyerAssetId": "flyerSupper",
     "flyerPrintedDate": null,
@@ -73,7 +73,7 @@ export const eventSeries: EventSeries[] = [
       "Disco",
       "R&B"
     ],
-    "venueName": "Cosa Nostra · West Loop",
+    "venueName": "Casa Aurelia · West Loop",
     "artworkAssetId": null,
     "flyerAssetId": "flyerFridays",
     "flyerPrintedDate": null,
@@ -101,7 +101,7 @@ export const eventSeries: EventSeries[] = [
       "House",
       "Disco"
     ],
-    "venueName": "Cosa Nostra · West Loop",
+    "venueName": "Casa Aurelia · West Loop",
     "artworkAssetId": null,
     "flyerAssetId": "flyerSaturday",
     "flyerPrintedDate": null,
@@ -128,7 +128,7 @@ export const eventSeries: EventSeries[] = [
       "Jazz",
       "Soul"
     ],
-    "venueName": "Cosa Nostra · West Loop",
+    "venueName": "Casa Aurelia · West Loop",
     "artworkAssetId": null,
     "flyerAssetId": "flyerAperitivo",
     "flyerPrintedDate": null,

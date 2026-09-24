@@ -234,7 +234,7 @@ describe('a talent submission', () => {
     expect(mocks.insert).not.toHaveBeenCalled();
   });
 
-  it('tells Cosa Nostra about it without letting that decide the outcome', async () => {
+  it('tells Casa Aurelia about it without letting that decide the outcome', async () => {
     mocks.sendAlert.mockRejectedValue(new Error('no alert address'));
     expect((await submitTalent(talentForm())).ok).toBe(true);
   });

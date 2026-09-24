@@ -38,7 +38,7 @@ export function buildIcs(event: IcsEvent, now = new Date()): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Cosa Nostra//Tickets//EN',
+    'PRODID:-//Casa Aurelia//Tickets//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',

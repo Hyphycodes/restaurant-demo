@@ -18,7 +18,7 @@ import { overLimit } from '@/server/ticketing/rate-limit';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Your ticket — Cosa Nostra',
+  title: 'Your ticket — Casa Aurelia',
   robots: { index: false, follow: false, nocache: true },
   // The token is the credential; it must not ride along in a Referer header to
   // Google Maps or anywhere else this page links to.

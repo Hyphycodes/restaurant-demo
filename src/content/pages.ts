@@ -60,7 +60,7 @@ export const pageCopy = {
   "contact": {
     "eyebrow": "Come a little closer",
     "heading": "Meet us after five.",
-    "body": "Cosa Nostra is a fictional restaurant and portfolio experience. Explore the room, plan a sample visit, or step behind the scenes."
+    "body": "Casa Aurelia is a fictional restaurant and portfolio experience. Explore the room, plan a sample visit, or step behind the scenes."
   },
   "work": {
     "eyebrow": "Work with us",
@@ -71,7 +71,7 @@ export const pageCopy = {
   "careers": {
     "eyebrow": "Careers",
     "heading": "Join the house. Stay for family meal.",
-    "body": "Help make an ordinary evening feel exceptional. Explore fictional dining room, kitchen and bar roles at Cosa Nostra.",
+    "body": "Help make an ordinary evening feel exceptional. Explore fictional dining room, kitchen and bar roles at Casa Aurelia.",
     "energyHeading": "Good people. Great evenings.",
     "energyBody": "Our fictional team cares about the details: a remembered name, a perfectly timed course, the right record. Explore roles in the dining room, kitchen and bar. Sample applications stay in this demo.",
     "perks": [
@@ -94,67 +94,67 @@ export const pageCopy = {
 } as const;
 export const seo: Record<string,PageSeo> = {
   "home": {
-    "title": "Cosa Nostra — Italian Supper Club · Chicago",
+    "title": "Casa Aurelia — Italian Supper Club · Chicago",
     "description": "Handmade pasta. Proper cocktails. A room that comes alive after dark. Italian-American hospitality in the heart of Chicago.",
     "ogAssetId": null
   },
   "menu": {
-    "title": "At The Table — Cosa Nostra",
+    "title": "At The Table — Casa Aurelia",
     "description": "Old favorites, a few new rituals. From the first antipasto to the last spoon of tiramisu.",
     "ogAssetId": null
   },
   "cocktails": {
-    "title": "At The Bar — Cosa Nostra",
+    "title": "At The Bar — Casa Aurelia",
     "description": "Bitter, bright, stirred and shaken. Italian aperitivo meets the American cocktail bar.",
     "ogAssetId": null
   },
   "events": {
-    "title": "The Social Calendar — Cosa Nostra",
+    "title": "The Social Calendar — Casa Aurelia",
     "description": "Vinyl on Thursdays. Long Sunday suppers. Cocktails that carry you into the weekend.",
     "ogAssetId": null
   },
   "catering": {
-    "title": "Bring Everyone — Cosa Nostra",
+    "title": "Bring Everyone — Casa Aurelia",
     "description": "Office lunches, pasta trays and family-style feasts. Good hospitality travels.",
     "ogAssetId": null
   },
   "privateEvents": {
-    "title": "Private Dining — Cosa Nostra",
+    "title": "Private Dining — Casa Aurelia",
     "description": "Birthdays, rehearsal dinners, company gatherings and just-because celebrations. A private room, a generous table, a night that feels like yours.",
     "ogAssetId": null
   },
   "visit": {
-    "title": "West Loop · Chicago — Cosa Nostra",
+    "title": "West Loop · Chicago — Casa Aurelia",
     "description": "An imagined corner of Chicago, made for long dinners and unhurried nights.",
     "ogAssetId": null
   },
   "contact": {
-    "title": "Come A Little Closer — Cosa Nostra",
-    "description": "Cosa Nostra is a fictional restaurant and portfolio experience. Explore the room, plan a sample visit, or step behind the scenes.",
+    "title": "Come A Little Closer — Casa Aurelia",
+    "description": "Casa Aurelia is a fictional restaurant and portfolio experience. Explore the room, plan a sample visit, or step behind the scenes.",
     "ogAssetId": null
   },
   "work": {
-    "title": "Work With Us — Cosa Nostra",
+    "title": "Work With Us — Casa Aurelia",
     "description": "Thoughtful service, busy evenings, shared staff meals. Bring your warmth and your curiosity.",
     "ogAssetId": null
   },
   "careers": {
-    "title": "Join The — Cosa Nostra",
-    "description": "Help make an ordinary evening feel exceptional. Explore fictional dining room, kitchen and bar roles at Cosa Nostra.",
+    "title": "Join the House — Casa Aurelia",
+    "description": "Help make an ordinary evening feel exceptional. Explore fictional dining room, kitchen and bar roles at Casa Aurelia.",
     "ogAssetId": null
   },
   "talent": {
-    "title": "Set The Mood — Cosa Nostra",
+    "title": "Set The Mood — Casa Aurelia",
     "description": "Selectors, musicians and photographers: show us what you make. We’re building a calendar with a point of view.",
     "ogAssetId": null
   },
   "notFound": {
-    "title": "Notfound — Cosa Nostra",
+    "title": "Not Found — Casa Aurelia",
     "description": "The page you’re looking for has left for the evening. Let’s find you a better table.",
     "ogAssetId": null
   },
   "privacy": {
-    "title": "Privacy — Cosa Nostra",
+    "title": "Privacy — Casa Aurelia",
     "description": "How this fictional portfolio demo handles sample interactions.",
     "ogAssetId": null
   }

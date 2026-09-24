@@ -47,12 +47,12 @@ export function ApplyForm({
       statusId={form.statusId}
       onSubmit={form.onSubmit}
       encType="multipart/form-data"
-      privacyNote="Your application is read by the Cosa Nostra team and nobody else."
+      privacyNote="Your application is read by the Casa Aurelia team and nobody else."
       success={{
         title: 'Got it — thanks for putting your name in.',
         body: (
           <p>
-            Somebody at Cosa Nostra reads every one of these.
+            Somebody at Casa Aurelia reads every one of these.
             {form.result?.ok && 'emailed' in form.result && form.result.emailed
               ? ' A copy is on its way to your inbox.'
               : ''}{' '}

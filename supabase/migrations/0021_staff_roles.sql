@@ -2,7 +2,7 @@
 -- not let a transaction use an enum value it has just added. 0022 is the first
 -- migration that refers to them.
 --
---   staff       an employee. Signs in to the Cosa Nostra staff app (/staff) and has
+--   staff       an employee. Signs in to the Casa Aurelia staff app (/staff) and has
 --               NO content or admin capability: can_edit(), can_publish() and
 --               can_administer() all stay false for this role, so every policy
 --               written since 0001 already excludes it.

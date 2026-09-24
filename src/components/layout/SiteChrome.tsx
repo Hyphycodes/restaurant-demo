@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import { Footer } from '@/components/cosa/chrome/Footer';
-import { Header } from '@/components/cosa/chrome/Header';
-import { Ribbon } from '@/components/cosa/chrome/Ribbon';
-import { SmoothScroll } from '@/components/cosa/motion/SmoothScroll';
+import { Footer } from '@/components/aurelia/chrome/Footer';
+import { Header } from '@/components/aurelia/chrome/Header';
+import { Ribbon } from '@/components/aurelia/chrome/Ribbon';
+import { SmoothScroll } from '@/components/aurelia/motion/SmoothScroll';
 import { activeAnnouncement, AnnouncementBar } from '@/components/layout/AnnouncementBar';
 import { ThemeWorldEdges } from '@/components/theme/ThemeWorld';
 import { ThemeRoot } from '@/components/theme/ThemeRoot';

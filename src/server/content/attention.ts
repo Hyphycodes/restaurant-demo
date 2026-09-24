@@ -230,7 +230,7 @@ export async function getAttention(db: Db, now: Date): Promise<Attention[]> {
         id: `theme-ended-${record.slug}`,
         kind: 'theme',
         severity: 'info',
-        message: `${name} is switched on but its dates have passed, so guests see Default Cosa Nostra. Set new dates or switch it off.`,
+        message: `${name} is switched on but its dates have passed, so guests see Default Casa Aurelia. Set new dates or switch it off.`,
         href: '/admin/theme',
         actionLabel: 'Open the seasonal look',
       });

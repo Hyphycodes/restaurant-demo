@@ -152,14 +152,15 @@ export function HubRenderer({ page, embedded = false }: { page: HubPageData; emb
       <div className={styles.scrim} aria-hidden="true" />
       <div className={styles.shell}>
         <header className={styles.identity}>
-          {logo?.kind === 'image' ? <Image src={logo.path} alt={logo.alt || 'Cosa Nostra'} width={180} height={72} priority className={styles.logo} /> : <span className={styles.wordmark}>COSA_NOSTRA</span>}
+          {/* The wordmark stands in for a logo, unless the page title already is the name. */}
+          {logo?.kind === 'image' ? <Image src={logo.path} alt={logo.alt || 'Casa Aurelia'} width={180} height={72} priority className={styles.logo} /> : title !== 'Casa Aurelia' ? <span className={styles.wordmark}>Casa Aurelia</span> : null}
           {mode ? <span className={styles.modeBadge}>{mode.name}</span> : null}
           <h1>{title}</h1>
           {subtitle ? <p>{subtitle}</p> : null}
         </header>
         {hero?.kind === 'image' ? <div className={styles.hero}><Image src={hero.path} alt={hero.alt} fill priority sizes="(max-width: 700px) 100vw, 640px" style={{ objectPosition: hero.focal }} /></div> : null}
         <div className={styles.blocks}>{page.blocks.map((block) => <div key={block.id} className={styles.block}>{renderBlock(block, page)}</div>)}</div>
-        <footer className={styles.footer}><span>Cosa Nostra</span>{page.location?.address ? <span>{page.location.address}</span> : null}</footer>
+        <footer className={styles.footer}><span>Casa Aurelia</span>{page.location?.address ? <span>{page.location.address}</span> : null}</footer>
       </div>
     </main>
   );

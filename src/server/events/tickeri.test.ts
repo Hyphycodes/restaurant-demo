@@ -19,7 +19,7 @@ const listeningEvent = {
   endDate: '2026-10-08T22:00:00-05:00',
   image: 'https://example.invalid/demo',
   description: 'Records, aperitivo and good company.',
-  location: { '@type': 'Place', name: 'Cosa Nostra' },
+  location: { '@type': 'Place', name: 'Casa Aurelia' },
   offers: [{ '@type': 'Offer', price: '45', availability: 'https://schema.org/InStock' }],
 };
 
@@ -38,7 +38,7 @@ describe('eventFromJsonLd', () => {
     expect(event).toMatchObject({
       sourceEventId: 'demo123',
       title: 'VINYL & VERMOUTH',
-      venueName: 'Cosa Nostra',
+      venueName: 'Casa Aurelia',
       flyerUrl: 'https://example.invalid/demo',
       priceText: '$45',
       soldOut: false,

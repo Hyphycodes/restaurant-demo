@@ -184,7 +184,7 @@ create policy "applications manager remove"
 -- ------------------------------------------------------- starter openings ---
 
 -- The roles a restaurant of this shape actually runs, every one of them OFF.
--- Nothing is published until somebody at Cosa Nostra switches it on, and no
+-- Nothing is published until somebody at Casa Aurelia switches it on, and no
 -- description is invented here — the sentence under the title is theirs to
 -- write. Same rows as `REFERENCE_JOB_OPENINGS` in src/content/careers.ts, so
 -- the local development database and supabase/seed.sql agree with this.
@@ -205,7 +205,7 @@ on conflict (id) do nothing;
 
 -- Three more kinds of email land in the same log as everything else: the
 -- applicant's confirmation, the talent confirmation, and the one internal
--- notice that tells Cosa Nostra somebody wrote in.
+-- notice that tells Casa Aurelia somebody wrote in.
 do $$
 declare doomed record;
 begin

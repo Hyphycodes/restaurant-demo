@@ -597,7 +597,7 @@ export function LocationForm({ location }: { location: { id: string; slug: strin
     <ActionForm action={saveLocationAction} className="grid gap-3 sm:grid-cols-2">
       {location ? <input type="hidden" name="id" value={location.id} /> : null}
       <Field id="loc-name" label="Name">
-        <TextInput id="loc-name" name="name" defaultValue={location?.name ?? ''} required placeholder="Cosa Nostra River North" />
+        <TextInput id="loc-name" name="name" defaultValue={location?.name ?? ''} required placeholder="Casa Aurelia River North" />
       </Field>
       <Field id="loc-short" label="Short name">
         <TextInput id="loc-short" name="shortName" defaultValue={location?.shortName ?? ''} placeholder="River North" />

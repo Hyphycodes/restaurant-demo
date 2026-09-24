@@ -1,4 +1,4 @@
--- Cosa Nostra staff admin — editorial workflow, event overrides, media, and pages.
+-- Casa Aurelia staff admin — editorial workflow, event overrides, media, and pages.
 --
 -- Four things this migration adds, and the reasoning for each:
 --

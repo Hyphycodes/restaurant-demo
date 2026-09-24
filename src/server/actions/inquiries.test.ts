@@ -33,7 +33,7 @@ let directory: string;
 let db: LocalDb;
 
 beforeEach(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-inquiries-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-inquiries-'));
   db = new LocalDb(directory, () => ({
     inquiries: [
       {

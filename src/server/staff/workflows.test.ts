@@ -40,7 +40,7 @@ let directory: string;
 let db: LocalDb;
 
 beforeEach(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-staff-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-staff-'));
   db = new LocalDb(directory, () => ({ ...buildRecords().tables, ...buildStaffDemo(NOW) }));
   context.db = db;
 });
@@ -108,7 +108,7 @@ describe('scheduling', () => {
   });
 
   it('filters shifts by location', async () => {
-    const other = await db.insert<Row>('locations', { slug: 'riverNorth', name: 'Cosa Nostra River North', short_name: 'River North', timezone: TZ, active: true, sort: 1 });
+    const other = await db.insert<Row>('locations', { slug: 'riverNorth', name: 'Casa Aurelia River North', short_name: 'River North', timezone: TZ, active: true, sort: 1 });
     await createShift(db, { locationId: String(other.id), employeeId: DEMO_EMPLOYEES.jose, positionId: 'door', date: '2026-10-24', startMinutes: 20 * 60, endMinutes: 2 * 60, eventId: null, note: null, status: 'published' }, TZ, manager);
     const riverNorth = await listShiftViews(db, { from: '2026-10-24T00:00:00Z', to: '2026-10-26T00:00:00Z', locationId: String(other.id) });
     const chicago = await listShiftViews(db, { from: '2026-10-24T00:00:00Z', to: '2026-10-26T00:00:00Z', locationId: 'c05a0000-0000-4000-8000-000000000001' });

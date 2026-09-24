@@ -56,7 +56,7 @@ describe('links', () => {
     // These are the ones that matter: a stored link is clicked by staff.
     expect(normalizeLink('javascript:alert(1)')).toBeNull();
     expect(normalizeLink('data:text/html,<script>')).toBeNull();
-    expect(normalizeLink('@cosa-nostramexbar')).toBeNull();
+    expect(normalizeLink('@casaaurelia')).toBeNull();
     expect(normalizeLink('localhost')).toBeNull();
     expect(normalizeLink('   ')).toBeNull();
   });

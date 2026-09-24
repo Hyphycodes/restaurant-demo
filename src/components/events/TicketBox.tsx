@@ -231,7 +231,7 @@ function TierPicker({
             autoComplete="off"
             spellCheck={false}
             maxLength={40}
-            placeholder="COSA_NOSTRA10"
+            placeholder="AURELIA10"
             className="mt-1.5 min-h-12 w-full rounded-(--radius-md) border border-night-text/25 bg-obsidian/40 px-4 text-[1rem] uppercase tracking-[0.06em] text-night-text placeholder:normal-case placeholder:tracking-normal placeholder:text-night-soft/60 focus:border-amber"
           />
           {/* The price here is the face value. What a code takes off is worked

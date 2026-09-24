@@ -1,7 +1,7 @@
 import type { Announcement, SiteSettings } from './types';
 export const site: SiteSettings = {
-  "name": "Cosa Nostra",
-  "shortName": "Cosa Nostra",
+  "name": "Casa Aurelia",
+  "shortName": "Casa Aurelia",
   "tagline": "Italian Supper Club",
   "street": "West Loop",
   "locality": "Chicago",
@@ -92,7 +92,7 @@ export const site: SiteSettings = {
   "socials": [
     {
       "platform": "instagram",
-      "handle": "@cosanostra.demo · fictional",
+      "handle": "@casaaurelia.demo · fictional",
       "url": "/contact"
     }
   ],

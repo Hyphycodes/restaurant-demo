@@ -34,6 +34,6 @@ export const primaryNav: NavItem[] = [
 export const secondaryNav: NavItem[] = [
   { label: 'Private events', href: '/private-events' },
   { label: 'Contact', href: '/contact' },
-  { label: 'Work at Cosa Nostra', href: '/careers' },
-  { label: 'Create with Cosa Nostra', href: '/talent' },
+  { label: 'Work at Casa Aurelia', href: '/careers' },
+  { label: 'Create with Casa Aurelia', href: '/talent' },
 ];

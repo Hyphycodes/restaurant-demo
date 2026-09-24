@@ -243,7 +243,7 @@ function resolve(
     venueName: take(
       'venueName',
       occurrence?.venueName ?? null,
-      series?.venueName ?? 'Cosa Nostra',
+      series?.venueName ?? 'Casa Aurelia',
     ),
     flyerAssetId: take('flyerAssetId', occurrence?.flyerAssetId ?? null, series?.flyerAssetId ?? null),
     flyerPrintedDate: occurrence?.flyerAssetId ? null : (series?.flyerPrintedDate ?? null),

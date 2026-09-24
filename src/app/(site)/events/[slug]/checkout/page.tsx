@@ -16,7 +16,7 @@ import { resolveEventArtwork } from '@/server/content/event-art';
 import { getOrderByNumber, holdIsLive, isPaidStatus } from '@/server/ticketing/orders';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'Checkout — Cosa Nostra', robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: 'Checkout — Casa Aurelia', robots: { index: false, follow: false } };
 
 /**
  * Checkout, in our own page, in the event's own colours.

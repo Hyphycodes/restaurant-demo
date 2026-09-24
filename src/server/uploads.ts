@@ -31,7 +31,7 @@ export const UPLOAD_FOLDERS = ['resumes', 'talent'] as const;
 export type UploadFolder = (typeof UPLOAD_FOLDERS)[number];
 
 const BUCKET = 'applications';
-const LOCAL_DIR = path.join(process.cwd(), '.cosa-nostra-local', 'uploads');
+const LOCAL_DIR = path.join(process.cwd(), '.casa-aurelia-local', 'uploads');
 
 export interface StoredUpload {
   /** `resumes/<uuid>.pdf` — the object path, not a URL. */

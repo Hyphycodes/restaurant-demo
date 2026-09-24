@@ -37,7 +37,7 @@ export function StaffShell({ context, unread = 0, children, wide = false }: { co
         <header className="sticky top-0 z-40 border-b border-night-text/10 bg-teal">
           <div className={`mx-auto flex items-center gap-x-5 px-4 py-2.5 sm:px-6 ${wide ? 'max-w-[1280px]' : 'max-w-[960px]'}`}>
             <Link href="/staff" className="display shrink-0 text-[1.375rem] leading-none text-night-text transition-opacity hover:opacity-80">
-              Cosa Nostra
+              Casa Aurelia
               <span className="ml-1.5 font-sans text-[0.75rem] font-medium normal-case tracking-[0.12em] text-night-text/55">staff</span>
             </Link>
             <StaffTopNav items={items} />

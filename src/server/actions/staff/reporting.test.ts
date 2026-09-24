@@ -25,7 +25,7 @@ import { opsCan, OPS_DENIED_MESSAGE, type OpsCapability } from '@/server/staff/p
 const TZ = 'America/Chicago';
 const L = CHICAGO_LOCATION_ID;
 const NOW = new Date('2026-10-07T18:00:00Z');
-const LOCATION: LocationSummary = { id: L, slug: 'chicago', name: 'Cosa Nostra Chicago', shortName: 'Chicago', timezone: TZ, active: true };
+const LOCATION: LocationSummary = { id: L, slug: 'chicago', name: 'Casa Aurelia Chicago', shortName: 'Chicago', timezone: TZ, active: true };
 const account: Staff = { id: 'local-staff', email: 'carlos@example.invalid', name: 'Carlos', role: 'staff', sections: [], active: true, source: 'local' };
 
 const state = vi.hoisted(() => ({ db: null as unknown, role: 'employee' as string }));
@@ -65,7 +65,7 @@ let directory: string;
 let db: LocalDb;
 
 beforeEach(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-report-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-report-'));
   db = new LocalDb(directory, () => ({ ...buildRecords().tables, ...buildStaffDemo(NOW) }));
   state.db = db;
   state.role = 'employee';

@@ -1,4 +1,4 @@
--- Native Cosa Nostra Link Hubs: permanent destinations, scheduled modes, composable
+-- Native Casa Aurelia Link Hubs: permanent destinations, scheduled modes, composable
 -- blocks, privacy-conscious interaction events, and lead capture.
 
 create table if not exists public.link_hub_locations (
@@ -26,7 +26,7 @@ create table if not exists public.link_hubs (
   slug                 text not null check (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$'),
   internal_description text not null default '',
   hub_type             text not null default 'custom',
-  theme                text not null default 'cosa-nostra-default',
+  theme                text not null default 'casa-aurelia-default',
   status               text not null default 'draft' check (status in ('draft', 'published', 'archived')),
   title                text not null,
   subtitle             text,
@@ -133,7 +133,7 @@ create index if not exists link_hub_leads_hub_time_idx
   on public.link_hub_leads (hub_id, created_at desc);
 
 -- The known Chicago destinations come from the same verified source as
--- src/content/site.ts. review_url stays NULL until Cosa Nostra supplies its direct
+-- src/content/site.ts. review_url stays NULL until Casa Aurelia supplies its direct
 -- Google review link; a review block then renders a configuration warning in
 -- admin instead of sending guests to a guessed destination.
 insert into public.link_hub_locations (
@@ -141,7 +141,7 @@ insert into public.link_hub_locations (
   menu_url, instagram_url, tiktok_url, facebook_url
 ) values (
   'chicago',
-  'Cosa Nostra — Chicago',
+  'Casa Aurelia — Chicago',
   'West Loop, Chicago, IL ',
   '(312) 555-0147',
   null,

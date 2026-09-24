@@ -160,12 +160,12 @@ export async function publishSchedule(_prev: ActionState, form: FormData): Promi
         {
           employeeIds: [...byEmployee.keys()],
           kind: 'schedule_published',
-          title: result.firstRelease ? `Your Cosa Nostra schedule is live · ${label}` : `New shifts for you · ${label}`,
+          title: result.firstRelease ? `Your Casa Aurelia schedule is live · ${label}` : `New shifts for you · ${label}`,
           href: `/staff/schedule?week=${week[0]!}`,
           entityType: 'schedule',
           entityId: `${locationId}:${week[0]!}`,
           email: {
-            subject: result.firstRelease ? `Your Cosa Nostra schedule is live · ${label}` : `New shifts · ${label}`,
+            subject: result.firstRelease ? `Your Casa Aurelia schedule is live · ${label}` : `New shifts · ${label}`,
             intro: result.firstRelease ? `Your shifts for ${label} at ${location.name}.` : `A manager added shifts to ${label} at ${location.name}.`,
             cta: 'Open my schedule',
           },

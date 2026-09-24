@@ -6,5 +6,5 @@ export function friendlyFileName(name: string): string {
     .replace(/\s+/g, ' ')
     .trim();
 
-  return words ? words.replace(/\b\w/g, (letter) => letter.toUpperCase()) : 'Cosa Nostra media';
+  return words ? words.replace(/\b\w/g, (letter) => letter.toUpperCase()) : 'Casa Aurelia media';
 }

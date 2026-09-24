@@ -50,7 +50,7 @@ export function Evening() {
       <div className="cn-ev-frame">
         <header className="cn-ev-head cn-wrap">
           <div>
-            <p className="cn-eyebrow">An evening at Cosa Nostra</p>
+            <p className="cn-eyebrow">An evening at Casa Aurelia</p>
             <h2 id="evening-title" className="cn-display cn-md mt-4">
               The night gets better <em>the longer you stay.</em>
             </h2>

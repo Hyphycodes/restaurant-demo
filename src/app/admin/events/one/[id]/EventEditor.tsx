@@ -246,7 +246,7 @@ export function EventEditor(props: EditorProps) {
             <Field id="ev-description" label="What to expect">
               <RichTextField id="ev-description" value={fields.descriptionHtml} onChange={(html) => update({ descriptionHtml: html })} />
             </Field>
-            <Field id="ev-slug" label="Web address" hint={`cosa-nostraitaliankitchenbar.com/events/${fields.slug || '…'}`} problem={problems.slug ?? slugNote ?? undefined}>
+            <Field id="ev-slug" label="Web address" hint={`casaaurelia.example/events/${fields.slug || '…'}`} problem={problems.slug ?? slugNote ?? undefined}>
               <input
                 id="ev-slug"
                 className={FIELD}
@@ -283,7 +283,7 @@ export function EventEditor(props: EditorProps) {
         {/* 4. Tickets */}
         <Section title="Tickets">
           <div className="grid gap-2 sm:grid-cols-2">
-            <Choice checked={fields.ticketingEnabled} onChange={() => update({ ticketingEnabled: true })} title="Cosa Nostra Ticketing" hint="Sell tickets right here — Apple Pay, Google Pay, card. You keep the list and the money." />
+            <Choice checked={fields.ticketingEnabled} onChange={() => update({ ticketingEnabled: true })} title="Casa Aurelia Ticketing" hint="Sell tickets right here — Apple Pay, Google Pay, card. You keep the list and the money." />
             <Choice checked={!fields.ticketingEnabled} onChange={() => update({ ticketingEnabled: false })} title="External Ticket Link" hint="Guests are sent to another site to buy. No sales tracked here." />
           </div>
 

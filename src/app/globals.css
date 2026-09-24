@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 @import '../components/events/event-art.css';
 @import '../components/events/event-page.css';
-@import '../styles/cosa.css';
-@import '../styles/cosa-home.css';
-@import '../styles/cosa-platform.css';
-@import '../styles/cosa-pages.css';
+@import '../styles/aurelia.css';
+@import '../styles/aurelia-home.css';
+@import '../styles/aurelia-platform.css';
+@import '../styles/aurelia-pages.css';
 
 
 
@@ -425,7 +425,7 @@
   }
 }
 
-/* Cosa Nostra: editorial typography, warm paper, oxblood and aged brass. */
+/* Casa Aurelia: editorial typography, warm paper, oxblood and aged brass. */
 :root { --radius-sm: 3px; --radius-md: 4px; --radius-lg: 6px; --o-header-h: 88px; }
 .display, .display-wide, .display-condensed { font-family: var(--font-anton), Georgia, serif; font-weight: 500; font-stretch: normal; letter-spacing: -.025em; text-transform: none; }
 .eyebrow { letter-spacing: .17em; font-size: .72rem; }

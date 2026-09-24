@@ -21,7 +21,7 @@ export default async function LoginPage({searchParams}: {searchParams: Promise<{
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col justify-center px-5 py-12">
       <h1 className="text-[length:var(--text-display-md)] font-semibold leading-none tracking-[-0.025em] text-brown">
-        {forStaff ? 'Cosa Nostra staff' : 'Cosa Nostra admin'}
+        {forStaff ? 'Casa Aurelia staff' : 'Casa Aurelia admin'}
       </h1>
       <p className="mt-3 text-[0.9375rem] text-brown-soft">{forStaff ? 'Sign in to see your schedule, training and tasks.' : 'Sign in to update the website.'}</p>
 

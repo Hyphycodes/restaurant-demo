@@ -13,8 +13,8 @@ export function HubDisplay({ page, preview = false }: { page: HubPageData; previ
     <div className={styles.scrim} />
     <div className={styles.content}>
       <section className={styles.copy}>
-        <p className={styles.eyebrow}>Cosa Nostra Kitchen & Bar</p>
-        <h1>{page.mode?.titleOverride || page.hub.title || 'Scan to unlock Cosa Nostra tonight'}</h1>
+        <p className={styles.eyebrow}>Casa Aurelia · Supper club</p>
+        <h1>{page.mode?.titleOverride || page.hub.title || 'Scan to unlock Casa Aurelia tonight'}</h1>
         <p className={styles.subtitle}>{page.mode?.subtitleOverride || page.hub.subtitle || 'Everything you need for tonight, one scan away.'}</p>
         {event ? <div className={styles.event}><span>Up next</span><strong>{event.title}</strong><small>{event.date} · {event.time}</small></div> : null}
         <p className={styles.reasons}>Leave a review <b>•</b> See what’s next <b>•</b> Get tickets</p>

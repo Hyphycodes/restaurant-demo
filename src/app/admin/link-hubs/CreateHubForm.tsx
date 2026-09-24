@@ -16,7 +16,7 @@ export function CreateHubForm({ locations }: { locations: LinkHubLocation[] }) {
   return (
     <form action={action} className="grid gap-5">
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-1.5 text-[0.875rem] font-semibold text-brown">Hub name<input name="name" required maxLength={100} placeholder="Cosa Nostra Live" className="min-h-11 rounded-(--radius-sm) border border-brown/25 bg-ivory px-3 font-normal" /></label>
+        <label className="grid gap-1.5 text-[0.875rem] font-semibold text-brown">Hub name<input name="name" required maxLength={100} placeholder="Casa Aurelia Live" className="min-h-11 rounded-(--radius-sm) border border-brown/25 bg-ivory px-3 font-normal" /></label>
         <label className="grid gap-1.5 text-[0.875rem] font-semibold text-brown">Permanent URL<span className="flex min-h-11 items-center rounded-(--radius-sm) border border-brown/25 bg-ivory pl-3 text-brown-soft"><span>/go/</span><input name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="live" className="min-w-0 flex-1 bg-transparent px-1 py-2 text-brown outline-none" /></span></label>
       </div>
       <label className="grid gap-1.5 text-[0.875rem] font-semibold text-brown">Internal note<textarea name="internalDescription" rows={2} maxLength={400} placeholder="Where this QR will be used" className="rounded-(--radius-sm) border border-brown/25 bg-ivory px-3 py-2 font-normal" /></label>

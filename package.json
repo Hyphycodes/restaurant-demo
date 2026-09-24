@@ -2,7 +2,7 @@
   "name": "restaurant-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "Cosa Nostra \u2014 fictional Italian supper club and restaurant operations demo",
+  "description": "Casa Aurelia \u2014 fictional Italian supper club and restaurant operations demo",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

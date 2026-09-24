@@ -66,7 +66,7 @@ export function Signage({ slides, interval, timeZone, venue }: { slides: Signage
       ))}
 
       <div className="cnd-chrome" aria-hidden="true">
-        <p className="cnd-mark">Cosa Nostra</p>
+        <p className="cnd-mark">Casa Aurelia</p>
         <Clock timeZone={timeZone} />
       </div>
 

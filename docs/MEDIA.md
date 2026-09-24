@@ -1,6 +1,6 @@
-# Cosa Nostra media
+# Casa Aurelia media
 
-All media is stored locally and optimized as WebP. No original client media is included. Stock photographs illustrate a fictional concept; depicted people and venues are not represented as actual staff or a real Cosa Nostra location.
+All media is stored locally and optimized as WebP. No original client media is included. Stock photographs illustrate a fictional concept; depicted people and venues are not represented as actual staff or a real Casa Aurelia location.
 
 Source pages (Pexels License: https://www.pexels.com/license/):
 - Dining room, Claudia Schmalz: https://www.pexels.com/photo/interior-of-elegant-restaurant-14803087/

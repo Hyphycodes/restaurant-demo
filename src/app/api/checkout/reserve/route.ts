@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
 
   const stripe = getStripe()!;
   const { data: eventRow } = await client.from('event_occurrences').select('title').eq('id', eventId).maybeSingle();
-  const eventName = String(eventRow?.title ?? 'Cosa Nostra event');
+  const eventName = String(eventRow?.title ?? 'Casa Aurelia event');
 
   let clientSecret: string | null = null;
   try {
@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
           event_name: eventName.slice(0, 200),
         },
         description: `${eventName} — ${reserved.order_number}`.slice(0, 250),
-        statement_descriptor_suffix: 'COSA_NOSTRA EVENT',
+        statement_descriptor_suffix: 'CASA AURELIA',
       },
       { idempotencyKey: reserved.order_id },
     );

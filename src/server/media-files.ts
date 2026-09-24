@@ -160,7 +160,7 @@ export async function registerDirectMedia({
   const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()?.replace(/\/$/, '');
   const expected = projectUrl ? `${projectUrl}/storage/v1/object/public/media/` : '';
   if (!expected || !upload.url.startsWith(expected)) {
-    return { ok: false, message: 'That upload did not come from the Cosa Nostra media library.' };
+    return { ok: false, message: 'That upload did not come from the Casa Aurelia media library.' };
   }
 
   const displayTitle = title?.trim() || friendlyFileName(upload.originalName);

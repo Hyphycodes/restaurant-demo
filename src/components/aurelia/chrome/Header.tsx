@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Drawer } from './Drawer';
-import { cosaPrimaryNav } from './nav';
+import { aureliaPrimaryNav } from './nav';
 
 /**
  * The header floats over every page's opening picture and becomes a bar of
@@ -40,19 +40,19 @@ export function Header({ reservationUrl, phone }: { reservationUrl: string; phon
       <header className="cn-header" data-over={over} data-hidden={hidden && !open}>
         <div className="cn-wrap cn-header-inner">
           <nav aria-label="Primary" className="cn-nav">
-            {cosaPrimaryNav.slice(0, 3).map((item) => (
+            {aureliaPrimaryNav.slice(0, 3).map((item) => (
               <Link key={item.href} href={item.href} aria-current={current(item.href)}>
                 {item.label}
               </Link>
             ))}
           </nav>
-          <Link href="/" className="cn-wordmark" aria-label="Cosa Nostra, home">
-            <span className="cn-wordmark-name">Cosa Nostra</span>
+          <Link href="/" className="cn-wordmark" aria-label="Casa Aurelia, home">
+            <span className="cn-wordmark-name">Casa Aurelia</span>
             <span className="cn-wordmark-sub">Italian Supper Club</span>
           </Link>
           <div className="cn-header-aside">
             <nav aria-label="Secondary" className="cn-nav">
-              {cosaPrimaryNav.slice(3).map((item) => (
+              {aureliaPrimaryNav.slice(3).map((item) => (
                 <Link key={item.href} href={item.href} aria-current={current(item.href)}>
                   {item.label}
                 </Link>

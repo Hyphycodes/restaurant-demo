@@ -17,7 +17,7 @@ export default async function OnboardingPage() {
 
   return (
     <StaffShell context={context} unread={unread}>
-      <Screen title={progress?.stage === 'ready' ? 'You’re ready.' : `Welcome to Cosa Nostra${employee ? `, ${employee.displayName}` : ''}.`} lead={progress?.stage === 'ready' ? 'Everything on your checklist is done. Your manager confirms your first shift from here.' : 'A few things before your first shift. Most take a minute; do them in any order.'}>
+      <Screen title={progress?.stage === 'ready' ? 'You’re ready.' : `Welcome to Casa Aurelia${employee ? `, ${employee.displayName}` : ''}.`} lead={progress?.stage === 'ready' ? 'Everything on your checklist is done. Your manager confirms your first shift from here.' : 'A few things before your first shift. Most take a minute; do them in any order.'}>
         {!progress ? <Empty title="No employee profile." /> : null}
         {progress ? (
           <>

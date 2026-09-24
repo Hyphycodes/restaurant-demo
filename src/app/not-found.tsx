@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Footer } from '@/components/cosa/chrome/Footer';
-import { Header } from '@/components/cosa/chrome/Header';
-import { Ribbon } from '@/components/cosa/chrome/Ribbon';
+import { Footer } from '@/components/aurelia/chrome/Footer';
+import { Header } from '@/components/aurelia/chrome/Header';
+import { Ribbon } from '@/components/aurelia/chrome/Ribbon';
 import { site } from '@/content/site';
 
 const LINKS = [

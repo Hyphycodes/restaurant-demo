@@ -21,7 +21,7 @@ export const CHICAGO_LOCATION_ID = 'c05a0000-0000-4000-8000-000000000001';
 export const chicago: Location = {
   id: CHICAGO_LOCATION_ID,
   slug: 'chicago',
-  name: 'Cosa Nostra Chicago',
+  name: 'Casa Aurelia Chicago',
   shortName: 'Chicago',
   street: 'West Loop',
   locality: 'Chicago',

@@ -96,7 +96,7 @@ export function Scanner({
 
   useEffect(() => {
     try {
-      const saved = window.localStorage.getItem('cosa-nostra-door-device');
+      const saved = window.localStorage.getItem('casa-aurelia-door-device');
       if (saved) setDevice(saved);
     } catch {
       // Private mode, or storage blocked. The staff name is a fine fallback.
@@ -109,7 +109,7 @@ export function Scanner({
     if (!next) return;
     setDevice(next);
     try {
-      window.localStorage.setItem('cosa-nostra-door-device', next);
+      window.localStorage.setItem('casa-aurelia-door-device', next);
     } catch {
       // Not fatal: the label just will not survive a reload.
     }

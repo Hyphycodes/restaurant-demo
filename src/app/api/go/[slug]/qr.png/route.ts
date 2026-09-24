@@ -15,7 +15,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
     headers: {
       'content-type': 'image/png',
       'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
-      ...(download ? { 'content-disposition': `attachment; filename="cosa-nostra-${target}-qr.png"` } : {}),
+      ...(download ? { 'content-disposition': `attachment; filename="casa-aurelia-${target}-qr.png"` } : {}),
     },
   });
 }

@@ -42,13 +42,13 @@ const L = CHICAGO_LOCATION_ID;
 const NOW = new Date('2026-10-07T18:00:00Z');
 const WEEK = '2026-10-19';
 
-const LOCATION: LocationSummary = { id: L, slug: 'chicago', name: 'Cosa Nostra Chicago', shortName: 'Chicago', timezone: TZ, active: true };
+const LOCATION: LocationSummary = { id: L, slug: 'chicago', name: 'Casa Aurelia Chicago', shortName: 'Chicago', timezone: TZ, active: true };
 
 let directory: string;
 let db: LocalDb;
 
 beforeEach(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-publish-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-publish-'));
   db = new LocalDb(directory, () => ({ ...buildRecords().tables, ...buildStaffDemo(NOW) }));
   context.db = db;
 });
@@ -131,7 +131,7 @@ describe('a week is private until it is published', () => {
   });
 
   it('publishing one location does not publish another', async () => {
-    const other = await db.insert<Row>('locations', { slug: 'riverNorth', name: 'Cosa Nostra River North', short_name: 'River North', timezone: TZ, active: true, sort: 1 });
+    const other = await db.insert<Row>('locations', { slug: 'riverNorth', name: 'Casa Aurelia River North', short_name: 'River North', timezone: TZ, active: true, sort: 1 });
     await draftWeek();
     await createShift(db, { locationId: String(other.id), employeeId: DEMO_EMPLOYEES.jose, positionId: 'door', date: '2026-10-23', startMinutes: 20 * 60, endMinutes: 2 * 60, eventId: null, note: null, status: 'draft' }, TZ, manager);
     await publishPeriod(db, L, WEEK, TZ, manager, async (from, to) => (await publishWeek(db, L, from, to, manager)).length);
@@ -178,7 +178,7 @@ describe('search obeys the same rules the screens do', () => {
     const roster = await staffSearch(db, 'sofia', 'roster', NOW);
     expect(roster.length).toBeGreaterThan(0);
     expect(roster.every((hit) => hit.kind !== 'contractor')).toBe(true);
-    expect(JSON.stringify(roster)).not.toMatch(/555-|@cosa-nostra\.local/);
+    expect(JSON.stringify(roster)).not.toMatch(/555-|@casa-aurelia\.local/);
 
     const team = await staffSearch(db, 'sofia', 'team', NOW);
     expect(JSON.stringify(team)).toMatch(/555-/);

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MotionScope } from '@/components/cosa/motion/MotionScope';
-import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { MotionScope } from '@/components/aurelia/motion/MotionScope';
+import { EditorialTitle } from '@/components/aurelia/page/EditorialTitle';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { pageCopy, seo } from '@/content/pages';
 import { getSiteSettings } from '@/content/resolve';
 import { formatPhoneHref } from '@/lib/format';
@@ -68,7 +68,7 @@ export default async function ContactPage() {
             ))}
           </div>
           <p className="cn-body mt-10">
-            Press and partnerships: {site.email ?? 'hello@example.invalid'}. Cosa Nostra is a fictional supper club built as a
+            Press and partnerships: {site.email ?? 'hello@example.invalid'}. Casa Aurelia is a fictional supper club built as a
             portfolio experience — messages sent here stay inside the demo.
           </p>
         </div>

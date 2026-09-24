@@ -53,7 +53,7 @@ export function NewOneTimeEvent({
         ) : null}
         <div>
           <Label htmlFor="one-title">Event name</Label>
-          <TextInput id="one-title" name="title" required maxLength={120} placeholder="New Year’s Eve at Cosa Nostra" />
+          <TextInput id="one-title" name="title" required maxLength={120} placeholder="New Year’s Eve at Casa Aurelia" />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">

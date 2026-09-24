@@ -3,7 +3,7 @@ import '../admin/admin.css';
 import './staff.css';
 
 export const metadata: Metadata = {
-  title: { default: 'Cosa Nostra Staff', template: '%s · Cosa Nostra Staff' },
+  title: { default: 'Casa Aurelia Staff', template: '%s · Casa Aurelia Staff' },
   // The staff app must never appear in search results.
   robots: { index: false, follow: false, nocache: true },
 };

@@ -54,7 +54,7 @@ export function isEmailAddress(value: string | null | undefined): value is strin
   return typeof value === 'string' && EMAIL_RE.test(value.trim()) && value.length <= 254;
 }
 
-export const DEFAULT_FROM_NAME = 'Cosa Nostra';
+export const DEFAULT_FROM_NAME = 'Casa Aurelia';
 
 export function emailConfig(): EmailConfig {
   const fromAddress = env('ORDERS_FROM_EMAIL');

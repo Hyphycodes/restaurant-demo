@@ -196,7 +196,7 @@ async function getHtml(url: string): Promise<string> {
       // Identifying ourselves is the polite half of scraping someone's page
       // once, by hand, to reconcile events we are already selling for them.
       headers: {
-        'user-agent': 'Cosa NostraItalianKitchenBot/1.0 (+https://example.invalid/demo)',
+        'user-agent': 'CasaAureliaBot/1.0 (+https://example.invalid/demo)',
         accept: 'text/html,application/xhtml+xml',
       },
       cache: 'no-store',

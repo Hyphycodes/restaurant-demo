@@ -91,7 +91,7 @@ export function UploadForm() {
             value={title}
             onChange={(event) => setTitle(event.target.value)}
             maxLength={80}
-            placeholder="Friday night at Cosa Nostra"
+            placeholder="Friday night at Casa Aurelia"
           />
         </div>
 

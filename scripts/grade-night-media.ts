@@ -2,7 +2,7 @@
  * The after-dark grade.
  *
  * The licensed photography was shot in daylight and bright studio light. The
- * Cosa Nostra world is candlelit, so the public site uses graded derivatives:
+ * Casa Aurelia world is candlelit, so the public site uses graded derivatives:
  * lower exposure, warmer mids, crushed-but-not-black shadows, a heavy
  * vignette and a pool of candle light where the eye should land.
  *

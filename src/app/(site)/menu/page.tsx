@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { EditorialMenu } from '@/components/cosa/menu/EditorialMenu';
-import { EditorialTitle } from '@/components/cosa/page/EditorialTitle';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { EditorialMenu } from '@/components/aurelia/menu/EditorialMenu';
+import { EditorialTitle } from '@/components/aurelia/page/EditorialTitle';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { ThemeWorld } from '@/components/theme/ThemeWorld';
 import { pageCopy, seo } from '@/content/pages';
 import { getAllMenus, getSiteSettings } from '@/content/resolve';

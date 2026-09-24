@@ -32,7 +32,7 @@ export function EventRow({ event, art }: { event: ResolvedEvent; art: EventArtwo
           <small>{parts.month}</small>
         </span>
         <span className="cn-erow-main">
-          <span className="cn-eyebrow">{category ? CATEGORY_LABEL[category] : 'At Cosa Nostra'}</span>
+          <span className="cn-eyebrow">{category ? CATEGORY_LABEL[category] : 'At Casa Aurelia'}</span>
           <span className="cn-erow-title">{event.title}</span>
           {event.summary ? <span className="cn-erow-summary">{event.summary}</span> : null}
         </span>

@@ -286,7 +286,7 @@ export function ThemeManager({
                 ? scheduled
                   ? `Publish ${theme.shortName} for those dates`
                   : `Publish ${theme.shortName} now`
-                : 'Publish Default Cosa Nostra'}
+                : 'Publish Default Casa Aurelia'}
             </SubmitButton>
             <span className="text-[0.875rem] text-brown-soft">
               Guests see the change within a minute.
@@ -302,7 +302,7 @@ export function ThemeManager({
         <ActionForm action={deactivateThemes} className="empty:hidden">
           {theme.record.enabled ? (
             <div className="flex flex-wrap items-center gap-3">
-              <SubmitButton variant="secondary">Switch back to Default Cosa Nostra right now</SubmitButton>
+              <SubmitButton variant="secondary">Switch back to Default Casa Aurelia right now</SubmitButton>
               <span className="text-[0.875rem] text-brown-soft">
                 Keeps every setting above, just takes the look off the website.
               </span>
@@ -443,7 +443,7 @@ function AssetCard({
             />
           )
         ) : (
-          <span className="px-4 text-center text-[0.8125rem] text-night-soft">Keeps the Cosa Nostra reel</span>
+          <span className="px-4 text-center text-[0.8125rem] text-night-soft">Keeps the Casa Aurelia reel</span>
         )}
         <span className="absolute left-2 top-2 rounded-full bg-obsidian/70 px-2 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-night-text">
           {asset.overridden ? 'Yours' : 'Built-in'}

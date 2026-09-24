@@ -417,7 +417,7 @@ export function createEmailService(deps: EmailServiceDeps) {
         ],
         note: null,
         actionUrl: brand.eventsUrl,
-        actionLabel: 'See what is on at Cosa Nostra',
+        actionLabel: 'See what is on at Casa Aurelia',
         footerReason: `Sent to ${input.email} because an application was sent from ${brand.siteUrl}/careers.`,
       });
       return deliver({ audience: 'guest', type: 'application_received', template: 'application_received', to: input.email, rendered, refId: `application-${input.reference}` });
@@ -438,7 +438,7 @@ export function createEmailService(deps: EmailServiceDeps) {
         ],
         note: null,
         actionUrl: brand.eventsUrl,
-        actionLabel: 'See what is on at Cosa Nostra',
+        actionLabel: 'See what is on at Casa Aurelia',
         footerReason: `Sent to ${input.email} because you sent your work through ${brand.siteUrl}/talent.`,
       });
       return deliver({ audience: 'guest', type: 'talent_received', template: 'talent_received', to: input.email, rendered, refId: `talent-${input.reference}` });
@@ -464,7 +464,7 @@ export function createEmailService(deps: EmailServiceDeps) {
         note: null,
         actionUrl: `${brand.siteUrl}${hiring ? '/admin/hiring' : '/admin/talent'}`,
         actionLabel: hiring ? 'Open applicants' : 'Open the talent book',
-        footerReason: 'Sent to the Cosa Nostra alert address. Turn it off in Emails.',
+        footerReason: 'Sent to the Casa Aurelia alert address. Turn it off in Emails.',
       });
       return deliver({ audience: 'internal', type: 'submission_alert', template: 'submission_alert', to, rendered, refId: `submission-${input.kind}-${Date.now()}` });
     },
@@ -472,7 +472,7 @@ export function createEmailService(deps: EmailServiceDeps) {
     /** A plain note to the owner. Internal audience. */
     async sendOwnerAlert(subject: string, body: string): Promise<SendResult> {
       const to = deps.config().ownerAlertEmail;
-      const rendered: RenderedEmail = { subject: `[Cosa Nostra tickets] ${subject}`, html: `<pre style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(body)}</pre>`, text: body };
+      const rendered: RenderedEmail = { subject: `[Casa Aurelia tickets] ${subject}`, html: `<pre style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(body)}</pre>`, text: body };
       return deliver({ audience: 'internal', type: 'owner_alert', template: null, to, rendered, refId: `alert-${Date.now()}` });
     },
   };

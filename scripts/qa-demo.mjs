@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
 const origin=process.env.QA_URL||'http://localhost:3100';
-const out=process.env.QA_OUTPUT||'/tmp/cosa-qa';await mkdir(out,{recursive:true});
+const out=process.env.QA_OUTPUT||'/tmp/aurelia-qa';await mkdir(out,{recursive:true});
 const browser=await chromium.launch(process.env.CHROMIUM?{executablePath:process.env.CHROMIUM}:{});
 const context=await browser.newContext({reducedMotion:process.env.QA_MOTION==='on'?'no-preference':'reduce'});const page=await context.newPage();
 const errors=[];const results=[];

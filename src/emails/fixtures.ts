@@ -19,8 +19,8 @@ import type {
 export const PREVIEW_ORIGIN = SITE_URL;
 
 export const brand: EmailBrand = {
-  name: 'Cosa Nostra',
-  shortName: 'Cosa Nostra',
+  name: 'Casa Aurelia',
+  shortName: 'Casa Aurelia',
   siteUrl: PREVIEW_ORIGIN,
   logoUrl: `${PREVIEW_ORIGIN}/media/brandLogo.webp`,
   phone: '(312) 555-0147',
@@ -31,7 +31,7 @@ export const brand: EmailBrand = {
 };
 
 const venue = {
-  name: 'Cosa Nostra',
+  name: 'Casa Aurelia',
   address: 'West Loop, Chicago, IL ',
   directionsUrl: `${PREVIEW_ORIGIN}/contact`,
 };
@@ -79,7 +79,7 @@ export const longTitleEvent: EmailEvent = {
   artworkUrl: `${PREVIEW_ORIGIN}/events/sunday-supper-tall.webp`,
   artworkWidth: 900,
   artworkHeight: 1125,
-  venue: { ...venue, name: 'Cosa Nostra — The Private Dining Room' },
+  venue: { ...venue, name: 'Casa Aurelia — The Private Dining Room' },
   agePolicy: '18+',
 };
 
@@ -254,11 +254,11 @@ const staffBase = {
 
 export const staffWelcome: StaffEmailProps = {
   ...staffBase,
-  headline: 'Welcome to Cosa Nostra, Carlos.',
-  intro: 'Alex added you to the Cosa Nostra team as a Bartender at Cosa Nostra Chicago. Everything you need for work — your schedule, training, tasks and documents — is in the Cosa Nostra staff app.',
+  headline: 'Welcome to Casa Aurelia, Carlos.',
+  intro: 'Alex added you to the Casa Aurelia team as a Bartender at Casa Aurelia Chicago. Everything you need for work — your schedule, training, tasks and documents — is in the Casa Aurelia staff app.',
   details: [
     { label: 'Position', value: 'Bartender' },
-    { label: 'Location', value: 'Cosa Nostra Chicago' },
+    { label: 'Location', value: 'Casa Aurelia Chicago' },
     { label: 'Start date', value: 'Friday, October 2' },
   ],
   note: 'Finish your onboarding checklist before your first shift. It takes about twenty minutes.',
@@ -269,7 +269,7 @@ export const staffWelcome: StaffEmailProps = {
 export const schedulePublished: StaffEmailProps = {
   ...staffBase,
   headline: 'Your schedule for Sep 28 – Oct 4 is out.',
-  intro: 'Three shifts this week at Cosa Nostra Chicago.',
+  intro: 'Three shifts this week at Casa Aurelia Chicago.',
   details: [
     { label: 'Fri Oct 2', value: '5:00 PM – Close · Bartender' },
     { label: 'Sat Oct 3', value: '8:30 PM – 2:30 AM · Bartender · After Hours Saturday' },
@@ -287,7 +287,7 @@ export const shiftChanged: StaffEmailProps = {
   details: [
     { label: 'Was', value: 'Sat Oct 3 · 8:30 PM – 2:30 AM · Bartender' },
     { label: 'Now', value: 'Sat Oct 3 · 7:00 PM – 2:30 AM · Bartender' },
-    { label: 'Location', value: 'Cosa Nostra Chicago' },
+    { label: 'Location', value: 'Casa Aurelia Chicago' },
   ],
   note: 'Doors open earlier for After Hours Saturday this week. Thanks for coming in early.',
   actionUrl: `${PREVIEW_ORIGIN}/staff/schedule`,
@@ -357,15 +357,15 @@ export const applicationReceived: StaffEmailProps = {
   email: 'isabella@example.com',
   headline: 'We have your application.',
   intro:
-    'Thanks for putting your name in. Somebody at Cosa Nostra reads every one of these, and we will get in touch if it looks like a fit. If you would rather talk to a person, call us on (312) 555-0147.',
+    'Thanks for putting your name in. Somebody at Casa Aurelia reads every one of these, and we will get in touch if it looks like a fit. If you would rather talk to a person, call us on (312) 555-0147.',
   details: [
     { label: 'Applied for', value: 'Bartender' },
     { label: 'Reference', value: 'JOB-260920-4K2P' },
   ],
   note: null,
   actionUrl: `${PREVIEW_ORIGIN}/events`,
-  actionLabel: 'See what is on at Cosa Nostra',
-  footerReason: 'Sent to isabella@example.com because an application was sent from the Cosa Nostra website.',
+  actionLabel: 'See what is on at Casa Aurelia',
+  footerReason: 'Sent to isabella@example.com because an application was sent from the Casa Aurelia website.',
 };
 
 export const talentReceived: StaffEmailProps = {
@@ -381,8 +381,8 @@ export const talentReceived: StaffEmailProps = {
   ],
   note: null,
   actionUrl: `${PREVIEW_ORIGIN}/events`,
-  actionLabel: 'See what is on at Cosa Nostra',
-  footerReason: 'Sent to enzo@example.com because you sent your work through the Cosa Nostra website.',
+  actionLabel: 'See what is on at Casa Aurelia',
+  footerReason: 'Sent to enzo@example.com because you sent your work through the Casa Aurelia website.',
 };
 
 export const submissionAlert: StaffEmailProps = {
@@ -401,5 +401,5 @@ export const submissionAlert: StaffEmailProps = {
   note: null,
   actionUrl: `${PREVIEW_ORIGIN}/admin/talent`,
   actionLabel: 'Open the talent book',
-  footerReason: 'Sent to the Cosa Nostra alert address. Turn it off in Emails.',
+  footerReason: 'Sent to the Casa Aurelia alert address. Turn it off in Emails.',
 };

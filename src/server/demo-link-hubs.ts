@@ -20,7 +20,7 @@ interface Seed {
 }
 
 const SEEDS: Seed[] = [
-  { slug: 'links', name: 'Instagram bio', description: 'The link in @cosanostra.chi’s bio.', template: 'main-links', hero: 'roomNight', subtitle: 'Stay for dinner. Leave much later.' },
+  { slug: 'links', name: 'Instagram bio', description: 'The link in @casaaurelia.chi’s bio.', template: 'main-links', hero: 'roomNight', subtitle: 'Stay for dinner. Leave much later.' },
   { slug: 'tonight', name: 'Projector QR — tonight', description: 'Shown on the back-room projector and the TV above the bar.', template: 'live', hero: 'barNight' },
   { slug: 'vinyl', name: 'Vinyl & Vermouth night', description: 'Printed on the listening-night table cards.', template: 'vinyl-club', hero: 'roomDetail' },
   {
@@ -34,7 +34,7 @@ const SEEDS: Seed[] = [
     blocks: [
       { type: 'review', label: 'Leave us a Google review', config: { title: 'Leave us a Google review', style: 'featured' } },
       { type: 'reservation', label: 'Book your next table', config: { title: 'Book your next table', style: 'standard' } },
-      { type: 'social', label: 'Follow Cosa Nostra', config: { title: 'Follow Cosa Nostra', platform: 'instagram', style: 'standard' } },
+      { type: 'social', label: 'Follow Casa Aurelia', config: { title: 'Follow Casa Aurelia', platform: 'instagram', style: 'standard' } },
     ],
   },
   {

@@ -50,7 +50,7 @@ export const getThemeRecords = cache(async (): Promise<ThemeRecord[]> => {
     ]);
     return records ?? [];
   } catch (error) {
-    console.error('[theme] could not read site_themes, using Default Cosa Nostra:', error);
+    console.error('[theme] could not read site_themes, using Default Casa Aurelia:', error);
     return [];
   }
 });
@@ -59,7 +59,7 @@ export const getActiveTheme = cache(async (): Promise<ResolvedTheme> => {
   const override = overrideStore().theme;
   if (override) return override;
 
-  const forced = process.env.COSA_NOSTRA_THEME_FORCE?.trim();
+  const forced = process.env.CASA_AURELIA_THEME_FORCE?.trim();
   if (forced && process.env.NODE_ENV !== 'production' && isSeasonalSlug(forced)) {
     const record = (await getThemeRecords()).find((entry) => entry.slug === forced);
     return resolveTheme(forced, record?.config, 'forced');

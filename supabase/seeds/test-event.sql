@@ -46,7 +46,7 @@ values
    now() + interval '14 days', now() + interval '14 days 3 hours',
    'scheduled', false, true, 20, 'all_ages', 'itemized', 100,
    'Test tickets are refunded as soon as the test is finished.',
-   'Cosa Nostra')
+   'Casa Aurelia')
 on conflict (id) do update set
   title             = excluded.title,
   summary           = excluded.summary,
@@ -88,7 +88,7 @@ values
    now() + interval '21 days', now() + interval '21 days 5 hours',
    'scheduled', false, true, 120, '21+', 'itemized', 100,
    'Tickets are non-refundable, but we will move you to another date if you ask before the event.',
-   'Cosa Nostra')
+   'Casa Aurelia')
 on conflict (id) do update set
   title             = excluded.title,
   summary           = excluded.summary,

@@ -11,7 +11,7 @@ export function AppearancePreviewListener() {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin) return;
       const data = event.data as { type?: string; vars?: Record<string, string> } | null;
-      if (!data || data.type !== 'cosa-nostra:appearance' || !data.vars) return;
+      if (!data || data.type !== 'casa-aurelia:appearance' || !data.vars) return;
       const root = document.documentElement;
       for (const [key, value] of Object.entries(data.vars)) {
         if (!/^--[a-z0-9-]+$/.test(key) && key !== 'color-scheme') continue;
@@ -20,7 +20,7 @@ export function AppearancePreviewListener() {
       }
     };
     window.addEventListener('message', onMessage);
-    window.parent.postMessage({ type: 'cosa-nostra:appearance-ready' }, window.location.origin);
+    window.parent.postMessage({ type: 'casa-aurelia:appearance-ready' }, window.location.origin);
     return () => window.removeEventListener('message', onMessage);
   }, []);
   return null;

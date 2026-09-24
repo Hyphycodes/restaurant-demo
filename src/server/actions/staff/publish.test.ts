@@ -25,7 +25,7 @@ const L = CHICAGO_LOCATION_ID;
 const NOW = new Date('2026-10-07T18:00:00Z');
 const WEEK = '2026-10-19';
 
-const LOCATION: LocationSummary = { id: L, slug: 'chicago', name: 'Cosa Nostra Chicago', shortName: 'Chicago', timezone: TZ, active: true };
+const LOCATION: LocationSummary = { id: L, slug: 'chicago', name: 'Casa Aurelia Chicago', shortName: 'Chicago', timezone: TZ, active: true };
 const manager: Staff = { id: 'local-manager', email: 'manager@example.invalid', name: 'Alex', role: 'admin', sections: [], active: true, source: 'local' };
 
 const state = vi.hoisted(() => ({ db: null as unknown, role: 'manager' as string }));
@@ -70,7 +70,7 @@ let directory: string;
 let db: LocalDb;
 
 beforeEach(async () => {
-  directory = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-publish-action-'));
+  directory = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-publish-action-'));
   db = new LocalDb(directory, () => ({ ...buildRecords().tables, ...buildStaffDemo(NOW) }));
   state.db = db;
   state.role = 'manager';

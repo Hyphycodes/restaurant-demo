@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import { TableFinder } from '@/components/cosa/guest/TableFinder';
-import { MotionScope } from '@/components/cosa/motion/MotionScope';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { TableFinder } from '@/components/aurelia/guest/TableFinder';
+import { MotionScope } from '@/components/aurelia/motion/MotionScope';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { getSiteSettings } from '@/content/resolve';
 import { formatPhoneHref } from '@/lib/format';
 import { groupHours } from '@/lib/hours';
 
 export const metadata: Metadata = {
-  title: 'Find your table — Cosa Nostra',
-  description: 'Choose a night, a time and a table at Cosa Nostra. A demonstration booking flow: nothing is booked.',
+  title: 'Find your table — Casa Aurelia',
+  description: 'Choose a night, a time and a table at Casa Aurelia. A demonstration booking flow: nothing is booked.',
 };
 
 export default async function ReservationsPage() {

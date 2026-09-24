@@ -1,9 +1,9 @@
--- Cosa Nostra seasonal themes.
+-- Casa Aurelia seasonal themes.
 --
 -- One row per seasonal look the website can wear. The public site reads this
 -- table during server rendering and resolves, in America/Chicago time, whether
 -- an enabled theme is inside its window; if it is not, or if the table cannot be
--- read at all, the site renders the default Cosa Nostra design. See
+-- read at all, the site renders the default Casa Aurelia design. See
 -- docs/seasonal-theme-admin.md.
 --
 -- Why a table and not a key in site_settings.payload: a theme carries a

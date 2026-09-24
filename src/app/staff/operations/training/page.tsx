@@ -28,7 +28,7 @@ export default async function TrainingLibraryPage() {
         ) : null}
         {modules.length === 0 ? (
           <Section title="Modules">
-            <Empty title="No modules yet." detail="Create the first one — Welcome to Cosa Nostra is a good start." />
+            <Empty title="No modules yet." detail="Create the first one — Welcome to Casa Aurelia is a good start." />
           </Section>
         ) : (
           [...TRAINING_CATEGORY_ORDER, ...Array.from(new Set(modules.map((lesson) => lesson.category))).filter((category) => !(TRAINING_CATEGORY_ORDER as readonly string[]).includes(category))].map((category) => {

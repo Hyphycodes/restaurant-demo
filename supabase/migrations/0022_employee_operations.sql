@@ -1,4 +1,4 @@
--- Cosa Nostra employee operations: locations, employees, requirements, training,
+-- Casa Aurelia employee operations: locations, employees, requirements, training,
 -- scheduling, availability, time off, coverage, tasks, checklists, event
 -- staffing, contractors, announcements, notifications, incidents, notes.
 --
@@ -102,10 +102,10 @@ create table if not exists public.locations (
 );
 
 comment on table public.locations is
-  'Every place Cosa Nostra operates. Chicago is the first row; River North is a second row, not a fork of the code.';
+  'Every place Casa Aurelia operates. Chicago is the first row; River North is a second row, not a fork of the code.';
 
 insert into public.locations (id, slug, name, short_name, street, locality, region, postal_code, timezone, phone, sort)
-values ('c05a0000-0000-4000-8000-000000000001', 'chicago', 'Cosa Nostra Chicago', 'Chicago',
+values ('c05a0000-0000-4000-8000-000000000001', 'chicago', 'Casa Aurelia Chicago', 'Chicago',
         'West Loop', 'Chicago', 'IL', '', 'America/Chicago', '(312) 555-0147', 0)
 on conflict (slug) do nothing;
 
@@ -198,7 +198,7 @@ create index if not exists employees_status_idx on public.employees (status) whe
 create index if not exists employees_location_idx on public.employees (primary_location_id);
 
 comment on table public.employees is
-  'One row per person who works at Cosa Nostra. user_id links the sign-in; profiles.role says what the account may do. Contractors are a separate table.';
+  'One row per person who works at Casa Aurelia. user_id links the sign-in; profiles.role says what the account may do. Contractors are a separate table.';
 comment on column public.employees.photo_path is
   'Object path in the private employee-files bucket. Served through a signed URL, never a public one.';
 
@@ -1344,14 +1344,14 @@ alter table public.email_log add constraint email_log_type_known
 
 -- ------------------------------------------------- default requirements ----
 
--- The onboarding checklist Cosa Nostra starts with. Nothing legal is asserted: each
+-- The onboarding checklist Casa Aurelia starts with. Nothing legal is asserted: each
 -- row is a slot management fills with its own form, link or policy text.
 --
 -- The ids are FIXED, and match src/content/staff-reference.ts. supabase/seed.sql
 -- carries the same twelve rows, and a generated id here would collide with them
 -- on the slug unique index the second time one of the two ran.
 insert into public.requirement_types (id, slug, title, description, category, kind, system_key, required, onboarding, sort) values
-  ('c05a0000-0000-4000-8000-0000000000a1', 'welcome',            'Welcome to Cosa Nostra',          'Read the welcome note and what to expect in your first week.', 'handbook',   'acknowledgement', null,                true,  true, 0),
+  ('c05a0000-0000-4000-8000-0000000000a1', 'welcome',            'Welcome to Casa Aurelia',          'Read the welcome note and what to expect in your first week.', 'handbook',   'acknowledgement', null,                true,  true, 0),
   ('c05a0000-0000-4000-8000-0000000000a2', 'personal-details',   'Personal details',          'Your name, phone and how we should address you.',            'profile',    'system', 'personal_details',  true,  true, 10),
   ('c05a0000-0000-4000-8000-0000000000a3', 'emergency-contact',  'Emergency contact',         'Who we call if something happens at work.',                  'profile',    'system', 'emergency_contact', true,  true, 20),
   ('c05a0000-0000-4000-8000-0000000000a4', 'availability',       'Availability',              'The days and times you can work.',                           'profile',    'system', 'availability',      true,  true, 30),
@@ -1360,8 +1360,8 @@ insert into public.requirement_types (id, slug, title, description, category, ki
   ('c05a0000-0000-4000-8000-0000000000a7', 'uniform',            'Uniform',                   'Your shirt size and the uniform agreement.',                 'uniform',    'acknowledgement', null,        true,  true, 60),
   ('c05a0000-0000-4000-8000-0000000000a8', 'employee-policies',  'Employee policies',         'The house policies every employee acknowledges.',            'policy',     'acknowledgement', null,        true,  true, 70),
   ('c05a0000-0000-4000-8000-0000000000a9', 'payroll-paperwork',  'Tax and payroll paperwork', 'Completed on the payroll provider''s site; a manager confirms it is in.', 'payroll', 'manager_verify', null, true, true, 80),
-  ('c05a0000-0000-4000-8000-0000000000b1', 'food-handler',       'Food handler certificate',  'Upload your certificate. Required for kitchen and food-running positions where Cosa Nostra policy says so.', 'certification', 'upload', null, false, true, 90),
-  ('c05a0000-0000-4000-8000-0000000000b2', 'basset',             'BASSET / alcohol service',  'Upload your BASSET card. Whether it is required per position is an Cosa Nostra policy setting.', 'certification', 'upload', null, false, true, 100),
+  ('c05a0000-0000-4000-8000-0000000000b1', 'food-handler',       'Food handler certificate',  'Upload your certificate. Required for kitchen and food-running positions where Casa Aurelia policy says so.', 'certification', 'upload', null, false, true, 90),
+  ('c05a0000-0000-4000-8000-0000000000b2', 'basset',             'BASSET / alcohol service',  'Upload your BASSET card. Whether it is required per position is a Casa Aurelia policy setting.', 'certification', 'upload', null, false, true, 100),
   ('c05a0000-0000-4000-8000-0000000000b3', 'first-shift',        'First shift confirmed',     'Your first shift is on the schedule and you have confirmed it.', 'profile', 'system', 'first_shift',      true,  true, 110)
 on conflict (id) do nothing;
 

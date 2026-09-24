@@ -18,7 +18,7 @@ import './display.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Cosa Nostra — In the room',
+  title: 'Casa Aurelia — In the room',
   description: 'The bar screen: tonight, what is coming up, and where to scan.',
   robots: { index: false, follow: false, nocache: true },
 };
@@ -152,7 +152,7 @@ function FeatureSlide({ event, art, isTonight, also }: { event: ResolvedEvent; a
         <img className="cnd-ambient" src={ambient} alt="" aria-hidden="true" />
       ) : null}
       <div className="cnd-feature-copy">
-        <p className="cn-eyebrow cnd-eyebrow cnd-rise">{isTonight ? 'Tonight at Cosa Nostra' : `Next at Cosa Nostra · ${when.weekday}`}</p>
+        <p className="cn-eyebrow cnd-eyebrow cnd-rise">{isTonight ? 'Tonight at Casa Aurelia' : `Next at Casa Aurelia · ${when.weekday}`}</p>
         <h1 className="cn-display cnd-feature-title cnd-rise" data-long={event.title.length > 26 ? 'true' : undefined}>
           {event.title}
         </h1>
@@ -225,7 +225,7 @@ function ScanSlide({ svg, target }: { svg: string; target: string }) {
       </div>
       <figure className="cnd-qr" aria-label={`QR code linking to ${shown}`}>
         <div className="cnd-qr-code" dangerouslySetInnerHTML={{ __html: svg }} />
-        <figcaption>Cosa Nostra</figcaption>
+        <figcaption>Casa Aurelia</figcaption>
       </figure>
     </div>
   );
@@ -244,7 +244,7 @@ function BrandSlide({
 }) {
   return (
     <div className="cnd-slide-inner cnd-brand">
-      <p className="cn-eyebrow cnd-eyebrow cnd-rise">Cosa Nostra · Italian supper club</p>
+      <p className="cn-eyebrow cnd-eyebrow cnd-rise">Casa Aurelia · Italian supper club</p>
       <h1 className="cn-display cnd-brand-line cnd-rise">
         Stay for dinner.
         <br />

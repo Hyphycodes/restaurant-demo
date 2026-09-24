@@ -344,7 +344,7 @@
 /* The hero and the footer were plum bands. The hero clears so the video pool
    and the bunting hang in open night; the footer becomes a pool that gathers
    at the very bottom of the page, like the floor of the room. */
-[data-theme='autumn-evening'] [data-cosa-nostra-hero] {
+[data-theme='autumn-evening'] [data-casa-aurelia-hero] {
   background-color: transparent;
 }
 
@@ -370,12 +370,12 @@
   box-shadow: 0 0 16px 1px rgb(240 178 74 / 0.35);
 }
 
-[data-theme='autumn-evening'] [data-cosa-nostra-hero] + div {
+[data-theme='autumn-evening'] [data-casa-aurelia-hero] + div {
   position: relative;
   background-color: transparent;
   border-color: transparent;
 }
-[data-theme='autumn-evening'] [data-cosa-nostra-hero] + div::after {
+[data-theme='autumn-evening'] [data-casa-aurelia-hero] + div::after {
   content: '';
   position: absolute;
   inset: auto 0 0;
@@ -463,7 +463,7 @@
    dark so the bunting hangs in air, the bottom dissolves into the page instead
    of hitting the action rail, and the left clears under the type.
    The mask is on the wrapper so the poster and the video get it together. */
-[data-theme='autumn-evening'] [data-cosa-nostra-hero] > .absolute:first-child {
+[data-theme='autumn-evening'] [data-casa-aurelia-hero] > .absolute:first-child {
   /* The ellipse is centred HIGH and its vertical radius reaches the bottom
      edge exactly, so the loop is fully transparent by the time it gets there
      and dissolves into the record instead of ending on a straight cut. The
@@ -475,7 +475,7 @@
 
 /* With the reel fading out on its own, the scrims can relax and let the glow
    behind the page through. The headline still sits over the strong end. */
-[data-theme='autumn-evening'] [data-cosa-nostra-hero] > [class*='bg-linear-to-t'] {
+[data-theme='autumn-evening'] [data-casa-aurelia-hero] > [class*='bg-linear-to-t'] {
   opacity: 0.62;
   /* The scrim's strong end is the hero's bottom edge, which is exactly where
      a step against the page would show; it lets go over the last stretch,
@@ -483,7 +483,7 @@
   -webkit-mask-image: linear-gradient(180deg, #000 52%, transparent 96%);
   mask-image: linear-gradient(180deg, #000 52%, transparent 96%);
 }
-[data-theme='autumn-evening'] [data-cosa-nostra-hero] > [class*='bg-linear-to-r'] {
+[data-theme='autumn-evening'] [data-casa-aurelia-hero] > [class*='bg-linear-to-r'] {
   opacity: 0.5;
 }
 
@@ -747,7 +747,7 @@
   }
   /* On a phone the reel is the poster; keep more of it and let it fade
      mostly at the bottom, where the headline is. */
-  [data-theme='autumn-evening'] [data-cosa-nostra-hero] > .absolute:first-child {
+  [data-theme='autumn-evening'] [data-casa-aurelia-hero] > .absolute:first-child {
     -webkit-mask-image: radial-gradient(130% 60% at 56% 40%, #000 28%, rgb(0 0 0 / 0.55) 62%, transparent 100%);
     mask-image: radial-gradient(130% 60% at 56% 40%, #000 28%, rgb(0 0 0 / 0.55) 62%, transparent 100%);
   }
@@ -1073,7 +1073,7 @@
   pointer-events: none;
   opacity: 0.45;
 }
-#main:has([data-cosa-nostra-hero]) > .theme-page-companion {
+#main:has([data-casa-aurelia-hero]) > .theme-page-companion {
   display: none;
 }
 @media (max-width: 1439px) {

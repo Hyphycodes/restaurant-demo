@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MotionScope } from '@/components/cosa/motion/MotionScope';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { MotionScope } from '@/components/aurelia/motion/MotionScope';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { SiteChrome } from '@/components/layout/SiteChrome';
 import { getActiveTheme } from '@/themes/resolve';
 
 export const metadata: Metadata = {
-  title: 'Explore the platform — Cosa Nostra',
+  title: 'Explore the platform — Casa Aurelia',
   description: 'A fictional supper club running on a real restaurant platform. Explore the guest site, the operating room and the staff workspace with safe sample data.',
 };
 export const dynamic = 'force-dynamic';
@@ -58,7 +58,7 @@ export default async function DemoHubPage() {
             A fictional supper club. <em>A real restaurant platform.</em>
           </>
         }
-        lede="Cosa Nostra is imagined; the software is not. Three doors into one connected system — use any of them, change anything, and reset whenever you like."
+        lede="Casa Aurelia is imagined; the software is not. Three doors into one connected system — use any of them, change anything, and reset whenever you like."
         compact
       />
       <MotionScope as="section" className="cn-night cn-section-tight" aria-label="Choose a way in">

@@ -35,7 +35,7 @@ let dir: string;
 let db: Db;
 
 beforeEach(async () => {
-  dir = await mkdtemp(path.join(tmpdir(), 'cosa-nostra-workflow-'));
+  dir = await mkdtemp(path.join(tmpdir(), 'casa-aurelia-workflow-'));
   db = new LocalDb(dir, () => buildRecords().tables);
 });
 

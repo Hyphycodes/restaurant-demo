@@ -1,4 +1,4 @@
--- Cosa Nostra — initial schema
+-- Casa Aurelia — initial schema
 --
 -- Design notes that matter:
 --   * Structured tables, not one JSON blob. See docs/CONTENT-MODEL.md.
@@ -156,7 +156,7 @@ create table public.event_series (
   age_min           integer check (age_min is null or age_min between 0 and 99),
   age_note          text,
   music_formats     text[] not null default '{}',
-  venue_name        text not null default 'Cosa Nostra',
+  venue_name        text not null default 'Casa Aurelia',
   artwork_asset_id  text,
   ticket_url        text,
   price_cents       integer check (price_cents is null or price_cents >= 0),

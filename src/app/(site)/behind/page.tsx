@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MotionScope } from '@/components/cosa/motion/MotionScope';
-import { PageHero } from '@/components/cosa/page/PageHero';
-import { Behind } from '@/components/cosa/platform/Behind';
+import { MotionScope } from '@/components/aurelia/motion/MotionScope';
+import { PageHero } from '@/components/aurelia/page/PageHero';
+import { Behind } from '@/components/aurelia/platform/Behind';
 import {
   ChecklistPanel,
   EventsPanel,
@@ -12,11 +12,11 @@ import {
   StudioPanel,
   TonightPanel,
   TrainingPanel,
-} from '@/components/cosa/platform/Panels';
-import { getPlatformSnapshot } from '@/components/cosa/platform/snapshot';
+} from '@/components/aurelia/platform/Panels';
+import { getPlatformSnapshot } from '@/components/aurelia/platform/snapshot';
 
 export const metadata: Metadata = {
-  title: 'Behind the hospitality — Cosa Nostra',
+  title: 'Behind the hospitality — Casa Aurelia',
   description: 'The operating system behind a fictional supper club: content studio, events and tickets, scheduling, staff workspace, checklists, training and the private-events pipeline.',
 };
 export const dynamic = 'force-dynamic';
@@ -115,7 +115,7 @@ export default async function BehindPage() {
             One restaurant. <em>One connected system.</em>
           </>
         }
-        lede="Cosa Nostra is a fictional supper club and a working restaurant platform: the website guests fall for, the operating room behind it, and the workspace the team carries through a shift."
+        lede="Casa Aurelia is a fictional supper club and a working restaurant platform: the website guests fall for, the operating room behind it, and the workspace the team carries through a shift."
         compact
         aside={
           <div className="flex flex-wrap gap-3">

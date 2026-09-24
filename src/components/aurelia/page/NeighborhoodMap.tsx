@@ -1,6 +1,6 @@
 /**
  * An illustrated street plan of an imagined West Loop block — deliberately
- * not a real map, because Cosa Nostra has no real address.
+ * not a real map, because Casa Aurelia has no real address.
  */
 export function NeighborhoodMap() {
   const streets = [
@@ -12,7 +12,7 @@ export function NeighborhoodMap() {
     { d: 'M500 0 V420', name: 'N May St', x: 506, y: 408, vertical: true },
   ];
   return (
-    <svg className="cn-map" viewBox="0 0 600 420" role="img" aria-label="Illustrated street plan: Cosa Nostra sits mid-block between Morgan and Carpenter, south of Lake Street, near the Morgan L stop.">
+    <svg className="cn-map" viewBox="0 0 600 420" role="img" aria-label="Illustrated street plan: Casa Aurelia sits mid-block between Morgan and Carpenter, south of Lake Street, near the Morgan L stop.">
       <defs>
         <radialGradient id="cn-map-glow">
           <stop offset="0" stopColor="#e8b86b" stopOpacity="0.55" />
@@ -53,7 +53,7 @@ export function NeighborhoodMap() {
         <circle r="7" fill="#e8b86b" />
         <circle r="16" fill="none" stroke="#e8b86b" strokeOpacity="0.5" />
         <text y="-26" textAnchor="middle" fill="#f1e6d2" fontSize="15" fontFamily="var(--cn-serif)" fontStyle="italic">
-          Cosa Nostra
+          Casa Aurelia
         </text>
       </g>
       <text x="252" y="186" textAnchor="middle" fill="rgb(232 184 107 / 0.8)" fontSize="8" letterSpacing="2">

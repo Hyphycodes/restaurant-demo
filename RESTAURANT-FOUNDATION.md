@@ -1,6 +1,6 @@
 # Restaurant foundation
 
-Cosa Nostra is two things in one repository: a fictional restaurant with its own visual world, and a restaurant platform underneath it. This note describes the platform layer: what a future restaurant project can reuse, and what it must not copy.
+Casa Aurelia is two things in one repository: a fictional restaurant with its own visual world, and a restaurant platform underneath it. This note describes the platform layer: what a future restaurant project can reuse, and what it must not copy.
 
 **Reuse the functionality. Never reuse the visual identity.**
 
@@ -25,12 +25,12 @@ Cosa Nostra is two things in one repository: a fictional restaurant with its own
 | Demo mode | `src/lib/demo.ts`, `src/lib/db/demo*.ts`, `src/middleware.ts` | Each visitor gets an isolated, cookie-backed copy of the sample data that resets after an hour, with no shared database. |
 | Schema | `supabase/migrations/*`, `npm run db:verify` | Row level security is on every table. The verifier applies every migration to a clean Postgres 17 and runs the SQL security walkthroughs. |
 
-## What is Cosa Nostra's alone
+## What is Casa Aurelia's alone
 
 These files make up the brand. A new restaurant replaces them and does not restyle them:
 
-- `src/components/cosa/**`: the cinematic homepage, the evening sequence, the Behind the Hospitality sequence, the page heroes, the editorial menu, the table finder and pickup.
-- `src/styles/cosa*.css`: the after-dark and paper surfaces, the candlelight, grain and type scale.
+- `src/components/aurelia/**`: the cinematic homepage, the evening sequence, the Behind the Hospitality sequence, the page heroes, the editorial menu, the table finder and pickup.
+- `src/styles/aurelia*.css`: the after-dark and paper surfaces, the candlelight, grain and type scale.
 - `src/app/fonts/bodoni-moda*`: the display face.
 - `public/media/**`, `public/events/**` and `scripts/grade-night-media.ts`: the photography and its grade.
 - The copy and sample data in `src/content/*.ts`, `src/server/demo-records.ts`, `src/server/staff/demo.ts` and `src/server/demo-link-hubs.ts`.
@@ -40,10 +40,10 @@ The admin and staff apps share a neutral structure. Their colours come from the 
 ## Adapting it for another restaurant
 
 1. **Start from the platform, not the page.** Keep `src/lib`, `src/server`, `src/features`, `src/emails`, `src/app/admin`, `src/app/staff`, `src/app/go`, `src/app/display` and `supabase/`.
-2. **Write the new public site from scratch.** Build it on the same resolvers, such as `getAllMenus`, `getPublicEvents`, `getSiteSettings` and `getPageCopy`, and the `Asset` component. Everything under `src/components/cosa` is a reference for how to consume the data, not a template.
+2. **Write the new public site from scratch.** Build it on the same resolvers, such as `getAllMenus`, `getPublicEvents`, `getSiteSettings` and `getPageCopy`, and the `Asset` component. Everything under `src/components/aurelia` is a reference for how to consume the data, not a template.
 3. **Replace the content modules.** Change `src/content/site.ts` (name, hours, contact), `menu.ts`, `events.ts`, `pages.ts`, `catering.ts` and the asset registry. The static modules also seed the database.
 4. **Provision a new Supabase project.** Run `npm run db:verify`, then apply `supabase/migrations` in order, then create the owner account (`src/server/owner-onboarding.ts`).
-5. **Decide on demo mode.** A client build turns `DEMO_MODE` off in a separate repository and sets up Stripe and Resend keys. The public Cosa Nostra portfolio must always stay in demo mode.
+5. **Decide on demo mode.** A client build turns `DEMO_MODE` off in a separate repository and sets up Stripe and Resend keys. The public Casa Aurelia portfolio must always stay in demo mode.
 6. **Keep the guards.** Run `npm run verify` before every deploy: lint, types, tests, assets, migrations and build.
 
 ## Boundaries worth keeping

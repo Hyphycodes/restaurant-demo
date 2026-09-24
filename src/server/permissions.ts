@@ -34,7 +34,7 @@ export const ROLE_SUMMARY: Record<Role, string> = {
   owner: 'Everything, including staff accounts and connected services.',
   admin: 'Edit and publish the menu, events, pages and photos.',
   editor: 'Edit anything allowed and save it as a draft for a manager to publish.',
-  staff: 'The Cosa Nostra staff app: schedule, training, tasks and their own profile. No website access.',
+  staff: 'The Casa Aurelia staff app: schedule, training, tasks and their own profile. No website access.',
   contractor: 'Reserved for DJs and instructors with a sign-in. Nothing yet.',
 };
 

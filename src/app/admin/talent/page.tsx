@@ -68,7 +68,7 @@ export default async function TalentPage({
       staff={staff}
       local={local}
       title="Talent"
-      description="Everybody who has shown Cosa Nostra what they do."
+      description="Everybody who has shown Casa Aurelia what they do."
     >
       {!db ? (
         <EmptyState>

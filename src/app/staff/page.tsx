@@ -34,7 +34,7 @@ export default async function StaffHomePage() {
     <StaffShell context={context} unread={unread}>
       <div className="grid gap-7">
         <header>
-          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-brown-soft">Today at Cosa Nostra</p>
+          <p className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-brown-soft">Today at Casa Aurelia</p>
           <h1 className="display mt-1 text-[clamp(1.75rem,6vw,2.5rem)] leading-none text-brown">
             {home.greeting}
             {first ? `, ${first}` : ''}.
@@ -99,7 +99,7 @@ export default async function StaffHomePage() {
 
         {/* ---------------------------------------------- what is on tonight */}
         {home.tonight.length > 0 ? (
-          <Section title={home.tonight.length === 1 ? 'Tonight' : 'Tonight at Cosa Nostra'}>
+          <Section title={home.tonight.length === 1 ? 'Tonight' : 'Tonight at Casa Aurelia'}>
             <div className="grid gap-2">
               {home.tonight.map((event) => (
                 <NightBrief

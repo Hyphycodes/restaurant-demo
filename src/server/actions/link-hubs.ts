@@ -103,7 +103,7 @@ const saveSchema = z.object({
     name: z.string().trim().min(1).max(100),
     internalDescription: z.string().trim().max(400),
     hubType: z.enum(HUB_TYPES),
-    theme: z.enum(['cosa-nostra-default', 'evening', 'teal', 'plum', 'seasonal', 'custom']),
+    theme: z.enum(['casa-aurelia-default', 'evening', 'teal', 'plum', 'seasonal', 'custom']),
     status: z.enum(['draft', 'published']),
     title: z.string().trim().min(1).max(100),
     subtitle: z.string().trim().max(240).nullable(),

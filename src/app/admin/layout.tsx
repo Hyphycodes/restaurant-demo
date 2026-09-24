@@ -3,7 +3,7 @@ import { getAppearance } from '@/server/appearance';
 import './admin.css';
 
 export const metadata: Metadata = {
-  title: 'Cosa Nostra Admin',
+  title: 'Casa Aurelia Admin',
   // The admin area must never appear in search results.
   robots: { index: false, follow: false, nocache: true },
 };

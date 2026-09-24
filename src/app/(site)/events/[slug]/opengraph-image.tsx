@@ -10,7 +10,7 @@ import { getPublicEvents } from '@/server/content/events';
 import { resolveEventArtwork } from '@/server/content/event-art';
 import { getTicketOffer } from '@/server/ticketing/offer';
 
-export const alt = 'Event at Cosa Nostra';
+export const alt = 'Event at Casa Aurelia';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -33,7 +33,7 @@ export default async function EventOpengraphImage({ params }: { params: Promise<
   const dateLine = event
     ? `${formatEventDateLong(event.startsAt)} · ${formatTimeRangeCompact(event.startsAt, event.endsAt)}`
     : series
-      ? 'Every week at Cosa Nostra'
+      ? 'Every week at Casa Aurelia'
       : '';
   const priceLine = event ? priceHeadline(await getTicketOffer(event)) : '';
   const flyer = event ? (await resolveEventArtwork(event)).flyer : null;
@@ -61,7 +61,7 @@ export default async function EventOpengraphImage({ params }: { params: Promise<
           }}
         >
           <div style={{ display: 'flex', fontSize: 22, letterSpacing: 5, textTransform: 'uppercase', color: '#e8a33d', fontWeight: 600 }}>
-            Cosa Nostra Italian Kitchen &amp; Bar
+            Casa Aurelia · Italian supper club
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
             <div style={{ display: 'flex', fontSize: title.length > 28 ? 60 : 76, lineHeight: 1, fontWeight: 700, textTransform: 'uppercase', letterSpacing: -1 }}>

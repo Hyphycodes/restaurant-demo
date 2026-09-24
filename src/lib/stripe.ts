@@ -23,7 +23,7 @@ export function getStripe(): Stripe | null {
     return client;
   }
   client = new Stripe(key, {
-    appInfo: { name: 'Cosa Nostra Website', url: 'https://example.invalid/demo' },
+    appInfo: { name: 'Casa Aurelia Website', url: 'https://example.invalid/demo' },
     maxNetworkRetries: 2,
     timeout: 15_000,
   });

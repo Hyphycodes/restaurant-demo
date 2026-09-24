@@ -19,7 +19,7 @@ const idle={ok:true,message:''};
 let directory:string;
 let db:LocalDb;
 const fd=(data:Record<string,string>)=>{const form=new FormData();for(const [key,value] of Object.entries(data))form.set(key,value);return form;};
-beforeEach(async()=>{directory=await mkdtemp(path.join(tmpdir(),'cosa-nostra-action-'));db=new LocalDb(directory,()=>buildRecords().tables);context.db=db;});
+beforeEach(async()=>{directory=await mkdtemp(path.join(tmpdir(),'casa-aurelia-action-'));db=new LocalDb(directory,()=>buildRecords().tables);context.db=db;});
 afterEach(async()=>{await rm(directory,{recursive:true,force:true});});
 describe('staff workflows',()=>{
   it('creates a category and keeps unfinished dishes hidden',async()=>{

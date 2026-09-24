@@ -21,13 +21,13 @@ const DESTINATIONS = [
   {
     id: 'careers',
     href: '/careers',
-    label: 'Work at Cosa Nostra',
+    label: 'Work at Casa Aurelia',
     hint: 'What is open, and a two-minute application.',
   },
   {
     id: 'talent',
     href: '/talent',
-    label: 'Create with Cosa Nostra',
+    label: 'Create with Casa Aurelia',
     hint: 'DJs, artists, performers — show us what you do.',
   },
 ] as const;

@@ -33,7 +33,7 @@ const OTHER_STATES: { label: string; offer: TicketOffer }[] = [
   { label: 'free', offer: { kind: 'free' } },
   { label: 'door', offer: { kind: 'door', priceCents: 1000, priceText: null, soldOut: false } },
   {
-    label: 'pending — Cosa Nostra ticketing on, nothing priced yet',
+    label: 'pending — Casa Aurelia ticketing on, nothing priced yet',
     offer: { kind: 'pending' },
   },
 ];

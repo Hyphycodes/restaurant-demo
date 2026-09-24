@@ -96,7 +96,7 @@ describe('the other templates', () => {
   it('reminder says tomorrow or tonight and carries the tickets', async () => {
     const tomorrow = await rendered('event_reminder', { brand: f.brand, customer: f.customer, event: f.vinylSession, order: f.threeTicketOrder, tickets: f.threeTickets, timing: 'tomorrow' });
     expect(tomorrow.subject).toMatch(/^Tomorrow — /);
-    expect(tomorrow.html).toContain('Tomorrow at Cosa Nostra');
+    expect(tomorrow.html).toContain('Tomorrow at Casa Aurelia');
     expect(tomorrow.html).toContain('7KX4-9QZM');
     const tonight = await rendered('event_reminder', { brand: f.brand, customer: f.customer, event: f.vinylSession, order: f.threeTicketOrder, tickets: f.threeTickets, timing: 'tonight' });
     expect(tonight.subject).toMatch(/^Tonight — /);
@@ -144,7 +144,7 @@ describe('the other templates', () => {
 
   it('staff invitation names the role, the inviter and the expiry', async () => {
     const { subject, html, text } = await rendered('staff_invitation', f.staffInvitation);
-    expect(subject).toBe('Alessandro added you to the Cosa Nostra admin');
+    expect(subject).toBe('Alessandro added you to the Casa Aurelia admin');
     expect(html).toContain('Manager');
     expect(html).toContain(f.staffInvitation.acceptUrl);
     expect(text).toContain('expires in 24 hours');
@@ -190,9 +190,9 @@ describe('hiring and talent notices', () => {
     expect(html).not.toMatch(/\byou are booked\b/i);
   });
 
-  it('gives Cosa Nostra the facts and one way in', async () => {
+  it('gives Casa Aurelia the facts and one way in', async () => {
     const { subject, html, text } = await rendered('submission_alert', f.submissionAlert);
-    expect(subject).toContain('New at Cosa Nostra');
+    expect(subject).toContain('New at Casa Aurelia');
     expect(html).toContain('Somebody sent their work.');
     expect(html).toContain('(312) 555-0142');
     expect(html).toContain('/admin/talent');

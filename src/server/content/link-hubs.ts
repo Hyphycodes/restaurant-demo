@@ -39,7 +39,7 @@ function locationFromRow(row: Row): LinkHubLocation {
 
 export function hubFromRow(row: Row): LinkHub {
   const hubType = String(row.hub_type ?? 'custom') as LinkHub['hubType'];
-  const theme = String(row.theme ?? 'cosa-nostra-default') as LinkHub['theme'];
+  const theme = String(row.theme ?? 'casa-aurelia-default') as LinkHub['theme'];
   return {
     id: String(row.id),
     locationId: (row.location_id as string | null) ?? null,

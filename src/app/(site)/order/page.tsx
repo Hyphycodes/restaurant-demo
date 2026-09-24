@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { PickupOrder, type PickupItem } from '@/components/cosa/guest/PickupOrder';
-import { PageHero } from '@/components/cosa/page/PageHero';
+import { PickupOrder, type PickupItem } from '@/components/aurelia/guest/PickupOrder';
+import { PageHero } from '@/components/aurelia/page/PageHero';
 import { getAllMenus } from '@/content/resolve';
 
 export const metadata: Metadata = {
-  title: 'Order for pickup — Cosa Nostra',
-  description: 'Build a sample pickup order from the Cosa Nostra menu. A demonstration: no payment is collected.',
+  title: 'Order for pickup — Casa Aurelia',
+  description: 'Build a sample pickup order from the Casa Aurelia menu. A demonstration: no payment is collected.',
 };
 
 const TRAVELS = new Set(['antipasti', 'pasta', 'mains', 'sides', 'dessert']);

@@ -1,6 +1,6 @@
-# Cosa Nostra Restaurant Demo
+# Casa Aurelia Restaurant Demo
 
-A fictional Italian-American supper club demonstrating a complete modern restaurant web + operations platform. Cosa Nostra is a portfolio concept, not a real restaurant. The venue, people, business records, menu, prices, hours and contact information are fictional.
+A fictional Italian-American supper club demonstrating a complete modern restaurant web + operations platform. Casa Aurelia is a portfolio concept, not a real restaurant. The venue, people, business records, menu, prices, hours and contact information are fictional.
 
 ## Explore
 
@@ -25,7 +25,7 @@ No sign-in or infrastructure credentials are required. The admin and staff route
 
 Next.js App Router, React, TypeScript and Tailwind, with GSAP, ScrollTrigger and Lenis for the directed motion. One set of records drives three surfaces: the guest site, the admin and the staff app. Any change in one appears in the others.
 
-The public world (`src/components/cosa`, `src/styles/cosa*.css`) belongs to Cosa Nostra alone. The restaurant platform underneath is reusable; see [RESTAURANT-FOUNDATION.md](RESTAURANT-FOUNDATION.md). The custom cinematic media still to be produced is briefed in [HIGGSFIELD-ASSETS.md](HIGGSFIELD-ASSETS.md).
+The public world (`src/components/aurelia`, `src/styles/aurelia*.css`) belongs to Casa Aurelia alone. The restaurant platform underneath is reusable; see [RESTAURANT-FOUNDATION.md](RESTAURANT-FOUNDATION.md). The custom cinematic media still to be produced is briefed in [HIGGSFIELD-ASSETS.md](HIGGSFIELD-ASSETS.md).
 
 Motion is progressive. Content renders first; GSAP choreographs it only when JavaScript runs and the visitor has not asked for reduced motion. Pinned sequences become simple vertical reveals on phones.
 

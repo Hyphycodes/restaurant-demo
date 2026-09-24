@@ -21,9 +21,9 @@ describe('tokenFromScan', () => {
   });
 
   it('survives what scanner apps do to a URL', () => {
-    expect(tokenFromScan(`www.cosa-nostraitaliankitchenbar.com/t/${TOKEN}/`)).toBe(TOKEN);
-    expect(tokenFromScan(`https://cosa-nostra.example/t/${TOKEN}?utm_source=scanner`)).toBe(TOKEN);
-    expect(tokenFromScan(`https://cosa-nostra.example/t/${TOKEN}#top`)).toBe(TOKEN);
+    expect(tokenFromScan(`www.casaaurelia.example/t/${TOKEN}/`)).toBe(TOKEN);
+    expect(tokenFromScan(`https://casa-aurelia.example/t/${TOKEN}?utm_source=scanner`)).toBe(TOKEN);
+    expect(tokenFromScan(`https://casa-aurelia.example/t/${TOKEN}#top`)).toBe(TOKEN);
   });
 
   it('refuses anything that is not one of ours', () => {

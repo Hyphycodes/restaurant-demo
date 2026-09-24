@@ -129,7 +129,7 @@ function describeStatus(
     case 'scheduled':
       return `Switches itself on ${start}${end ? ` and off ${end}` : ''}.`;
     case 'ended':
-      return `Its dates ended ${end}. The website is showing Default Cosa Nostra.`;
+      return `Its dates ended ${end}. The website is showing Default Casa Aurelia.`;
     default:
       return 'Not on the website.';
   }

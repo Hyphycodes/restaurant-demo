@@ -41,7 +41,7 @@ export async function GET() {
   return new NextResponse(rows, {
     headers: {
       'content-type': 'text/csv; charset=utf-8',
-      'content-disposition': `attachment; filename="cosa-nostra-customers-${new Date().toISOString().slice(0, 10)}.csv"`,
+      'content-disposition': `attachment; filename="casa-aurelia-customers-${new Date().toISOString().slice(0, 10)}.csv"`,
       'cache-control': 'no-store',
     },
   });

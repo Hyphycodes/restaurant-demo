@@ -50,7 +50,7 @@ const OPEN_STAFF: Staff = {
   source: 'open',
 };
 
-const LOCAL_COOKIE = 'cosa-nostra_local_staff';
+const LOCAL_COOKIE = 'casa-aurelia_local_staff';
 
 /** The development identities, one per role, so permissions are testable. */
 export const LOCAL_STAFF: Record<Role, Staff> = {

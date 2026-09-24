@@ -232,7 +232,7 @@ export default async function EventDetailPage({
                 <Flyer
                   assetId={next?.flyerAssetId ?? series.flyerAssetId}
                   printedDate={next?.flyerPrintedDate ?? series.flyerPrintedDate}
-                  eventName={series.title.replace('Cosa Nostra ', '')}
+                  eventName={series.title.replace('Casa Aurelia ', '')}
                   tone={tone}
                   priority
                   sizes="(min-width: 1024px) 32vw, 90vw"
@@ -244,7 +244,7 @@ export default async function EventDetailPage({
                   come from generated occurrences, so this cannot go stale. */}
               <div className="event-slot-buy">
                 <h2 className="eyebrow text-night-text/50">
-                  All upcoming {series.title.replace('Cosa Nostra ', '')}
+                  All upcoming {series.title.replace('Casa Aurelia ', '')}
                 </h2>
                 <ul className="series-dates mt-3 border-t border-night-text/15">
                   {occurrences.map((occurrence) => {

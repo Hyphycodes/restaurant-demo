@@ -30,13 +30,13 @@ export const THEMES: Record<SeasonalThemeSlug, ThemeDefinition> = {
     name: 'Halloween · Autumn evenings',
     shortName: 'Autumn evenings',
     description:
-      'A late-October art direction: deep plum and near-black surfaces, candle amber, brass details at the edges, editorial ribbons overhead and slow drifting petals. The same Cosa Nostra underneath.',
+      'A late-October art direction: deep plum and near-black surfaces, candle amber, brass details at the edges, editorial ribbons overhead and slow drifting petals. The same Casa Aurelia underneath.',
     record: '#120a12',
     themeColor: '#120a12',
     assets: {
       heroBackground: {
         label: 'Hero background',
-        hint: 'Optional photo or short video behind the headline. Leave empty to keep the Cosa Nostra reel.',
+        hint: 'Optional photo or short video behind the headline. Leave empty to keep the Casa Aurelia reel.',
         accepts: 'image-or-video',
         defaultPath: null,
       },
@@ -98,7 +98,7 @@ export const THEMES: Record<SeasonalThemeSlug, ThemeDefinition> = {
 export const THEME_CHOICES: { slug: ThemeSlug; name: string; description: string }[] = [
   {
     slug: 'default',
-    name: 'Default Cosa Nostra',
+    name: 'Default Casa Aurelia',
     description: 'The everyday look — warm ivory, sand and chile-coral. No seasonal layers.',
   },
   ...Object.values(THEMES).map((theme) => ({
